@@ -27,7 +27,7 @@ int ApiInit(){
     return 0;
 }
 
-int CacheSetCount(CacheConn *cache_conn, string key, int64_t count){
+int CacheSetCount(CacheConn *cache_conn, string key, int64_t &count){
     string ret = cache_conn->Set(key,std::to_string(count));
     if (!ret.empty()) {
         return 0;

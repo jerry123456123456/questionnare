@@ -28,7 +28,7 @@ extern string s_shorturl_server_access_token;
 using std::string;
 int ApiInit();
 //获取用户文件个数
-int CacheSetCount(CacheConn *cache_conn, string key, int64_t count);
+int CacheSetCount(CacheConn *cache_conn, string key, int64_t &count);
 int CacheGetCount(CacheConn *cache_conn, string key, int64_t &count);
 int CacheIncrCount(CacheConn *cache_conn, string key);
 int CacheDecrCount(CacheConn *cache_conn, string key);

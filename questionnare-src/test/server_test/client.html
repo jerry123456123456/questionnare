@@ -24,7 +24,7 @@
         <label>你最喜欢的颜色是什么？</label><br>
         <input type="radio" name="question2" value="A" required>A. 红色<br>
         <input type="radio" name="question2" value="B">B. 蓝色<br>
-        <input type="radio" name="question2" value="C">C. 绿色<br>
+        <input type="radio" name="question2" value="C">C. 蓝色<br>
         <input type="radio" name="question2" value="D">D. 黄色<br><br>
 
         <label>你是否喜欢阅读？</label><br>
@@ -40,9 +40,14 @@
     <script>
         function submitQuestionnaire() {
             const form = document.getElementById('questionnaireForm');
+            const user_name = document.getElementById('userName').value;
+            const table_name = document.getElementById('tableName').value;
+            // 假设这里的token是你从其他地方获取的，这里先写死一个示例值，实际应用中需根据情况修改
+            const token = "your_token_value";
             const formData = {
-                user_name: document.getElementById('userName').value,
-                table_name: document.getElementById('tableName').value,
+                user_name: user_name,
+                token: token,
+                table_name: table_name,
                 questions: []
             };
 
@@ -86,15 +91,15 @@
             })
           .then(response => response.json())
           .then(data => {
-                if (data.code === 0) {
-                    console.log('问卷提交成功');
-                } else {
-                    console.log('问卷提交失败');
-                }
-            })
+                    if (data.code === 0) {
+                        console.log('问卷提交成功');
+                    } else {
+                        console.log('问卷提交失败');
+                    }
+                })
           .catch(error => {
-                console.error('提交问卷时出错：', error);
-            });
+                    console.error('提交问卷时出错：', error);
+                });
         }
     </script>
 </body>

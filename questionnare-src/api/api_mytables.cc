@@ -1,0 +1,467 @@
+#include "api_myfiles.h"
+#include <iterator>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "api_common.h"
+#include "api_myfiles.h"
+#include "json/json.h"
+#include "http_conn.h"
+#include <sys/time.h>
+
+//解析的json包, 登陆token
+
+int decodeCountJson(string &str_json, string &user_name, string &token) {
+    bool res;
+    Json::Value root;
+    Json::Reader jsonReader;
+    res = jsonReader.parse(str_json, root);
+    if (!res) {
+        LogError("parse reg json failed ");
+        return -1;
+    }
+    int ret = 0;
+
+    // 用户名
+    if (root["user"].isNull()) {
+        LogError("user null\n");
+        return -1;
+    }
+    user_name = root["user"].asString();
+
+    //密码
+    if (root["token"].isNull()) {
+        LogError("token null\n");
+        return -1;
+    }
+    token = root["token"].asString();
+
+    return ret;
+}
+
+int encodeCountJson(int ret, int total, string &str_json) {
+    Json::Value root;
+    root["code"] = ret;
+    if (ret == 0) {
+        root["total"] = total; // 正常返回的时候才写入token
+    }
+    Json::FastWriter writer;
+    str_json = writer.write(root);
+    return 0;
+}
+
+//获取每个用户可以填的表的数量
+int getUserTablesCount(CDBConn *db_conn,CacheConn *cache_conn,string &user_name,int &count){
+    int ret = 0;
+    int64_t table_count = 0;
+
+    //先查看用户是否存在
+    // 1. 先从redis里面获取，如果数量为0则从mysql查询确定是否为0
+    if (CacheGetCount(cache_conn, TABLE_USER_COUNT + user_name, table_count) <0) {
+        LogWarn("CacheGetCount failed"); // 有可能是因为没有key，不要急于判断为错误
+        table_count = 0;
+        ret = -1;
+    }
+
+    if(table_count == 0){  //没有key,或者值为0的时候从mysql重新加载在写入
+        count = 0;
+        if(DBGetUserTableCountByUsername(db_conn,user_name,count)<0){
+            LogError("DBGetUserTablesCountByUsername failed");
+            return -1;
+        }
+        table_count = (int64_t)count;
+        if(CacheSetCount(cache_conn,TABLE_USER_COUNT + user_name,table_count)<0){
+            LogError("CacheSetCount failed");
+            return -1;
+        }
+    }
+
+    count = table_count;
+
+    return ret;
+}
+
+// //封装一下上面的函数
+// int handleUserTablesCount(string &user_name,int &count){
+//     CDBManager *db_manager = CDBManager::getInstance();
+//     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
+//     AUTO_REL_DBCONN(db_manager, db_conn);
+//     CacheManager *cache_manager = CacheManager::getInstance();
+//     CacheConn *cache_conn = cache_manager->GetCacheConn("token");
+//     AUTO_REL_CACHECONN(cache_manager, cache_conn);
+
+//     int ret = getUserTablesCount(db_conn,cache_conn,user_name,count);
+//     return ret;
+// }
+
+//解析json包,用于处理参数cmd=normal的情况
+/*
+{
+    "user":xxx,
+    "token":xxx,
+    "title":xxx,
+}
+*/
+int decodeTableslistJson(string &str_json,string &user_name,string &token,string &table_name){
+    bool res;
+    Json::Value root;
+    Json::Reader jsonReader;
+    res = jsonReader.parse(str_json, root);
+    if (!res) {
+        LogError("parse reg json failed ");
+        return -1;
+    }
+    int ret = 0;
+
+    // 用户名
+    if (root["user"].isNull()) {
+        LogError("user null\n");
+        return -1;
+    }
+    user_name = root["user"].asString();
+
+    //密码
+    if (root["token"].isNull()) {
+        LogError("token null\n");
+        return -1;
+    }
+    token = root["token"].asString();
+
+    if(root["title"].isNull()){
+        LogError("table_name null\n");
+        return -1;
+    }
+    table_name = root["title"].asString();
+
+    return ret;
+}
+
+template <typename... Args>
+std::string FormatString(const std::string &format, Args... args) {
+    auto size = std::snprintf(nullptr, 0, format.c_str(), args...) +
+                1; // Extra space for '\0'
+    std::unique_ptr<char[]> buf(new char[size]);
+    std::snprintf(buf.get(), size, format.c_str(), args...);
+    return std::string(buf.get(),
+                      buf.get() + size - 1); // We don't want the '\0' inside
+}
+
+//很显然，获取整个用户可以填的所有表
+//回发的json格式
+/*
+{
+    "code":xxx,
+    "total":xxx,
+    {
+        "table_name":xxx
+    }
+    {
+        "table_name":xxx
+    }
+    ...
+}
+*/
+int getUserTableList(string &user_name, string &str_json) {
+    LogInfo("getUserTableList info");
+    int ret = 0;
+    int total = 0;
+    string str_sql;
+    CDBManager *db_manager = CDBManager::getInstance();
+    CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
+    AUTO_REL_DBCONN(db_manager, db_conn);
+    CacheManager *cache_manager = CacheManager::getInstance();
+    CacheConn *cache_conn = cache_manager->GetCacheConn("token");
+    AUTO_REL_CACHECONN(cache_manager, cache_conn);
+
+    ret = getUserTablesCount(db_conn, cache_conn, user_name, total);
+    if (ret < 0) {
+        LogError("getUserFilesCount failed");
+        return -1;
+    } else {  // root用户还没有发布任何表格
+        if (total == 0) {
+            Json::Value root;
+            root["code"] = 0;
+            root["total"] = 0;
+            Json::FastWriter writer;
+            str_json = writer.write(root);
+            LogWarn("getUserTablesCount = 0");
+            return 0;
+        }
+    }
+
+    // 到这里就意味着有表格可以填，紧接着从数据库中依次查找表格名字，组织成json回发
+
+    // 先从Users表中根据user_name查询user_id
+    int user_id;
+    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name);
+    CResultSet *result_set = db_conn->ExecuteQuery(str_sql);
+    if (result_set && result_set->Next()) {
+        user_id = result_set->GetInt("user_id");
+    } else {
+        LogError("未能根据用户名 {} 获取到user_id", user_name);
+        delete result_set;
+        return -1;
+    }
+    delete result_set;
+
+    // 从Surveys表中查询所有这个user_id对应的title
+    vector<string> table_titles;
+    str_sql = FormatString("select title from Surveys where user_id = %d", user_id);
+    result_set = db_conn->ExecuteQuery(str_sql);
+    while (result_set && result_set->Next()) {
+        table_titles.push_back(result_set->GetString("title"));
+    }
+    delete result_set;
+
+    // 组织成指定的JSON格式
+    Json::Value root;
+    root["code"] = 0;
+    root["total"] = table_titles.size();
+    Json::Value tables;
+    for (const auto &title : table_titles) {
+        Json::Value table;
+        table["table_name"] = title;
+        tables.append(table);
+    }
+    root["tables"] = tables;
+
+    // 使用Json::FastWriter将JSON对象转换为字符串
+    Json::FastWriter writer;
+    str_json = writer.write(root);
+
+    return 0;
+}
+
+//而这个函数用来获取单个表
+//返回的json格式
+/*
+{
+    "code": 0, // 0表示成功获取调查问卷问题，可根据实际情况设置不同的状态码
+    "survey_title": "调查问卷标题示例", // 调查问卷的标题
+    "total_questions": 5, // 调查问卷中的题目总数
+    "questions": [
+        {
+            "question_text": "你最喜欢的颜色是什么？",
+            "question_type": "单选",
+            "options": [
+                {
+                    "option_text": "红色"
+                },
+                {
+                    "option_text": "蓝色"
+                },
+                {
+                    "option_text": "绿色"
+                }
+            ]
+        },
+        {
+            "question_text": "你平时的兴趣爱好有哪些？",
+            "question_type": "多选",
+            "options": [
+                {
+                    "option_text": "阅读"
+                },
+                {
+                    "option_text": "运动"
+                },
+                {
+                    "option_text": "绘画"
+                },
+                {
+                    "option_text": "音乐"
+                }
+            ]
+        },
+        {
+            "question_text": "请填写你所在的城市",
+            "question_type": "填空",
+            "options": [] // 填空题没有选项，这里为空数组
+        },
+        {
+            "question_text": "你每天平均花多少时间在手机上？",
+            "question_type": "填空",
+            "options": []
+        },
+        {
+            "question_text": "你是否喜欢旅行？（是/否）",
+            "question_type": "单选",
+            "options": [
+                {
+                    "option_text": "是"
+                },
+                {
+                    "option_text": "否"
+                }
+            ]
+        }
+    ]
+}
+*/
+int getUserTable(string &user_name, string &table_name, string &str_json) {
+    LogInfo("getUserTable info");
+    int ret = 0;
+    int total = 0;
+    string str_sql;
+    CDBManager *db_manager = CDBManager::getInstance();
+    CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
+    AUTO_REL_DBCONN(db_manager, db_conn);
+    CacheManager *cache_manager = CacheManager::getInstance();
+    CacheConn *cache_conn = cache_manager->GetCacheConn("token");
+    AUTO_REL_CACHECONN(cache_manager, cache_conn);
+
+    // 先根据user_name在Users表中查user_id
+    int user_id;
+    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name);
+    CResultSet *result_set = db_conn->ExecuteQuery(str_sql);
+    if (result_set && result_set->Next()) {
+        user_id = result_set->GetInt("user_id");
+    } else {
+        LogError("未能根据用户名 {} 获取到user_id", user_name);
+        delete result_set;
+        return -1;
+    }
+    delete result_set;
+
+    // 再从Surveys表中根据user_id和title(函数传递的参数是table_name)查survey_id
+    int survey_id;
+    str_sql = FormatString("select survey_id from Surveys where user_id = %d and title = '%s'", user_id, table_name);
+    result_set = db_conn->ExecuteQuery(str_sql);
+    if (result_set && result_set->Next()) {
+        survey_id = result_set->GetInt("survey_id");
+    } else {
+        LogError("未能根据用户ID {} 和表名 {} 获取到survey_id", user_id, table_name);
+        delete result_set;
+        return -1;
+    }
+    delete result_set;
+
+    // 从Questions表中查询所有这个survey_id的question_id，question_text和question_type
+    Json::Value root;
+    root["code"] = 0;
+    root["survey_title"] = table_name;
+    Json::Value questions;
+    str_sql = FormatString("select question_id, question_text, question_type from Questions where survey_id = %d", survey_id);
+    result_set = db_conn->ExecuteQuery(str_sql);
+    while (result_set && result_set->Next()) {    //本身保证了向下遍历
+        int question_id = result_set->GetInt("question_id");
+        std::string question_text = result_set->GetString("question_text");
+        std::string question_type = result_set->GetString("question_type");
+
+        Json::Value question;
+        //question["question_id"] = question_id;
+        question["question_text"] = question_text;
+        question["question_type"] = question_type;
+
+        // 从Options表中查询每一个question_id对应的所有option_text(填空题没有）
+        if (question_type!= "填空") {
+            Json::Value options;
+            str_sql = FormatString("select option_text from Options where question_id = %d", question_id);
+            CResultSet *option_result_set = db_conn->ExecuteQuery(option_result_set);
+            while (option_result_set && option_result_set->Next()) {
+                std::string option_text = option_result_set->GetString("option_text");
+
+                Json::Value option;
+                //option["option_id"] = option_result_set->GetInt("option_id");
+                option["option_text"] = option_text;
+
+                options.append(option);
+            }
+            delete option_result_set;
+
+            question["options"] = options;
+        }
+
+        questions.append(question);
+    }
+    delete result_set;
+
+    root["total_questions"] = questions.size();
+    root["questions"] = questions;
+
+    // 将JSON对象转换为字符串
+    Json::FastWriter writer;
+    str_json = writer.write(root);
+
+    return 0;
+}
+
+int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data){
+    char cmd[20];
+    string user_name;
+    int ret = 0;
+    int count = 0;
+    string str_json;
+    string token;
+    string table_name;
+
+    //解析命令 解析url获取自定义参数
+    QueryParseKeyValue(url.c_str(), "cmd", cmd, NULL);
+    LogInfo("url: {}, cmd: {} ",url, cmd);
+
+    if(strcmp(cmd,"count") == 0){   //第一次返回表格数量和名字
+        // 解析json
+        if (decodeCountJson(post_data, user_name, token) < 0) {
+            encodeCountJson(1, 0, str_json);
+            LogError("decodeCountJson failed");
+            goto END;
+        }
+        printf("%s\n",user_name.c_str());
+        printf("%s\n",token.c_str());
+        //验证登陆token，成功返回0，失败-1
+        ret = VerifyToken(user_name, token); // util_cgi.h
+        if(ret == 0){
+            //获取表格数量
+            if(getUserTableList(user_name,str_json)<0){
+                ret = -1;
+                goto END;   
+            }
+        }else{
+            LogError("VerifyToken failed");
+            encodeCountJson(1, 0, str_json);
+            goto END;  
+        }
+    }else{
+        if(strcmp(cmd, "normal") != 0){
+            LogError("unknow cmd: {}", cmd);
+            encodeCountJson(1, 0, str_json);
+            goto END;
+        }
+        printf("%s\n",post_data.c_str());
+
+        ret = decodeTableslistJson(post_data,user_name,token,table_name);
+        LogInfo("user_name: {}, token:{}, table_name:", user_name,token, table_name);
+
+        if (ret == 0) {
+            //验证登陆token，成功返回0，失败-1
+            ret = VerifyToken(user_name, token); // util_cgi.h
+            if (ret == 0) {
+                if (getUserTable(user_name,table_name, str_json) < 0) { //获取用户文件列表
+                    LogError("getUserTableList failed");
+                    encodeCountJson(1, 0, str_json);
+                    goto END;
+                }
+            } else {
+                LogError("VerifyToken failed");
+                encodeCountJson(1, 0, str_json);
+                goto END;
+            }
+        } else {
+            LogError("decodeTableslistJson failed");
+            encodeCountJson(1, 0, str_json);
+            goto END;
+        }  
+    }
+
+END:
+    char *str_content = new char[HTTP_RESPONSE_HTML_MAX];
+    uint32_t ulen = str_json.length();
+    snprintf(str_content, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
+             str_json.c_str());
+    str_json = str_content;
+    CHttpConn::AddResponseData(conn_uuid, str_json);
+    delete[] str_content;
+
+    return 0;
+}

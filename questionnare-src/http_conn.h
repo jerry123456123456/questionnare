@@ -62,6 +62,11 @@ private:
     int _HandleRegisterRequest(string &url, string &post_data);
     // 账号登陆处理
     int _HandleLoginRequest(string &url, string &post_data);
+    // 用户加载表格
+    int _HandleMytablesRequest(string &url, string &post_data);
+    //处理文件
+    int _HandleUploadTableRequest(string &url, string &post_data);
+
 
 protected:
     net_handle_t m_sock_handle;

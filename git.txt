@@ -1,0 +1,3 @@
+git remote add origin git@github.com:jerry123456123456/questionnare.git
+
+git push -u origin master
