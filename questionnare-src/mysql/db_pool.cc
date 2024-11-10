@@ -286,6 +286,7 @@ bool CDBConn::ExecuteDrop(const char *sql_query) {
 }
 
 CResultSet *CDBConn::ExecuteQuery(const char *sql_query) {
+    printf("%s\n",sql_query);
     mysql_ping(mysql_);
     row_num = 0;
     if (mysql_real_query(mysql_, sql_query, strlen(sql_query))) {

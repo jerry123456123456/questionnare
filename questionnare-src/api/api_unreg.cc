@@ -1,0 +1,7 @@
+
+/*
+{
+    "user":xxx,
+    "token":xxx,
+}
+*/

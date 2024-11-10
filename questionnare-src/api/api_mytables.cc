@@ -9,7 +9,12 @@
 #include <sys/time.h>
 
 //解析的json包, 登陆token
-
+/*
+{
+    "user":xxx,
+    "token":xxx,
+}
+*/
 int decodeCountJson(string &str_json, string &user_name, string &token) {
     bool res;
     Json::Value root;
@@ -153,18 +158,20 @@ std::string FormatString(const std::string &format, Args... args) {
     "total":xxx,
     {
         "table_name":xxx
+        "deadline":xxx,
     }
     {
         "table_name":xxx
+        "deadline":xxx,
     }
     ...
 }
 */
-int getUserTableList(string &user_name, string &str_json) {
+int getUserTableList(std::string &user_name, std::string &str_json) {
     LogInfo("getUserTableList info");
     int ret = 0;
     int total = 0;
-    string str_sql;
+    std::string str_sql;
     CDBManager *db_manager = CDBManager::getInstance();
     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
     AUTO_REL_DBCONN(db_manager, db_conn);
@@ -188,7 +195,7 @@ int getUserTableList(string &user_name, string &str_json) {
         }
     }
 
-    // 到这里就意味着有表格可以填，紧接着从数据库中依次查找表格名字，组织成json回发
+    // 到这里就意味着有表格可以填，紧接着从数据库中依次查找表格名字和截止日期，组织成json回发
 
     // 先从Users表中根据user_name查询user_id
     int user_id;
@@ -203,12 +210,14 @@ int getUserTableList(string &user_name, string &str_json) {
     }
     delete result_set;
 
-    // 从Surveys表中查询所有这个user_id对应的title
-    vector<string> table_titles;
-    str_sql = FormatString("select title from Surveys where user_id = %d", user_id);
+    // 从Surveys表中查询所有这个user_id对应的title和deadline
+    std::vector<std::string> table_titles;
+    std::vector<std::string> table_deadlines;
+    str_sql = FormatString("select title, deadline from Surveys where user_id = %d", user_id);
     result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set && result_set->Next()) {
         table_titles.push_back(result_set->GetString("title"));
+        table_deadlines.push_back(result_set->GetString("deadline"));
     }
     delete result_set;
 
@@ -217,9 +226,10 @@ int getUserTableList(string &user_name, string &str_json) {
     root["code"] = 0;
     root["total"] = static_cast<int>(table_titles.size());
     Json::Value tables;
-    for (const auto &title : table_titles) {
+    for (size_t i = 0; i < table_titles.size(); ++i) {
         Json::Value table;
-        table["table_name"] = title;
+        table["table_name"] = table_titles[i];
+        table["deadline"] = table_deadlines[i];
         tables.append(table);
     }
     root["tables"] = tables;
@@ -328,6 +338,7 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
     result_set = db_conn->ExecuteQuery(str_sql.c_str());
     if (result_set && result_set->Next()) {
         survey_id = result_set->GetInt("survey_id");
+        printf("survey_id:%d\n",survey_id);
     } else {
         LogError("未能根据用户ID {} 和表名 {} 获取到survey_id", user_id, table_name);
         delete result_set;
@@ -345,7 +356,9 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
     while (result_set && result_set->Next()) {    //本身保证了向下遍历
         int question_id = result_set->GetInt("question_id");
         std::string question_text = result_set->GetString("question_text");
+        printf("question_text:%s\n",question_text.c_str());
         std::string question_type = result_set->GetString("question_type");
+        printf("question_type:%s\n",question_type.c_str());
 
         Json::Value question;
         //question["question_id"] = question_id;
@@ -355,14 +368,16 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
         // 从Options表中查询每一个question_id对应的所有option_text(填空题没有）
         if (question_type!= "填空") {
             Json::Value options;
-            str_sql = FormatString("select option_text from Options where question_id = %d", question_id);
-            CResultSet *option_result_set = db_conn->ExecuteQuery(str_json.c_str());
+            str_sql = FormatString("select option_text from Options where question_id = %d;", question_id);
+            printf("sql_cmd:%s\n",str_sql.c_str());
+            CResultSet *option_result_set = db_conn->ExecuteQuery(str_sql.c_str());
             while (option_result_set && option_result_set->Next()) {
                 std::string option_text = option_result_set->GetString("option_text");
 
                 Json::Value option;
                 //option["option_id"] = option_result_set->GetInt("option_id");
                 option["option_text"] = option_text;
+                printf("option_text:%s\n",option_text.c_str());
 
                 options.append(option);
             }

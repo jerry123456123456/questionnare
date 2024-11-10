@@ -107,12 +107,13 @@ int DBGetUserTableCountByUsername(CDBConn *db_conn, string user_name, int &count
     string str_sql;
 
     // 先通过用户名获取用户 ID
-    str_sql = FormatString("select id from Users where user_name='%s'", user_name.c_str());
+    str_sql = FormatString("select user_id from Users where user_name='%s'", user_name.c_str());
     LogInfo("执行：{}", str_sql);
     CResultSet *user_id_result_set = db_conn->ExecuteQuery(str_sql.c_str());
     int user_id = 0;
     if (user_id_result_set && user_id_result_set->Next()) {
-        user_id = user_id_result_set->GetInt("id");
+        user_id = user_id_result_set->GetInt("user_id");
+        printf("user_id : %d\n",user_id);
         delete user_id_result_set;
     } else {
         // 用户不存在

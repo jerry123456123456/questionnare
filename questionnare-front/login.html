@@ -119,8 +119,10 @@
                   alert('登录成功！' );
                   // 登录成功，保存token到localStorage
                   localStorage.setItem('token', response.token);
-                  // 登录成功后跳转到调查页面
+                  localStorage.setItem('username',username);
+                  // 登录成功后跳转到调查问卷页面
                   location.href = 'http://192.168.186.138/survey';
+
               } else {
                   // 登录失败，根据返回的 code 显示错误信息
                   alert('登录失败：' + response.message);

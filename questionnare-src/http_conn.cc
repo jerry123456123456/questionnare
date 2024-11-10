@@ -214,12 +214,13 @@ void CHttpConn::OnRead(){
         }else if(strncmp(url.c_str(), "/api/login", 10) == 0){ //登录
             printf("login\n");
             _HandleLoginRequest(url, content);
-        }else if(strncmp(url.c_str(), "/api/mytables", 14) == 0) { //用户下拉可以填的表格，cmd两种参数
+        }else if(strncmp(url.c_str(), "/api/mytables", 12) == 0) { //用户下拉可以填的表格，cmd两种参数
+        //}else if(strncmp(url.c_str(), "/api/xxx", 3) == 0) { //用户下拉可以填的表格，cmd两种参数
             //count的意思是先获取表格的个数以及title；normal的意思是具体一个表的详细问题
             _HandleMytablesRequest(url, content);
-        }else if(strncmp(url.c_str(), "/api/upload", 13) == 0) { //用户上传表格
+        }else if(strncmp(url.c_str(), "/api/upload", 10) == 0) { //用户上传表格
             _HandleUploadTableRequest(url, content);
-        }else if(strncmp(url.c_str(), "/api/delete", 13) == 0){
+        }else if(strncmp(url.c_str(), "/api/delete", 10) == 0){
             _HandleDeleteTableRequest(url,content);
         }else {
             LogError("url unknown, url= {}", url);

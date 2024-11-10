@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>调查问卷系统</title>
-  <!-- 设置网站图标 -->
   <link rel="icon" href="logo.ico">
   <style>
     /* 整体页面布局样式 */
@@ -19,9 +18,261 @@
       background-repeat: no-repeat;
       min-height: 100vh;
       display: flex;
-      justify-content: flex-end;
-      align-items: center;
+      justify-content: center; /* 水平居中 */
+      align-items: center; /* 垂直居中 */
       position: relative;
     }
-</style>
+
+    /* 用于显示表格名称的容器样式 */
+    .table-names-container {
+      width: 600px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 5px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    td {
+      cursor: pointer;
+    }
+
+    td:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* 新增的标题行样式 */
+    .table-title-row {
+      background-color: #e0e0e0; /* 设置背景颜色，使其与表头区分开 */
+      font-weight: bold; /* 设置字体加粗 */
+      height: 50px; /* 设置标题行高度，以便垂直居中内容 */
+      display: flex;
+      justify-content: center; /* 水平居中对齐 */
+      align-items: center; /* 垂直居中对齐 */
+    }
+
+    /* 使问卷列表在表格头部居中的样式 */
+    .table-title-row td {
+      text-align: center; /* 文本水平居中显示 */
+    }
+
+    /* 右上角的用户信息和按钮样式 */
+    .user-info-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      font-size: 14px;
+      background-color: rgba(255, 255, 255, 0.7);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .user-info-container button {
+      margin-top: 5px;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      background-color: #f44336;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .user-info-container button:hover {
+      background-color: #d32f2f;
+    }
+  </style>
 </head>
+
+<body>
+  <!-- 右上角显示用户信息和按钮 -->
+  <div class="user-info-container">
+    <div id="username">用户名: </div>
+    <button onclick="logout()">退出登录</button>
+    <button onclick="unreg()">注销账户</button>
+  </div>
+
+  <div class="table-names-container" id="table-names-container">
+    <!-- 表格名称列表将动态添加在这里 -->
+  </div>
+
+  <script>
+    // 获取用户信息和显示用户名
+    function displayUserInfo() {
+      const user = localStorage.getItem("username");
+      if (user) {
+        document.getElementById("username").textContent = `用户名: ${user}`;
+      } else {
+        console.log("未登录用户");
+      }
+    }
+
+    // 退出登录
+    function logout() {
+      window.location.href = 'http://192.168.186.138/login';
+    }
+
+    // 注销账户
+    function unreg() {
+      const user = localStorage.getItem("username");
+      const token = localStorage.getItem("token");
+
+      if (user && token) {
+        const confirmUnreg = confirm("确定要注销账户吗？");
+
+        if (confirmUnreg) {
+          const jsonData = {
+            "user": user,
+            "token": token
+          };
+
+          fetch('http://192.168.186.138/api/unreg', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonData)
+          })
+          .then(response => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error('请求失败');
+            }
+          })
+          .then(response => {
+            console.log('注销账户响应：', response);
+            if (response.code === 0) {
+              alert('账户已注销');
+              localStorage.removeItem("username");
+              localStorage.removeItem("token");
+              location.href = 'login.html';
+            } else {
+              alert('注销账户失败');
+            }
+          })
+          .catch(error => {
+            console.error('请求失败，服务器无响应');
+          });
+        }
+      }
+    }
+
+    // mytables函数
+    function mytables() {
+      const user = localStorage.getItem("username");
+      const token = localStorage.getItem("token");
+      const jsonData = {
+          "user": user,
+          "token": token
+      };
+
+      fetch('http://192.168.186.138/api/mytables?cmd=count', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
+      })
+    .then(response => {
+          if (response.ok) {
+              return response.json();
+          } else {
+              throw new Error('请求失败');
+          }
+      })
+    .then(response => {
+          console.log('返回数据：', response);
+
+          if (response.code === 0) {
+              alert('请点击要填写的问卷名');
+              const tableNamesContainer = document.getElementById('table-names-container');
+              tableNamesContainer.innerHTML = ''; // 清空之前的内容
+
+              const table = document.createElement('table');
+
+              const titleRow = document.createElement('tr');
+              titleRow.classList.add('table-title-row');
+              const titleCell = document.createElement('td');
+              titleCell.colSpan = 3; // 因为增加了一列，所以这里改为3
+              titleCell.textContent = '问卷列表';
+              titleRow.appendChild(titleCell);
+              table.appendChild(titleRow);
+
+              const header = document.createElement('tr');
+              const th1 = document.createElement('th');
+              th1.textContent = 'ID';
+              const th2 = document.createElement('th');
+              th2.textContent = '调查问卷';
+              const th3 = document.createElement('th');
+              th3.textContent = '截止日期';
+              th3.classList.add('deadline-header'); // 添加类名以应用样式
+              header.appendChild(th1);
+              header.appendChild(th2);
+              header.appendChild(th3);
+              table.appendChild(header);
+
+              if (response.tables && Array.isArray(response.tables)) {
+                  response.tables.forEach((tableObj, index) => {
+                      const row = document.createElement('tr');
+                      const td1 = document.createElement('td');
+                      td1.textContent = index + 1;
+
+                      const td2 = document.createElement('td');
+                      td2.textContent = tableObj.table_name;
+                      td2.onclick = function () {
+                          localStorage.setItem('title',td2.textContent);
+                          // 先跳转到指定的html文件
+                          location.href = 'http://192.168.186.138/table';
+                      };
+
+                      const td3 = document.createElement('td');
+                      td3.textContent = tableObj.deadline;
+                      td3.classList.add('deadline-cell'); // 添加类名以应用样式
+                      row.appendChild(td1);
+                      row.appendChild(td2);
+                      row.appendChild(td3);
+                      table.appendChild(row);
+                  });
+              } else {
+                  console.error('返回的数据格式错误: tables 应该是一个数组');
+              }
+
+              tableNamesContainer.appendChild(table);
+          } else {
+              alert('未能加载表格数');
+          }
+      })
+    .catch(error => {
+          console.error('请求失败，服务器无响应');
+      });
+  }
+
+    // 页面加载时调用 mytables 和显示用户名的函数
+    window.onload = function () {
+      displayUserInfo();
+      mytables();
+    }
+  </script>
+
+</body>
+
+</html>
