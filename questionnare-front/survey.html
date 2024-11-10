@@ -192,14 +192,14 @@
           },
           body: JSON.stringify(jsonData)
       })
-    .then(response => {
+  .then(response => {
           if (response.ok) {
               return response.json();
           } else {
               throw new Error('请求失败');
           }
       })
-    .then(response => {
+  .then(response => {
           console.log('返回数据：', response);
 
           if (response.code === 0) {
@@ -212,7 +212,7 @@
               const titleRow = document.createElement('tr');
               titleRow.classList.add('table-title-row');
               const titleCell = document.createElement('td');
-              titleCell.colSpan = 3; // 因为增加了一列，所以这里改为3
+              titleCell.colSpan = 4; // 因为增加了一列，所以这里改为4
               titleCell.textContent = '问卷列表';
               titleRow.appendChild(titleCell);
               table.appendChild(titleRow);
@@ -225,9 +225,13 @@
               const th3 = document.createElement('th');
               th3.textContent = '截止日期';
               th3.classList.add('deadline-header'); // 添加类名以应用样式
+              const th4 = document.createElement('th');
+              th4.textContent = '是否填写';
+              th4.classList.add('is-filled-header'); // 添加类名以应用样式
               header.appendChild(th1);
               header.appendChild(th2);
               header.appendChild(th3);
+              header.appendChild(th4);
               table.appendChild(header);
 
               if (response.tables && Array.isArray(response.tables)) {
@@ -239,21 +243,36 @@
                       const td2 = document.createElement('td');
                       td2.textContent = tableObj.table_name;
                       td2.onclick = function () {
-                          localStorage.setItem('title',td2.textContent);
-                          // 先跳转到指定的html文件
-                          location.href = 'http://192.168.186.138/table';
+                          if (tableObj.is_filled === 1) {
+                              // 如果已填写，弹出提示框询问是否重新填写
+                              const confirmResult = confirm('该表格已经填写，是否重新填写？');
+                              if (confirmResult) {
+                                  // 如果点击是，保存当前table_name到localStorage并跳转
+                                  localStorage.setItem('title', td2.textContent);
+                                  location.href = 'http://192.168.186.138/table';
+                              }
+                          } else {
+                              // 如果未填写，直接保存当前table_name到localStorage并跳转
+                              localStorage.setItem('title', td2.textContent);
+                              location.href = 'http://192.168.186.138/table';
+                          }
                       };
 
                       const td3 = document.createElement('td');
                       td3.textContent = tableObj.deadline;
                       td3.classList.add('deadline-cell'); // 添加类名以应用样式
+
+                      const td4 = document.createElement('td');
+                      td4.textContent = tableObj.is_filled === 1? '已填' : '未填';
+                      td4.classList.add('is-filled-cell'); // 添加类名以应用样式
                       row.appendChild(td1);
                       row.appendChild(td2);
                       row.appendChild(td3);
+                      row.appendChild(td4);
                       table.appendChild(row);
                   });
               } else {
-                  console.error('返回的数据格式错误: tables 应该是一个数组');
+                  console.error('返回的数据格式错误: tables应该是一个数组');
               }
 
               tableNamesContainer.appendChild(table);
@@ -261,7 +280,7 @@
               alert('未能加载表格数');
           }
       })
-    .catch(error => {
+  .catch(error => {
           console.error('请求失败，服务器无响应');
       });
   }

@@ -159,10 +159,12 @@ std::string FormatString(const std::string &format, Args... args) {
     {
         "table_name":xxx
         "deadline":xxx,
+        "is_filled":xxx,
     }
     {
         "table_name":xxx
         "deadline":xxx,
+        "is_filled":xxx,
     }
     ...
 }
@@ -213,11 +215,13 @@ int getUserTableList(std::string &user_name, std::string &str_json) {
     // 从Surveys表中查询所有这个user_id对应的title和deadline
     std::vector<std::string> table_titles;
     std::vector<std::string> table_deadlines;
-    str_sql = FormatString("select title, deadline from Surveys where user_id = %d", user_id);
+    std::vector<int> table_filled;
+    str_sql = FormatString("select title, deadline, is_filled from Surveys where user_id = %d", user_id);
     result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set && result_set->Next()) {
         table_titles.push_back(result_set->GetString("title"));
         table_deadlines.push_back(result_set->GetString("deadline"));
+        table_filled.push_back(result_set->GetInt("is_filled"));
     }
     delete result_set;
 
@@ -230,6 +234,7 @@ int getUserTableList(std::string &user_name, std::string &str_json) {
         Json::Value table;
         table["table_name"] = table_titles[i];
         table["deadline"] = table_deadlines[i];
+        table["is_filled"] = table_filled[i];
         tables.append(table);
     }
     root["tables"] = tables;
