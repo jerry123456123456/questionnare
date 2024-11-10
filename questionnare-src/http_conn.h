@@ -60,6 +60,8 @@ public:
 private:
     // 账号注册处理
     int _HandleRegisterRequest(string &url, string &post_data);
+    //账号注销处理
+    int _HandleunRegisterRequest(string &url, string &post_data);
     // 账号登陆处理
     int _HandleLoginRequest(string &url, string &post_data);
     // 用户加载表格

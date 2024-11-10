@@ -7,6 +7,7 @@
 #include"api_login.h"
 #include "dlog.h"
 #include"api_mytables.h"
+#include"api_unreg.h"
 #include "http_parser_wrapper.h"
 
 static HttpConnMap_t g_http_conn_map;
@@ -211,6 +212,8 @@ void CHttpConn::OnRead(){
         LogInfo("url: {}", url.c_str());
         if(strncmp(url.c_str(),"/api/reg",8) == 0){  //注册
             _HandleRegisterRequest(url, content);
+        }else if(strncmp(url.c_str(),"/api/unreg",10) == 0){  //注销
+            _HandleunRegisterRequest(url, content);
         }else if(strncmp(url.c_str(), "/api/login", 10) == 0){ //登录
             printf("login\n");
             _HandleLoginRequest(url, content);
@@ -277,6 +280,18 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
     }
 
 //////////////////////////////////////////
+    //注销
+    int CHttpConn::_HandleunRegisterRequest(string &url, string &post_data){
+        string str_json;
+        int ret = ApiunRegisterUser(url,post_data,str_json);
+        char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
+        uint32_t ulen = str_json.length();
+        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
+                str_json.c_str());
+        ret = Send((void *)szContent, strlen(szContent)); // 返回值暂时不做处理
+        delete[] szContent;
+        return 0;
+    }
 
     // 用户加载表格
     int CHttpConn::_HandleMytablesRequest(string &url, string &post_data){
@@ -337,7 +352,7 @@ void CHttpConn::SendResponseDataList() {
             pResp->conn_uuid); // 该连接有可能已经被释放，如果被释放则返回NULL
         LogInfo("conn_uuid: {}", pResp->conn_uuid); //{0:x}
         if (pConn) {
-            // LogInfo("send: {}", pResp->resp_data);
+             LogInfo("send: {}", pResp->resp_data);
             pConn->Send((void *)pResp->resp_data.c_str(),
                         pResp->resp_data.size());  // 最终socket send
         }

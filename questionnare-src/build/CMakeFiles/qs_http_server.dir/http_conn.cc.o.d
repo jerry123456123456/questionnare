@@ -413,4 +413,5 @@ CMakeFiles/qs_http_server.dir/http_conn.cc.o: \
   /home/jerry/Desktop/questionnare/questionnare-src/jsoncpp/json/writer.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_login.h \
-  /home/jerry/Desktop/questionnare/questionnare-src/api/api_register.h
+  /home/jerry/Desktop/questionnare/questionnare-src/api/api_register.h \
+  /home/jerry/Desktop/questionnare/questionnare-src/api/api_unreg.h
