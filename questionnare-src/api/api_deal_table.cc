@@ -112,9 +112,25 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     if(!db_conn->ExecuteCreate(sql_cmd)){
         //执行插入语句
         LogError("{} 操作失败", sql_cmd);
-        ret = -1;
-        goto END;
+        return -1;
     }
+
+    //简单起见，每次都更新is_filled字段为1
+    string update_sql = "UPDATE Surveys SET is_filled = 1 WHERE survey_id =?";
+    LogInfo("执行更新is_filled的语句: {}", update_sql);
+
+    CPrepareStatement *update_stmt = new CPrepareStatement();
+    if (update_stmt->Init(db_conn->GetMysql(), update_sql)) {
+        uint32_t update_index = 0;
+        update_stmt->SetParam(update_index++, survey_id);
+        bool update_bRet = update_stmt->ExecuteUpdate();
+        if (update_bRet) {
+            LogInfo("成功将is_filled更新为1，对应survey_id: {}", user_id);
+        } else {
+            LogError("更新is_filled失败，对应survey_id: {}", user_id);
+        }
+    }
+    delete update_stmt;
 
     //查询用户表数量+1      web热点 大明星  微博存在缓存里面。
     if (CacheIncrCount(cache_conn, string(user)) < 0) {

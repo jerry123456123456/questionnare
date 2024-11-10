@@ -15,6 +15,7 @@ CREATE TABLE Surveys (
     survey_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,  -- 添加隶属用户ID
+    is_filled TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     description TEXT,
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE  -- 关联用户表
