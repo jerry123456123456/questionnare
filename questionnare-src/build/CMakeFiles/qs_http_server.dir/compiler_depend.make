@@ -2023,6 +2023,8 @@ CMakeFiles/qs_http_server.dir/api/api_register.cc.o: ../api/api_register.cc \
   /usr/include/c++/12/queue \
   /usr/include/c++/12/bits/stl_queue.h
 
+CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o: ../api/api_unreg.cc
+
 CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o: ../base/base_socket.cpp \
   ../base/base_socket.h \
   ../base/ostype.h \
@@ -8434,6 +8436,8 @@ CMakeFiles/qs_http_server.dir/redis/sds.c.o: ../redis/sds.c \
 /usr/include/c++/12/bits/std_function.h:
 
 /usr/include/c++/12/iomanip:
+
+../api/api_unreg.cc:
 
 /usr/include/c++/12/debug/debug.h:
 

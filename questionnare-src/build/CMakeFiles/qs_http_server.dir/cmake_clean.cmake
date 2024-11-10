@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o.d"
   "CMakeFiles/qs_http_server.dir/api/api_register.cc.o"
   "CMakeFiles/qs_http_server.dir/api/api_register.cc.o.d"
+  "CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o"
+  "CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o.d"
   "CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o"
   "CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o.d"
   "CMakeFiles/qs_http_server.dir/base/config_file_reader.cpp.o"

@@ -249,6 +249,30 @@ api/api_register.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.s
 .PHONY : api/api_register.cc.s
 
+api/api_unreg.o: api/api_unreg.cc.o
+.PHONY : api/api_unreg.o
+
+# target to build an object file
+api/api_unreg.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o
+.PHONY : api/api_unreg.cc.o
+
+api/api_unreg.i: api/api_unreg.cc.i
+.PHONY : api/api_unreg.i
+
+# target to preprocess a source file
+api/api_unreg.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_unreg.cc.i
+.PHONY : api/api_unreg.cc.i
+
+api/api_unreg.s: api/api_unreg.cc.s
+.PHONY : api/api_unreg.s
+
+# target to generate assembly for a file
+api/api_unreg.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_unreg.cc.s
+.PHONY : api/api_unreg.cc.s
+
 base/base_socket.o: base/base_socket.cpp.o
 .PHONY : base/base_socket.o
 
@@ -873,6 +897,9 @@ help:
 	@echo "... api/api_register.o"
 	@echo "... api/api_register.i"
 	@echo "... api/api_register.s"
+	@echo "... api/api_unreg.o"
+	@echo "... api/api_unreg.i"
+	@echo "... api/api_unreg.s"
 	@echo "... base/base_socket.o"
 	@echo "... base/base_socket.i"
 	@echo "... base/base_socket.s"

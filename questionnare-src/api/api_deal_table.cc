@@ -80,7 +80,7 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
 
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
-    sprintf(sql_cmd,"select survey_id from Surveys where title = '%s' and user_id = '%d",table_name.c_str(),user_id);
+    sprintf(sql_cmd,"select survey_id from Surveys where title = '%s' and user_id = %d",table_name.c_str(),user_id);
     result_set = db_conn->ExecuteQuery(sql_cmd);
     if (result_set && result_set->Next()) {
         //从结果获取到user_id
@@ -108,7 +108,7 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
     //插入数据库
-    sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer) values (%d,%d,'%s')",question_id,user_id,answer.c_str());
+    sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)",question_id,user_id,answer.c_str(),survey_id);
     if(!db_conn->ExecuteCreate(sql_cmd)){
         //执行插入语句
         LogError("{} 操作失败", sql_cmd);
@@ -273,13 +273,13 @@ int ApiUploadTable(string &url, string &post_data, string &str_json) {
         table_name = root["table_name"].asString();
 
         // 获取问题和答案数组
-        const Json::Value& questions = root["questions"];  // 假设问题数据在JSON中的键为"questions"，根据实际情况修改
-        for (const auto& question : questions) {
+        const Json::Value& answers = root["answers"];  // 假设问题数据在JSON中的键为"questions"，根据实际情况修改
+        for (const auto& ans : answers) {
             // 获取问题文本
-            question_name = question["question_text"].asString();
+            question_name = ans["question_text"].asString();
 
             // 获取答案
-            answer = question["answer"].asString();
+            answer = ans["answer"].asString();
 
             // 调用handleUpdateQuestion函数插入答案到数据库
             if (handleUpdateQuestion(user_name, question_name,table_name, answer)!= 0) {

@@ -2028,6 +2028,9 @@ CMakeFiles/qs_http_server.dir/api/api_register.cc.o
  /usr/include/c++/12/queue
  /usr/include/c++/12/bits/stl_queue.h
 
+CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o
+ /home/jerry/Desktop/questionnare/questionnare-src/api/api_unreg.cc
+
 CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o
  /home/jerry/Desktop/questionnare/questionnare-src/base/base_socket.cpp
  /home/jerry/Desktop/questionnare/questionnare-src/base/base_socket.h
