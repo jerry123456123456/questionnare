@@ -1,0 +1,40 @@
+[2024-11-06 01:12:39.197][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-06 01:12:39.199][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:12:39.204][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:12:39.208][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-06 01:12:39.208][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-06 01:12:46.814][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:117,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-06 01:12:46.814][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:211,OnRead][info] : url: /api/login
+[2024-11-06 01:12:46.826][thread 303832][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:97,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: 00000000000000000000000056760663
+[2024-11-06 01:12:46.826][thread 303832][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:191,ApiUserLogin][error] : verifyUserPassword failed
+[2024-11-06 01:12:46.826][thread 303832][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:352,AddResponseData][info] : into
+[2024-11-06 01:12:46.828][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:337,SendResponseDataList][info] : conn_uuid: 1
+[2024-11-06 01:12:46.828][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:322,OnWriteComlete][info] : write complete
+[2024-11-06 01:12:46.828][thread 303823][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-06 01:15:25.251][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-06 01:15:25.252][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:15:25.257][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:15:25.261][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-06 01:15:25.261][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-06 01:15:26.764][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:117,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-06 01:15:26.765][thread 304444][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:211,OnRead][info] : url: /api/login
+[2024-11-06 01:17:21.832][thread 304771][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-06 01:17:21.834][thread 304771][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:17:21.838][thread 304771][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:17:21.842][thread 304771][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-06 01:17:21.842][thread 304771][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-06 01:18:08.744][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-06 01:18:08.746][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:18:08.750][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:18:08.758][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-06 01:18:08.758][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-06 01:18:14.103][thread 304991][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:117,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-06 01:51:44.347][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-06 01:51:44.349][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:51:44.356][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-06 01:51:44.363][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-06 01:51:44.363][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-06 01:51:46.613][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:117,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-06 01:51:55.787][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:211,OnRead][info] : url: /api/login
+[2024-11-06 01:52:30.311][thread 307075][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:97,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-06 01:53:50.163][thread 307071][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,~CHttpConn][info] : ~CHttpConn, handle = 1

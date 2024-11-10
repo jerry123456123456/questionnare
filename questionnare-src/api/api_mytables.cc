@@ -1,11 +1,9 @@
-#include "api_myfiles.h"
+#include "api_mytables.h"
 #include <iterator>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 #include "api_common.h"
-#include "api_myfiles.h"
 #include "json/json.h"
 #include "http_conn.h"
 #include <sys/time.h>
@@ -194,8 +192,8 @@ int getUserTableList(string &user_name, string &str_json) {
 
     // 先从Users表中根据user_name查询user_id
     int user_id;
-    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name);
-    CResultSet *result_set = db_conn->ExecuteQuery(str_sql);
+    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name.c_str());
+    CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
     if (result_set && result_set->Next()) {
         user_id = result_set->GetInt("user_id");
     } else {
@@ -208,7 +206,7 @@ int getUserTableList(string &user_name, string &str_json) {
     // 从Surveys表中查询所有这个user_id对应的title
     vector<string> table_titles;
     str_sql = FormatString("select title from Surveys where user_id = %d", user_id);
-    result_set = db_conn->ExecuteQuery(str_sql);
+    result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set && result_set->Next()) {
         table_titles.push_back(result_set->GetString("title"));
     }
@@ -217,7 +215,7 @@ int getUserTableList(string &user_name, string &str_json) {
     // 组织成指定的JSON格式
     Json::Value root;
     root["code"] = 0;
-    root["total"] = table_titles.size();
+    root["total"] = static_cast<int>(table_titles.size());
     Json::Value tables;
     for (const auto &title : table_titles) {
         Json::Value table;
@@ -313,8 +311,8 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
 
     // 先根据user_name在Users表中查user_id
     int user_id;
-    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name);
-    CResultSet *result_set = db_conn->ExecuteQuery(str_sql);
+    str_sql = FormatString("select user_id from Users where user_name = '%s'", user_name.c_str());
+    CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
     if (result_set && result_set->Next()) {
         user_id = result_set->GetInt("user_id");
     } else {
@@ -326,8 +324,8 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
 
     // 再从Surveys表中根据user_id和title(函数传递的参数是table_name)查survey_id
     int survey_id;
-    str_sql = FormatString("select survey_id from Surveys where user_id = %d and title = '%s'", user_id, table_name);
-    result_set = db_conn->ExecuteQuery(str_sql);
+    str_sql = FormatString("select survey_id from Surveys where user_id = %d and title = '%s'", user_id, table_name.c_str());
+    result_set = db_conn->ExecuteQuery(str_sql.c_str());
     if (result_set && result_set->Next()) {
         survey_id = result_set->GetInt("survey_id");
     } else {
@@ -343,7 +341,7 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
     root["survey_title"] = table_name;
     Json::Value questions;
     str_sql = FormatString("select question_id, question_text, question_type from Questions where survey_id = %d", survey_id);
-    result_set = db_conn->ExecuteQuery(str_sql);
+    result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set && result_set->Next()) {    //本身保证了向下遍历
         int question_id = result_set->GetInt("question_id");
         std::string question_text = result_set->GetString("question_text");
@@ -358,7 +356,7 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
         if (question_type!= "填空") {
             Json::Value options;
             str_sql = FormatString("select option_text from Options where question_id = %d", question_id);
-            CResultSet *option_result_set = db_conn->ExecuteQuery(option_result_set);
+            CResultSet *option_result_set = db_conn->ExecuteQuery(str_json.c_str());
             while (option_result_set && option_result_set->Next()) {
                 std::string option_text = option_result_set->GetString("option_text");
 
@@ -383,16 +381,16 @@ int getUserTable(string &user_name, string &table_name, string &str_json) {
     // 将JSON对象转换为字符串
     Json::FastWriter writer;
     str_json = writer.write(root);
-
     return 0;
 }
 
-int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data){
+int ApiMyTables(string &url,string &post_data,string &str_json){
+    //url这个参数没有用
+    UNUSED(url);
     char cmd[20];
     string user_name;
     int ret = 0;
     int count = 0;
-    string str_json;
     string token;
     string table_name;
 
@@ -405,7 +403,7 @@ int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data){
         if (decodeCountJson(post_data, user_name, token) < 0) {
             encodeCountJson(1, 0, str_json);
             LogError("decodeCountJson failed");
-            goto END;
+            return -1;
         }
         printf("%s\n",user_name.c_str());
         printf("%s\n",token.c_str());
@@ -415,18 +413,18 @@ int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data){
             //获取表格数量
             if(getUserTableList(user_name,str_json)<0){
                 ret = -1;
-                goto END;   
+                return -1;   
             }
         }else{
             LogError("VerifyToken failed");
             encodeCountJson(1, 0, str_json);
-            goto END;  
+            return -1;  
         }
     }else{
         if(strcmp(cmd, "normal") != 0){
             LogError("unknow cmd: {}", cmd);
             encodeCountJson(1, 0, str_json);
-            goto END;
+            return -1;
         }
         printf("%s\n",post_data.c_str());
 
@@ -440,28 +438,19 @@ int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data){
                 if (getUserTable(user_name,table_name, str_json) < 0) { //获取用户文件列表
                     LogError("getUserTableList failed");
                     encodeCountJson(1, 0, str_json);
-                    goto END;
+                    return -1;
                 }
             } else {
                 LogError("VerifyToken failed");
                 encodeCountJson(1, 0, str_json);
-                goto END;
+                return -1;
             }
         } else {
             LogError("decodeTableslistJson failed");
             encodeCountJson(1, 0, str_json);
-            goto END;
+            return -1;
         }  
     }
-
-END:
-    char *str_content = new char[HTTP_RESPONSE_HTML_MAX];
-    uint32_t ulen = str_json.length();
-    snprintf(str_content, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
-             str_json.c_str());
-    str_json = str_content;
-    CHttpConn::AddResponseData(conn_uuid, str_json);
-    delete[] str_content;
 
     return 0;
 }

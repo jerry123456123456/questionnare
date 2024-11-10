@@ -1,12 +1,18 @@
 cmake_minimum_required(VERSION 3.0)
 project(qs_http_server)
 
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/base BASE_LIST)
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/jsoncpp JSON_LIST)
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/mysql MYSQL_LIST)
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/redis REDIS_LIST)
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/api API_LIST)
-AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} SRC_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/base BASE_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/jsoncpp JSON_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/mysql MYSQL_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/redis REDIS_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR}/api API_LIST)
+# AUX_SOURCE_DIRECTORY(${CMAKE_CURRENT_SOURCE_DIR} SRC_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/base BASE_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp JSON_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/mysql MYSQL_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/redis REDIS_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/api API_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src SRC_LIST)
 
 #判断编译器类型,如果是gcc编译器,则在编译选项中加入c++14支持
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -28,12 +34,18 @@ LINK_DIRECTORIES(/usr/local/lib)
 # 添加头文件路径
 INCLUDE_DIRECTORIES(/usr/local/include/hiredis /usr/include/mysql)
 include_directories(/usr/local/include)  # 根据你的安装路径调整
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/base)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/jsoncpp)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/mysql)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/redis)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/api)
-INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/base)
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/jsoncpp)
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/mysql)
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/redis)
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/api)
+# INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR})
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/base)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/mysql)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/redis)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/api)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src)
 
 # 添加需要的库
 find_package(Threads REQUIRED)  # 如果需要多线程支持
@@ -42,7 +54,7 @@ find_package(spdlog REQUIRED)   # spdlog 库
 find_package(Protobuf REQUIRED)
 
 # 添加可执行文件
-add_executable(qs_http_server ${SRC_LIST} ${BASE_LIST} ${MYSQL_LIST} ${REDIS_LIST})
+add_executable(qs_http_server ${SRC_LIST} ${BASE_LIST} ${MYSQL_LIST} ${REDIS_LIST} ${API_LIST} ${LOG_LIST} ${JSON_LIST})
 
 # 链接库
 target_link_libraries(qs_http_server pthread mysqlclient fmt::fmt spdlog::spdlog protobuf::libprotobuf ${CMAKE_THREAD_LIBS_INIT})

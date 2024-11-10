@@ -9,6 +9,12 @@
 #define LOGIN_RET_OK 0   // 成功
 #define LOGIN_RET_FAIL 1 // 失败
 
+/*
+{
+    "user":xxx,
+    "pwd":xxx,
+}
+*/
 // 解析登录信息
 int decodeLoginJson(const std::string &str_json, string &user_name,
                     string &pwd) {
@@ -194,7 +200,7 @@ int ApiUserLogin(u_int32_t conn_uuid, std::string &url, std::string &post_data)
         goto END;
     }
 
-    // 加载 我的文件数量  我的分享图片数量
+    // 加载 我的表格数量 
     if (loadMyTablesCount(user_name) < 0) {
         LogError("loadMyTablesCount failed");
         encodeLoginJson(1, token, str_json);

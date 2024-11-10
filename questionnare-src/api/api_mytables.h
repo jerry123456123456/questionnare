@@ -3,6 +3,6 @@
 #define _API_MYFILES_H_
 #include "api_common.h"
 
-int ApiMyTables(uint32_t conn_uuid,string &url,string &post_data);
+int ApiMyTables(string &url,string &post_data,string &str_json);
 
 #endif

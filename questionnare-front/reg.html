@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调查问卷系统 - 注册</title>
+  <!-- 设置网站图标 -->
+  <link rel="icon" href="logo.ico">
+  <style>
+    /* 整体页面布局样式 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('survey.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    /* 注册区域样式 */
+  .register-container {
+      width: 300px;
+      height: 300px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 5px;
+      position: absolute;
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
+
+    /* 注册标题样式 */
+    h2 {
+      color: #333;
+    }
+
+    /* 输入框样式 */
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* 右侧图片样式 */
+  .right-img {
+      width: 300px;
+      height: 200px;
+      position: absolute;
+      top: 70%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+  <div class="register-container">
+    <h2>用户注册</h2>
+    <input type="text" id="userName" placeholder="用户名">
+    <input type="password" id="firstPwd" placeholder="密码">
+    <button onclick="register()">注册</button>
+  </div>
+
+  <!-- 添加右侧的图片 -->
+  <!--img class="right-img" src="l.png" alt="右侧图片"-->
+
+  <script>
+    // 加密函数（使用crypto-js库的MD5函数）
+    function md5(input) {
+      return CryptoJS.MD5(input).toString();
+    }
+
+    // 注册函数
+    function register() {
+      const userName = document.getElementById('userName').value;
+      const firstPwd = document.getElementById('firstPwd').value;
+
+      const jsonData = {
+        "userName": userName,
+        "firstPwd": firstPwd
+      };
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '192.168.186.138/api/reg', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          console.log('注册响应：', response);
+          // 根据后端返回的响应进行相应的处理，例如跳转到其他页面或显示错误信息
+          if (response.success) {
+            location.href = 'login.html';
+          } else {
+            alert('注册失败：' + response.message);
+          }
+        } else if (xhr.readyState === 4) {
+          console.error('注册请求失败，服务器无响应');
+        }
+      };
+      xhr.send(JSON.stringify(jsonData));
+    }
+  </script>
+</body>
+
+</html>

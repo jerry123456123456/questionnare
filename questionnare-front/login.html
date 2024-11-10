@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调查问卷系统 - 登录</title>
+  <!-- 设置网站图标 -->
+  <link rel="icon" href="logo.ico">
+  <style>
+    /* 整体页面布局样式 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('survey.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    /* 登录区域样式 */
+.login-container {
+      width: 300px;
+      height: 300px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 5px;
+      position: absolute;
+      top: 50%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
+
+    /* 登录标题样式 */
+    h2 {
+      color: #333;
+    }
+
+    /* 输入框样式 */
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    /* 右侧图片样式 */
+.right-img {
+      width: 300px;
+      height: 200px;
+      position: absolute;
+      top: 70%;
+      right: 10%;
+      transform: translateY(-50%);
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+
+<body>
+  <div class="login-container">
+    <h2>用户登录</h2>
+    <input type="text" id="username" placeholder="用户名">
+    <input type="password" id="password" placeholder="密码">
+    <button onclick="login()">登录</button>
+    <button onclick="register()">注册账号</button>
+  </div>
+
+  <!-- 添加右侧的图片 -->
+  <!--img class="right-img" src="l.png" alt="右侧图片"-->
+
+  <script>
+    // 加密函数（使用crypto-js库的MD5函数）
+    function md5(input) {
+      return CryptoJS.MD5(input).toString();
+    }
+
+    // 登录函数
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const encryptedPassword = md5(password);
+
+      const jsonData = {
+        "user": username,
+        "pwd": encryptedPassword
+      };
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://192.168.186.138/api/login', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          const response = JSON.parse(xhr.responseText);
+          console.log('登录响应：', response);
+          // 根据后端返回的响应进行相应的处理，例如跳转到其他页面或显示错误信息
+          if (response.success) {
+            location.href = 'dashboard.html';
+          } else {
+            alert('登录失败：' + response.message);
+          }
+        } else if (xhr.readyState === 4) {
+          console.error('登录请求失败，服务器无响应');
+        }
+      };
+      xhr.send(JSON.stringify(jsonData));
+    }
+
+    // 注册函数
+    function register() {
+      window.location.href = 'http://192.168.186.138/reg';
+    }
+  </script>
+</body>
+
+</html>

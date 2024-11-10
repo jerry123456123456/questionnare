@@ -64,9 +64,10 @@ private:
     int _HandleLoginRequest(string &url, string &post_data);
     // 用户加载表格
     int _HandleMytablesRequest(string &url, string &post_data);
-    //处理文件
+    //用户上传表格
     int _HandleUploadTableRequest(string &url, string &post_data);
-
+    //用户删除表格
+    int _HandleDeleteTableRequest(string &url,string &post_data);
 
 protected:
     net_handle_t m_sock_handle;

@@ -1,4 +1,4 @@
-// // g++ -g -I/home/jerry/Documents/tuchuang/tc-src/jsoncpp/ server.cpp -o server -ljsoncpp
+// // g++ -g -I/home/jerry/Documents/tuchuang/tc-src/jsoncpp/ server.cc -o server -ljsoncpp
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>

@@ -1,10 +1,12 @@
 #include"http_conn.h"
+#include "api/api_mytables.h"
 #include "api_deal_table.h"
 #include "api_login.h"
 #include"api_common.h"
 #include"api_register.h"
 #include"api_login.h"
 #include "dlog.h"
+#include"api_mytables.h"
 #include "http_parser_wrapper.h"
 
 static HttpConnMap_t g_http_conn_map;
@@ -203,11 +205,14 @@ void CHttpConn::OnRead(){
     http_parser_.ParseHttpContent(in_buf, buf_len); // 1. 从socket接口读取数据；2.然后把数据放到buffer in_buf; 3.http解析
     if(http_parser_.IsReadAll()){
         string url = http_parser_.GetUrl();
+        printf("%s\n",url.c_str());
         string content = http_parser_.GetBodyContent();
+        printf("%s\n",content.c_str());
         LogInfo("url: {}", url.c_str());
         if(strncmp(url.c_str(),"/api/reg",8) == 0){  //注册
             _HandleRegisterRequest(url, content);
         }else if(strncmp(url.c_str(), "/api/login", 10) == 0){ //登录
+            printf("login\n");
             _HandleLoginRequest(url, content);
         }else if(strncmp(url.c_str(), "/api/mytables", 14) == 0) { //用户下拉可以填的表格，cmd两种参数
             //count的意思是先获取表格的个数以及title；normal的意思是具体一个表的详细问题
@@ -255,35 +260,38 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
     }
 }
 
-///////////////////////////////////////////
+///////////////////////////////////////////这两个api使用线程池，其他不使用是保证互斥
     // 账号注册处理
-    int _HandleRegisterRequest(string &url, string &post_data){
+    int CHttpConn::_HandleRegisterRequest(string &url, string &post_data){
         g_thread_pool.Exec(ApiRegisterUser, uuid_, url, post_data);
         // 这里不应该再有数据了，
         return 0;
     }
 
-    // 账号登陆处理
+    // 账号登陆处理 
     int CHttpConn::_HandleLoginRequest(string &url, string &post_data)
     {
-        string str_json;
-        int ret = ApiUserLogin(url, post_data, str_json);
-        char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
-        uint32_t ulen = str_json.length();
-        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
-            str_json.c_str()); 	
-        ret = Send((void *)szContent, strlen(szContent));
+        g_thread_pool.Exec(ApiUserLogin, uuid_, url, post_data);
         return 0;
     }
 
+//////////////////////////////////////////
+
     // 用户加载表格
-    int _HandleMytablesRequest(string &url, string &post_data){
+    int CHttpConn::_HandleMytablesRequest(string &url, string &post_data){
         string str_json;
-        
+        int ret = ApiMyTables(url,post_data,str_json);
+        char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
+        uint32_t ulen = str_json.length();
+        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
+                str_json.c_str());
+        ret = Send((void *)szContent, strlen(szContent)); // 返回值暂时不做处理
+        delete[] szContent;
+        return 0;
     }
 
     //用户上传表格
-    int _HandleUploadTableRequest(string &url, string &post_data){
+    int CHttpConn::_HandleUploadTableRequest(string &url, string &post_data){
         string str_json;
         int ret = ApiUploadTable(url,post_data,str_json);
         char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
@@ -296,7 +304,7 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
     }
 
     //用户删除表格
-    int _HandleDeleteTableRequest(string &url,string &post_data){
+    int CHttpConn::_HandleDeleteTableRequest(string &url,string &post_data){
         string str_json;
         int ret = ApiDeleteTable(url,post_data,str_json);
         char *szContent = new char[HTTP_RESPONSE_HTML_MAX];

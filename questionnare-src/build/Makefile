@@ -129,6 +129,126 @@ qs_http_server/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/build
 .PHONY : qs_http_server/fast
 
+api/api_common.o: api/api_common.cc.o
+.PHONY : api/api_common.o
+
+# target to build an object file
+api/api_common.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_common.cc.o
+.PHONY : api/api_common.cc.o
+
+api/api_common.i: api/api_common.cc.i
+.PHONY : api/api_common.i
+
+# target to preprocess a source file
+api/api_common.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_common.cc.i
+.PHONY : api/api_common.cc.i
+
+api/api_common.s: api/api_common.cc.s
+.PHONY : api/api_common.s
+
+# target to generate assembly for a file
+api/api_common.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_common.cc.s
+.PHONY : api/api_common.cc.s
+
+api/api_deal_table.o: api/api_deal_table.cc.o
+.PHONY : api/api_deal_table.o
+
+# target to build an object file
+api/api_deal_table.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_deal_table.cc.o
+.PHONY : api/api_deal_table.cc.o
+
+api/api_deal_table.i: api/api_deal_table.cc.i
+.PHONY : api/api_deal_table.i
+
+# target to preprocess a source file
+api/api_deal_table.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_deal_table.cc.i
+.PHONY : api/api_deal_table.cc.i
+
+api/api_deal_table.s: api/api_deal_table.cc.s
+.PHONY : api/api_deal_table.s
+
+# target to generate assembly for a file
+api/api_deal_table.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_deal_table.cc.s
+.PHONY : api/api_deal_table.cc.s
+
+api/api_login.o: api/api_login.cc.o
+.PHONY : api/api_login.o
+
+# target to build an object file
+api/api_login.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_login.cc.o
+.PHONY : api/api_login.cc.o
+
+api/api_login.i: api/api_login.cc.i
+.PHONY : api/api_login.i
+
+# target to preprocess a source file
+api/api_login.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_login.cc.i
+.PHONY : api/api_login.cc.i
+
+api/api_login.s: api/api_login.cc.s
+.PHONY : api/api_login.s
+
+# target to generate assembly for a file
+api/api_login.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_login.cc.s
+.PHONY : api/api_login.cc.s
+
+api/api_mytables.o: api/api_mytables.cc.o
+.PHONY : api/api_mytables.o
+
+# target to build an object file
+api/api_mytables.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o
+.PHONY : api/api_mytables.cc.o
+
+api/api_mytables.i: api/api_mytables.cc.i
+.PHONY : api/api_mytables.i
+
+# target to preprocess a source file
+api/api_mytables.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_mytables.cc.i
+.PHONY : api/api_mytables.cc.i
+
+api/api_mytables.s: api/api_mytables.cc.s
+.PHONY : api/api_mytables.s
+
+# target to generate assembly for a file
+api/api_mytables.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_mytables.cc.s
+.PHONY : api/api_mytables.cc.s
+
+api/api_register.o: api/api_register.cc.o
+.PHONY : api/api_register.o
+
+# target to build an object file
+api/api_register.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.o
+.PHONY : api/api_register.cc.o
+
+api/api_register.i: api/api_register.cc.i
+.PHONY : api/api_register.i
+
+# target to preprocess a source file
+api/api_register.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.i
+.PHONY : api/api_register.cc.i
+
+api/api_register.s: api/api_register.cc.s
+.PHONY : api/api_register.s
+
+# target to generate assembly for a file
+api/api_register.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.s
+.PHONY : api/api_register.cc.s
+
 base/base_socket.o: base/base_socket.cpp.o
 .PHONY : base/base_socket.o
 
@@ -417,6 +537,102 @@ base/util_pdu.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/base/util_pdu.cc.s
 .PHONY : base/util_pdu.cc.s
 
+http_conn.o: http_conn.cc.o
+.PHONY : http_conn.o
+
+# target to build an object file
+http_conn.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/http_conn.cc.o
+.PHONY : http_conn.cc.o
+
+http_conn.i: http_conn.cc.i
+.PHONY : http_conn.i
+
+# target to preprocess a source file
+http_conn.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/http_conn.cc.i
+.PHONY : http_conn.cc.i
+
+http_conn.s: http_conn.cc.s
+.PHONY : http_conn.s
+
+# target to generate assembly for a file
+http_conn.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/http_conn.cc.s
+.PHONY : http_conn.cc.s
+
+jsoncpp/json_reader.o: jsoncpp/json_reader.cpp.o
+.PHONY : jsoncpp/json_reader.o
+
+# target to build an object file
+jsoncpp/json_reader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o
+.PHONY : jsoncpp/json_reader.cpp.o
+
+jsoncpp/json_reader.i: jsoncpp/json_reader.cpp.i
+.PHONY : jsoncpp/json_reader.i
+
+# target to preprocess a source file
+jsoncpp/json_reader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.i
+.PHONY : jsoncpp/json_reader.cpp.i
+
+jsoncpp/json_reader.s: jsoncpp/json_reader.cpp.s
+.PHONY : jsoncpp/json_reader.s
+
+# target to generate assembly for a file
+jsoncpp/json_reader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.s
+.PHONY : jsoncpp/json_reader.cpp.s
+
+jsoncpp/json_value.o: jsoncpp/json_value.cpp.o
+.PHONY : jsoncpp/json_value.o
+
+# target to build an object file
+jsoncpp/json_value.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o
+.PHONY : jsoncpp/json_value.cpp.o
+
+jsoncpp/json_value.i: jsoncpp/json_value.cpp.i
+.PHONY : jsoncpp/json_value.i
+
+# target to preprocess a source file
+jsoncpp/json_value.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.i
+.PHONY : jsoncpp/json_value.cpp.i
+
+jsoncpp/json_value.s: jsoncpp/json_value.cpp.s
+.PHONY : jsoncpp/json_value.s
+
+# target to generate assembly for a file
+jsoncpp/json_value.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.s
+.PHONY : jsoncpp/json_value.cpp.s
+
+jsoncpp/json_writer.o: jsoncpp/json_writer.cpp.o
+.PHONY : jsoncpp/json_writer.o
+
+# target to build an object file
+jsoncpp/json_writer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o
+.PHONY : jsoncpp/json_writer.cpp.o
+
+jsoncpp/json_writer.i: jsoncpp/json_writer.cpp.i
+.PHONY : jsoncpp/json_writer.i
+
+# target to preprocess a source file
+jsoncpp/json_writer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.i
+.PHONY : jsoncpp/json_writer.cpp.i
+
+jsoncpp/json_writer.s: jsoncpp/json_writer.cpp.s
+.PHONY : jsoncpp/json_writer.s
+
+# target to generate assembly for a file
+jsoncpp/json_writer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.s
+.PHONY : jsoncpp/json_writer.cpp.s
+
 main.o: main.cc.o
 .PHONY : main.o
 
@@ -642,6 +858,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... qs_http_server"
+	@echo "... api/api_common.o"
+	@echo "... api/api_common.i"
+	@echo "... api/api_common.s"
+	@echo "... api/api_deal_table.o"
+	@echo "... api/api_deal_table.i"
+	@echo "... api/api_deal_table.s"
+	@echo "... api/api_login.o"
+	@echo "... api/api_login.i"
+	@echo "... api/api_login.s"
+	@echo "... api/api_mytables.o"
+	@echo "... api/api_mytables.i"
+	@echo "... api/api_mytables.s"
+	@echo "... api/api_register.o"
+	@echo "... api/api_register.i"
+	@echo "... api/api_register.s"
 	@echo "... base/base_socket.o"
 	@echo "... base/base_socket.i"
 	@echo "... base/base_socket.s"
@@ -678,6 +909,18 @@ help:
 	@echo "... base/util_pdu.o"
 	@echo "... base/util_pdu.i"
 	@echo "... base/util_pdu.s"
+	@echo "... http_conn.o"
+	@echo "... http_conn.i"
+	@echo "... http_conn.s"
+	@echo "... jsoncpp/json_reader.o"
+	@echo "... jsoncpp/json_reader.i"
+	@echo "... jsoncpp/json_reader.s"
+	@echo "... jsoncpp/json_value.o"
+	@echo "... jsoncpp/json_value.i"
+	@echo "... jsoncpp/json_value.s"
+	@echo "... jsoncpp/json_writer.o"
+	@echo "... jsoncpp/json_writer.i"
+	@echo "... jsoncpp/json_writer.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
