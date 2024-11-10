@@ -62,35 +62,79 @@ std::string formatString2(const std::string &format, Args... args) {
                        buf.get() + size - 1); // We don't want the '\0' inside
 }
 
-int registerUser(string &user_name,string &pwd){
+// int registerUser(string &user_name, string &pwd) {
+//     int ret = 0;
+//     uint32_t user_id;
+//     CDBManager *db_manager = CDBManager::getInstance();
+//     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
+//     AUTO_REL_DBCONN(db_manager, db_conn);
+
+//     string str_sql;
+//     // 查询用户是否已存在的SQL语句
+//     printf("%s\n",user_name.c_str());
+//     str_sql = formatString2("select * from Users where user_name='%s'", user_name.c_str());
+//     CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
+//     if (result_set) {
+//         if (result_set->Next()) { 
+//             // 存在用户记录，返回错误码2
+//             LogWarn("id: {}, user_name: {}  已经存在", result_set->GetInt("id"), result_set->GetString("user_name"));
+//             return 2;
+//         }
+//         delete result_set;  // 释放result_set内存
+//     }
+//     // 如果用户不存在，则进行注册
+//     str_sql = "insert into Users (user_name, password) values (?,?)";
+//     LogInfo("执行: {}", str_sql);
+//     CPrepareStatement *stmt = new CPrepareStatement();
+//     if (stmt->Init(db_conn->GetMysql(), str_sql)) {
+//         uint32_t index = 0;
+//         stmt->SetParam(index++, user_name);
+//         stmt->SetParam(index++, pwd);
+//         // 执行注册插入语句
+//         bool bRet = stmt->ExecuteUpdate();
+//         if (bRet) {
+//             ret = 0;
+//             user_id = db_conn->GetInsertId();
+//             LogInfo("insert user_id: {}", user_id);
+//         } else {
+//             LogError("insert user_info failed. {}", str_sql);
+//             ret = 1;
+//         }
+//     }
+//     delete stmt;
+//     return ret;
+// }
+
+int registerUser(string &user_name, string &pwd) {
     int ret = 0;
     uint32_t user_id;
     CDBManager *db_manager = CDBManager::getInstance();
-    CDBConn *db_conn= db_manager->GetDBConn("qs_slave");
+    CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
     AUTO_REL_DBCONN(db_manager, db_conn);
 
     string str_sql;
-    str_sql = formatString2("select * from Users where user_name='%s'",
-                           user_name.c_str());
+    // 查询用户是否已存在的SQL语句
+    printf("%s\n",user_name.c_str());
+    str_sql = formatString2("select * from Users where user_name='%s'", user_name.c_str());
     CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
-    if (result_set && result_set->Next()) { // 检测是否存在用户记录
+
+    if(result_set && result_set->Next()){
         // 存在在返回
         LogWarn("id: {}, user_name: {}  已经存在", result_set->GetInt("id"), result_set->GetString("user_name"));
         delete result_set;
         ret = 2;
     }else{
-        //如果不存在则注册
-        str_sql = "insert into Users "
-         "(`user_name`,`password)"
-         "values(?,?)";
+        // 如果用户不存在，则进行注册
+        str_sql = "insert into Users (user_name, password) values (?,?)";
         LogInfo("执行: {}", str_sql);
-        //必须在释放连接之前delete
+
+        // 必须在释放连接前delete
+        // CPrepareStatement对象，否则有可能多个线程操作mysql对象，会crash
         CPrepareStatement *stmt = new CPrepareStatement();
         if(stmt->Init(db_conn->GetMysql(),str_sql)){
             uint32_t index = 0;
             stmt->SetParam(index++,user_name);
             stmt->SetParam(index++, pwd);
-            //执行注册插入语句
             bool bRet = stmt->ExecuteUpdate();
             if (bRet) {
                 ret = 0;
@@ -105,6 +149,7 @@ int registerUser(string &user_name,string &pwd){
     }
     return ret;
 }
+
 
 #define HTTP_RESPONSE_HTML                                                     \
     "HTTP/1.1 200 OK\r\n"                                                      \
@@ -151,6 +196,8 @@ END:
              str_json.c_str());
     str_json = str_content;
     CHttpConn::AddResponseData(conn_uuid, str_json);
-    delete str_content;
+    delete[] str_content;
+
+    return ret;
 }
 

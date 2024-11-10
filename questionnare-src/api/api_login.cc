@@ -43,6 +43,12 @@ int decodeLoginJson(const std::string &str_json, string &user_name,
     return 0;
 }
 
+/*
+{
+    "code":xxx,
+    "token":xxx,
+}
+*/
 // 封装登录结果的json
 int encodeLoginJson(int ret, string &token, string &str_json) {
     Json::Value root;
@@ -214,7 +220,7 @@ END:
              str_json.c_str());
     str_json = str_content;
     CHttpConn::AddResponseData(conn_uuid, str_json);
-    delete str_content;
+    delete[] str_content;
     
     return 0;
 }

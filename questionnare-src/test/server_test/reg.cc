@@ -1,4 +1,4 @@
-// // g++ -g -I/home/jerry/Documents/tuchuang/tc-src/jsoncpp/ server.cc -o server -ljsoncpp
+// // g++ -g -I/home/jerry/Documents/tuchuang/tc-src/jsoncpp/ reg.cc -o reg -ljsoncpp
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -57,6 +57,8 @@ int main() {
             continue;
         }
 
+        printf("成功建立连接\n");
+
         // 接收数据
         int valread = read(new_socket, buffer, BUFFER_SIZE);
 
@@ -90,6 +92,8 @@ int main() {
         Json::CharReaderBuilder builder;
         JSONCPP_STRING errs;
 
+        printf("%s\n",buffer);
+
         //到这里要先去掉头部信息
         char *body = strstr(buffer, "\r\n\r\n");
         if (body != NULL) {
@@ -101,8 +105,8 @@ int main() {
         bool parsingSuccessful = Json::parseFromStream(builder, stream, &root, &errs);
         if (parsingSuccessful) {
             std::cout << "Parsed JSON data:" << std::endl;
-            std::cout << "user: " << root["userName"].asString() << std::endl;
-            std::cout << "pwd: " << root["firstPwd"].asString() << std::endl;
+            std::cout << "userName: " << root["userName"].asString() << std::endl;
+            std::cout << "firstPwd: " << root["firstPwd"].asString() << std::endl;
 
             // 构造并发送回发响应数据
             Json::Value response;

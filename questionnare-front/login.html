@@ -96,33 +96,38 @@
       return CryptoJS.MD5(input).toString();
     }
 
-    // 登录函数
+    //登录函数
     function login() {
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
       const encryptedPassword = md5(password);
 
       const jsonData = {
-        "user": username,
-        "pwd": encryptedPassword
+          "user": username,
+          "pwd": encryptedPassword
       };
 
       const xhr = new XMLHttpRequest();
       xhr.open('POST', 'http://192.168.186.138/api/login', true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          const response = JSON.parse(xhr.responseText);
-          console.log('登录响应：', response);
-          // 根据后端返回的响应进行相应的处理，例如跳转到其他页面或显示错误信息
-          if (response.success) {
-            location.href = 'dashboard.html';
-          } else {
-            alert('登录失败：' + response.message);
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              const response = JSON.parse(xhr.responseText);
+              console.log('登录响应：', response);
+              // 判断返回的 code 值
+              if (response.code === 0) {
+                  alert('登录成功！' );
+                  // 登录成功，保存token到localStorage
+                  localStorage.setItem('token', response.token);
+                  // 登录成功后跳转到调查页面
+                  location.href = 'http://192.168.186.138/survey';
+              } else {
+                  // 登录失败，根据返回的 code 显示错误信息
+                  alert('登录失败：' + response.message);
+              }
+          } else if (xhr.readyState === 4) {
+              console.error('登录请求失败，服务器无响应');
           }
-        } else if (xhr.readyState === 4) {
-          console.error('登录请求失败，服务器无响应');
-        }
       };
       xhr.send(JSON.stringify(jsonData));
     }
