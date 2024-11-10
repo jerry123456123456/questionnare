@@ -57,6 +57,8 @@ int main() {
             continue;
         }
 
+        printf("连接建立成功\n");
+
         // 接收数据
         int valread = read(new_socket, buffer, BUFFER_SIZE);
 

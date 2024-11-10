@@ -1,0 +1,5 @@
+[2024-11-10 13:55:54.901][thread 6299][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-10 13:55:54.906][thread 6299][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-10 13:55:54.918][thread 6299][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:569,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-10 13:55:54.921][thread 6299][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-10 13:55:54.921][thread 6299][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...

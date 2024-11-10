@@ -3,7 +3,7 @@
 #include <string.h>
 #include <curl/curl.h>
 
-#define URL "http://192.168.186.138/api2/upload"
+#define URL "http://192.168.186.138/api/login"
 //#define URL "http://192.168.186.138:8081"
 
 // 要发送的 JSON 数据
