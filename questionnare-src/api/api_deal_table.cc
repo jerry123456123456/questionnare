@@ -155,8 +155,6 @@ string getQuestionIdListString(const vector<int>& question_ids) {
 }
 
 //这个函数功能是用户删除自己填写的表
-//但是，在mysql数据库中，能暴露给用户使用的表只有responses
-//但是由于调查问卷，用户只需要在全部填完之后才选择删除或者提交，所以向上的接口就这一个
 int handleDeleteTable(string user, string table_name) {
     CDBManager *db_manager = CDBManager::getInstance();
     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
