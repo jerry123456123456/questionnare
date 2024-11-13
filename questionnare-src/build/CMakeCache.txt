@@ -229,8 +229,14 @@ Protobuf_PROTOC_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libprotoc.so
 //Path to a library.
 Protobuf_PROTOC_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libprotoc.so
 
+//The directory containing a CMake configuration file for absl.
+absl_DIR:PATH=/usr/local/lib/cmake/absl
+
 //The directory containing a CMake configuration file for fmt.
 fmt_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/fmt
+
+//The directory containing a CMake configuration file for gRPC.
+gRPC_DIR:PATH=/usr/local/lib/cmake/grpc
 
 //Value Computed by CMake
 qs_http_server_BINARY_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src/build

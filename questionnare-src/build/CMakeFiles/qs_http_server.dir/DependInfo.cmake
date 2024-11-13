@@ -19,6 +19,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc" "CMakeFiles/qs_http_server.dir/api/api_login.cc.o" "gcc" "CMakeFiles/qs_http_server.dir/api/api_login.cc.o.d"
   "/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc" "CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o" "gcc" "CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o.d"
   "/home/jerry/Desktop/questionnare/questionnare-src/api/api_register.cc" "CMakeFiles/qs_http_server.dir/api/api_register.cc.o" "gcc" "CMakeFiles/qs_http_server.dir/api/api_register.cc.o.d"
+  "/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc" "CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o" "gcc" "CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o.d"
   "/home/jerry/Desktop/questionnare/questionnare-src/api/api_unreg.cc" "CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o" "gcc" "CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o.d"
   "/home/jerry/Desktop/questionnare/questionnare-src/base/base_socket.cpp" "CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o" "gcc" "CMakeFiles/qs_http_server.dir/base/base_socket.cpp.o.d"
   "/home/jerry/Desktop/questionnare/questionnare-src/base/config_file_reader.cpp" "CMakeFiles/qs_http_server.dir/base/config_file_reader.cpp.o" "gcc" "CMakeFiles/qs_http_server.dir/base/config_file_reader.cpp.o.d"

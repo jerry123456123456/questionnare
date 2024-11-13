@@ -1,5 +1,6 @@
 #include"http_conn.h"
-#include "api/api_mytables.h"
+#include "api_mytables.h"
+#include"api_root_tables.h"
 #include "api_deal_table.h"
 #include "api_login.h"
 #include"api_common.h"
@@ -225,7 +226,9 @@ void CHttpConn::OnRead(){
             _HandleUploadTableRequest(url, content);
         }else if(strncmp(url.c_str(), "/api/delete", 10) == 0){
             _HandleDeleteTableRequest(url,content);
-        }else {
+        }else if(strncmp(url.c_str(),"/api/root/tables",16) == 0){
+            _HandleRootTableRequest(url,content);
+        } else{
             LogError("url unknown, url= {}", url);
             Close();
         }
@@ -323,6 +326,19 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
     int CHttpConn::_HandleDeleteTableRequest(string &url,string &post_data){
         string str_json;
         int ret = ApiDeleteTable(url,post_data,str_json);
+        char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
+        uint32_t ulen = str_json.length();
+        snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,
+                str_json.c_str());
+        ret = Send((void *)szContent, strlen(szContent)); // 返回值暂时不做处理
+        delete[] szContent;
+        return 0;
+    }
+
+    //root用户加载表格
+    int CHttpConn::_HandleRootTableRequest(string &url,string &post_data){
+        string str_json;
+        int ret = ApiRootTables(url,post_data,str_json);
         char *szContent = new char[HTTP_RESPONSE_HTML_MAX];
         uint32_t ulen = str_json.length();
         snprintf(szContent, HTTP_RESPONSE_HTML_MAX, HTTP_RESPONSE_HTML, ulen,

@@ -249,6 +249,30 @@ api/api_register.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.s
 .PHONY : api/api_register.cc.s
 
+api/api_root_tables.o: api/api_root_tables.cc.o
+.PHONY : api/api_root_tables.o
+
+# target to build an object file
+api/api_root_tables.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o
+.PHONY : api/api_root_tables.cc.o
+
+api/api_root_tables.i: api/api_root_tables.cc.i
+.PHONY : api/api_root_tables.i
+
+# target to preprocess a source file
+api/api_root_tables.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.i
+.PHONY : api/api_root_tables.cc.i
+
+api/api_root_tables.s: api/api_root_tables.cc.s
+.PHONY : api/api_root_tables.s
+
+# target to generate assembly for a file
+api/api_root_tables.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.s
+.PHONY : api/api_root_tables.cc.s
+
 api/api_unreg.o: api/api_unreg.cc.o
 .PHONY : api/api_unreg.o
 
@@ -897,6 +921,9 @@ help:
 	@echo "... api/api_register.o"
 	@echo "... api/api_register.i"
 	@echo "... api/api_register.s"
+	@echo "... api/api_root_tables.o"
+	@echo "... api/api_root_tables.i"
+	@echo "... api/api_root_tables.s"
 	@echo "... api/api_unreg.o"
 	@echo "... api/api_unreg.i"
 	@echo "... api/api_unreg.s"

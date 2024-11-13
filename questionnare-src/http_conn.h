@@ -71,6 +71,9 @@ private:
     //用户删除表格
     int _HandleDeleteTableRequest(string &url,string &post_data);
 
+    //root用户加载表格
+    int _HandleRootTableRequest(string &url,string &post_data);
+
 protected:
     net_handle_t m_sock_handle;
     uint32_t conn_handle_;

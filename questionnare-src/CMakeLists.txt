@@ -52,12 +52,13 @@ find_package(Threads REQUIRED)  # 如果需要多线程支持
 find_package(fmt REQUIRED)       # fmt 库
 find_package(spdlog REQUIRED)   # spdlog 库
 find_package(Protobuf REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
 
 # 添加可执行文件
 add_executable(qs_http_server ${SRC_LIST} ${BASE_LIST} ${MYSQL_LIST} ${REDIS_LIST} ${API_LIST} ${LOG_LIST} ${JSON_LIST})
 
 # 链接库
-target_link_libraries(qs_http_server pthread mysqlclient fmt::fmt spdlog::spdlog protobuf::libprotobuf ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(qs_http_server pthread mysqlclient fmt::fmt spdlog::spdlog  gRPC::grpc++ gRPC::grpc++_reflection protobuf::libprotobuf ${CMAKE_THREAD_LIBS_INIT})
 
 # 如果有其他库，比如你的 CDBManager 和 DLog 相关的实现文件，记得在这里添加它们
 # target_sources(mysql_test PRIVATE your_other_sources.cpp)
