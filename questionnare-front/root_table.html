@@ -24,7 +24,7 @@
     }
 
     /* 问卷容器样式 */
-   .survey-container {
+    .survey-container {
       background-color: rgba(255, 255, 255, 0.8);
       padding: 20px;
       border-radius: 5px;
@@ -38,38 +38,68 @@
       text-align: center;
     }
 
-   .question {
+    .question {
       margin-bottom: 20px;
     }
 
-   .question-text {
+    .question-text {
       font-weight: bold;
     }
 
-   .options {
+    .options {
       margin-top: 10px;
     }
 
-   .option {
+    .option {
       margin-bottom: 5px;
+      display: flex;
+      align-items: center;
     }
 
-   .option-text {
+    .option-text {
       margin-left: 20px;
     }
 
-   .option-count {
-      float: right;
+    .option-bar {
+      height: 20px;
+      background-color: #4CAF50;
+      margin-left: 10px;
     }
 
-   .fill-in-answer {
+    .option-count {
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    .fill-in-answer {
       margin-left: 20px;
       margin-bottom: 5px;
+    }
+
+    /* 右上角区域样式，用于放置用户名和退出登录按钮 */
+    #header-right {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #f44336;
+      color: white;
+      cursor: pointer;
     }
   </style>
 </head>
 
 <body>
+  <div id="header-right">
+    <button id="logout-btn">退出</button>
+  </div>
   <div class="survey-container" id="survey-container">
     <!-- 问卷标题将动态插入此处 -->
     <h2 id="survey-title"></h2>
@@ -77,6 +107,13 @@
   </div>
 
   <script>
+    // 获取退出登录按钮元素
+    const logoutBtn = document.getElementById('logout-btn');
+    logoutBtn.addEventListener('click', function () {
+      // 点击按钮后跳转到登录页面
+      window.location.href = 'http://192.168.186.138/root';
+    });
+
     // 从本地存储获取之前保存的问卷名称
     const tableName = localStorage.getItem('table_name');
     if (tableName) {
@@ -104,9 +141,11 @@
               questionTextElement.textContent = `${index + 1}. ${question.question_text}`;
               questionDiv.appendChild(questionTextElement);
 
-              if (question.question_type === "单选" || question.question_type === "多选") {
+              if (question.question_type === "single_choice" || question.question_type === "multiple_choice") {
                 const optionsDiv = document.createElement('div');
                 optionsDiv.classList.add('options');
+                const maxCount = Math.max(...question.options.map(option => option.option_count)); // 获取最大的选择次数
+
                 question.options.forEach((option) => {
                   const optionDiv = document.createElement('div');
                   optionDiv.classList.add('option');
@@ -114,14 +153,22 @@
                   optionTextElement.classList.add('option-text');
                   optionTextElement.textContent = option.option_text;
                   optionDiv.appendChild(optionTextElement);
+
+                  // 创建柱形图
+                  const optionBar = document.createElement('div');
+                  optionBar.classList.add('option-bar');
+                  optionBar.style.width = `${(option.option_count / maxCount) * 100}%`; // 根据最大选择次数计算宽度
+                  optionDiv.appendChild(optionBar);
+
                   const optionCountElement = document.createElement('span');
                   optionCountElement.classList.add('option-count');
-                  optionCountElement.textContent = ` (选择次数: ${option.option_count})`;
+                  optionCountElement.textContent = `选择次数: ${option.option_count}`;
                   optionDiv.appendChild(optionCountElement);
+
                   optionsDiv.appendChild(optionDiv);
                 });
                 questionDiv.appendChild(optionsDiv);
-              } else if (question.question_type === "填空") {
+              } else if (question.question_type === "fill_in") {
                 const answersDiv = document.createElement('div');
                 question.options[0].option_texts.forEach((answer) => {
                   const answerElement = document.createElement('p');

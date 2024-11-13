@@ -64,9 +64,12 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     int user_id;
     int question_id;
     int survey_id;
+    int option_id;
+
+    string question_text;
     
     //由于前端界面中题目单选题的答案必定是a,b,c,d所以没有必要判断类型是否一致
-    //直接插入便是，先从user获取user_id,再从questionname获取question_id，最后结合answer插入responses表
+    //直接插入便是，先从user获取user_id,再从questionname获取question_id，再从option中获取option_id，最后结合answer插入responses表
     sprintf(sql_cmd,"select user_id from Users where user_name = '%s'",user.c_str());
     CResultSet *result_set = db_conn->ExecuteQuery(sql_cmd);
     if (result_set && result_set->Next()) {
@@ -93,26 +96,51 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
 
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
-    sprintf(sql_cmd, "select question_id from Questions where question_text = '%s' and survey_id = '%d'", questionname.c_str(), survey_id);
+    sprintf(sql_cmd, "select question_id,question_text from Questions where question_text = '%s' and survey_id = '%d'", questionname.c_str(), survey_id);
     result_set = db_conn->ExecuteQuery(sql_cmd);
     if (result_set && result_set->Next()) {
         //从结果获取到user_id
         question_id = result_set->GetInt("question_id");
+        question_text = result_set->GetString("question_text");
         ret = 0;
     }else{
         ret = -1;
     }
     delete result_set;
 
+    //根据answer获取option_id
+    if(question_text != "fill_in_blank"){  //如果不是填空题
+        sprintf(sql_cmd, "select option_id from Options where option_text = '%s' and question_id = '%d'",answer.c_str(),question_id);
+        result_set = db_conn->ExecuteQuery(sql_cmd);
+        if (result_set && result_set->Next()) {
+            //从结果获取到user_id
+            option_id = result_set->GetInt("option_id");
+            ret = 0;
+        }else{
+            ret = -1;
+        }
+        delete result_set;
+    }
+
     //到这里为止question_id和user_id获取成功
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
-    //插入数据库
-    sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)",question_id,user_id,answer.c_str(),survey_id);
-    if(!db_conn->ExecuteCreate(sql_cmd)){
-        //执行插入语句
-        LogError("{} 操作失败", sql_cmd);
-        return -1;
+    if(question_text != "fill_in_blank"){
+        //插入数据库
+        sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id,option_id) values (%d,%d,'%s',%d,%d)",question_id,user_id,answer.c_str(),survey_id,option_id);
+        if(!db_conn->ExecuteCreate(sql_cmd)){
+            //执行插入语句
+            LogError("{} 操作失败", sql_cmd);
+            return -1;
+        }
+    }else{
+        //插入数据库
+        sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)",question_id,user_id,answer.c_str(),survey_id);
+        if(!db_conn->ExecuteCreate(sql_cmd)){
+            //执行插入语句
+            LogError("{} 操作失败", sql_cmd);
+            return -1;
+        }
     }
 
     //简单起见，每次都更新is_filled字段为1

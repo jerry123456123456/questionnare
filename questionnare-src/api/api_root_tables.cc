@@ -154,65 +154,46 @@ int getRootTableList(std::string &str_json){
 */
 /*
 {
-    "code":0,
-    "survey_title":"调查问卷标题示例",
-    "total_questions":3,
-    "questions":[
+    "code": 0,
+    "questions": [
         {
-            "question_text":"你最喜欢的颜色是什么？",
-            "question_type":"单选",
-            "options": [
-            {
-                "option_text":"红色"，
-                "option_count":10,
-            },
-            {
-                "option_text": "蓝色"
-                "option_count":6,
-            },
-            {
-                "option_text": "绿色",
-                "option_count":1,
-            }
-            ]
-        },
-        {
-            "question_text": "你平时的兴趣爱好有哪些？",
-            "question_type": "多选",
             "options": [
                 {
-                    "option_text": "阅读",
-                    "option_count":13,
+                    "option_count": 0,
+                    "option_text": "选项A（问题2）"
                 },
                 {
-                    "option_text": "运动",
-                    "option_count":12,
+                    "option_count": 0,
+                    "option_text": "选项B（问题2）"
                 },
                 {
-                    "option_text": "绘画",
-                    "option_count":7,
-                },
-                {
-                    "option_text": "音乐",
-                    "option_count":15,
+                    "option_count": 2,
+                    "option_text": "选项C（问题2）"
                 }
-            ]
+            ],
+            "question_text": "问题1，这是一个单选题",
+            "question_type": "single_choice"
         },
         {
-            "question_text": "请填写你所在的城市",
-            "question_type": "填空",
             "options": [
-                option_texts:[
-                    {
-                        "option_text":"大连"
-                    },
-                    {
-                        "option_text":"北京"
-                    }
-                ]
-            ] 
-        },
-    ]
+                {
+                    "option_count": 2,
+                    "option_text": "选项A（问题2）"
+                },
+                {
+                    "option_count": 2,
+                    "option_text": "选项B（问题2）"
+                },
+                {
+                    "option_count": 2,
+                    "option_text": "选项C（问题2）"
+                }
+            ],
+            "question_text": "问题2，这是一个多选题",
+            "question_type": "multiple_choice"
+        }
+    ],
+    "survey_title": "通用问卷标题",
 }
 */
 int getRootTable(string &table_name, string &str_json) {
@@ -224,109 +205,122 @@ int getRootTable(string &table_name, string &str_json) {
     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
     AUTO_REL_DBCONN(db_manager, db_conn);
 
-    // 1. 查询 Surveys 表，查找给定 table_name 的 survey_id 和 user_id
-    str_sql = FormatString3("SELECT survey_id, user_id FROM Surveys WHERE title = '%s'", table_name.c_str());
+    // 先根据 title 在 Surveys 表中查询 survey_id 和 user_id
+    int survey_id = 0;
+    str_sql = FormatString3("SELECT survey_id FROM Surveys WHERE title = '%s' AND user_id = 1", table_name.c_str());
     CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
-    if (result_set == nullptr || !result_set->Next()) {
-        LogError("No surveys found for table_name: %s", table_name.c_str());
-        return -1;  // 没有找到匹配的调查问卷
+    if (result_set && result_set->Next()) {
+        survey_id = result_set->GetInt("survey_id");
+    } else {
+        return -1;  // 没有找到相应的 survey_id
     }
+    delete result_set;
 
-    vector<int> survey_ids;
-    vector<int> user_ids;
-    do {
-        int survey_id = result_set->GetInt("survey_id");
-        survey_ids.push_back(survey_id);
-        int user_id = result_set->GetInt("user_id");
-        user_ids.push_back(user_id);
-    } while (result_set->Next());
-
-    // 2. 查询 Questions 表，根据 survey_id 查找所有问题
     Json::Value root;
-    root["code"] = 0;  // 返回码，成功
-    root["survey_title"] = table_name.c_str(); 
-    root["total_questions"] = Json::UInt(survey_ids.size());  // 显式转换为 Json::UInt 类型
+    root["code"] = 0;
+    root["survey_title"] = table_name;
 
-    Json::Value questions(Json::arrayValue);
-    for (int survey_id : survey_ids) {
-        str_sql = FormatString3("SELECT question_id, question_text, question_type FROM Questions WHERE survey_id = %d", survey_id);
-        result_set = db_conn->ExecuteQuery(str_sql.c_str());
-        if (result_set == nullptr) {
-            LogError("Failed to fetch questions for survey_id: %d", survey_id);
-            return -1;
-        }
+    Json::Value questions(Json::arrayValue);  // 存储所有问题
 
-        // 3. 对于每个问题，查询 Options 表获取选项信息
-        Json::Value questions_list(Json::arrayValue);
-        while (result_set->Next()) {
-            int question_id = result_set->GetInt("question_id");
-            string question_text = result_set->GetString("question_text");
-            string question_type = result_set->GetString("question_type");
+    // 查询 Questions 表，获取该 survey_id 下的所有问题
+    str_sql = FormatString3("SELECT question_id, question_text, question_type FROM Questions WHERE survey_id = %d", survey_id);
+    result_set = db_conn->ExecuteQuery(str_sql.c_str());
+    while (result_set->Next()) {
+        int question_id = result_set->GetInt("question_id");
+        string question_text = result_set->GetString("question_text");
+        string question_type = result_set->GetString("question_type");
 
-            Json::Value question;
-            question["question_text"] = question_text;
-            question["question_type"] = question_type;
+        Json::Value question;
+        question["question_text"] = question_text;
+        question["question_type"] = question_type;
 
-            // 查询 Options 表，获取选项信息
+        if (question_type != "fill_in_blank") {  // 选择题
+            // 查询选项
             str_sql = FormatString3("SELECT option_id, option_text FROM Options WHERE question_id = %d", question_id);
             CResultSet *options_result = db_conn->ExecuteQuery(str_sql.c_str());
             Json::Value options(Json::arrayValue);
-            map<string, int> option_count_map;
+            map<int, int> option_count_map;  // 用于统计每个选项的选中数量
 
+            // 初始化选项计数
             while (options_result->Next()) {
                 string option_text = options_result->GetString("option_text");
+                printf("%s\n",option_text.c_str());
+                int option_id = options_result->GetInt("option_id");
+                printf("%d\n",option_id);
                 Json::Value option;
                 option["option_text"] = option_text;
                 options.append(option);
-                option_count_map[option_text] = 0;  // 初始化选项的计数
-            }
 
-            // 如果是单选或多选题，统计每个选项的回答数量
-            if (question_type != "填空") {
-                // 查询 Answers 表，统计每个选项的选中数量
-                for (const auto& user_id : user_ids) {
-                    str_sql = FormatString3("SELECT answer FROM Answers WHERE survey_id = %d AND question_id = %d AND user_id = %d", survey_id, question_id, user_id);
-                    CResultSet *answers_result = db_conn->ExecuteQuery(str_sql.c_str());
-                    while (answers_result->Next()) {
-                        string answer = answers_result->GetString("answer");
-                        if (option_count_map.find(answer) != option_count_map.end()) {
-                            option_count_map[answer]++;  // 选项的计数加1
+                // 初始化选项计数
+                option_count_map[option_id] = 0;
+
+                // 查询 Responses 表，统计选项的选中数量
+                str_sql = FormatString3("SELECT option_id FROM Responses WHERE answer = '%s'", option_text.c_str());
+                CResultSet *responses_result = db_conn->ExecuteQuery(str_sql.c_str());
+                while (responses_result->Next()) {
+                    //这是用户的
+                    int option_id = responses_result->GetInt("option_id");
+                    str_sql = FormatString3("SELECT root_option_id FROM Options WHERE option_id = '%d'", option_id);
+                    CResultSet *responses_result1 = db_conn->ExecuteQuery(str_sql.c_str());
+                    //只会有一条结果
+                    if(responses_result1->Next()){
+                        int root_option_id =  responses_result1->GetInt("root_option_id");
+                        // 只统计选项计数
+                        if (option_count_map.find(root_option_id) != option_count_map.end()) {
+                            option_count_map[root_option_id]++;
                         }
                     }
+                    delete responses_result1;          
                 }
-
-                // 将计数结果添加到 options 中
-                for (auto& option : options) {
-                    string option_text = option["option_text"].asString();
-                    option["option_count"] = option_count_map[option_text];
-                }
+                delete responses_result;
             }
+            delete options_result;
 
+            // 更新选项的计数信息
+            for (auto& option : options) {
+                string option_text = option["option_text"].asString();
+                int option_id = 0;  // 获取 option_id
+                str_sql = FormatString3("SELECT option_id FROM Options WHERE option_text = '%s' AND question_id = %d", option_text.c_str(), question_id);
+                CResultSet *id_result = db_conn->ExecuteQuery(str_sql.c_str());
+                if (id_result && id_result->Next()) {
+                    option_id = id_result->GetInt("option_id");
+                }
+                option["option_count"] = option_count_map[option_id];
+                delete id_result;
+            }
             question["options"] = options;
 
-            // 4. 处理填空题：如果是填空题，我们仅记录用户的回答
-            if (question_type == "填空") {
-                Json::Value fill_in_answers(Json::arrayValue);
-                for (const auto& user_id : user_ids) {
-                    str_sql = FormatString3("SELECT answer FROM Answers WHERE survey_id = %d AND question_id = %d AND user_id = %d", survey_id, question_id, user_id);
-                    CResultSet *answers_result = db_conn->ExecuteQuery(str_sql.c_str());
-                    while (answers_result->Next()) {
-                        string answer = answers_result->GetString("answer");
-                        Json::Value ans;
-                        ans["answer_text"] = answer;
-                        fill_in_answers.append(ans);
-                    }
-                }
-                question["answers"] = fill_in_answers;
+        } else {  // 填空题
+            str_sql = FormatString3("SELECT root_question_id FROM Questions WHERE question_id = %d", question_id);
+            CResultSet *root_question_result = db_conn->ExecuteQuery(str_sql.c_str());
+            int root_question_id = 0;
+            if (root_question_result && root_question_result->Next()) {
+                root_question_id = root_question_result->GetInt("root_question_id");
             }
+            delete root_question_result;
 
-            questions_list.append(question);
+            // 查询所有根问题的回答
+            str_sql = FormatString3("SELECT answer FROM Responses WHERE question_id = %d", root_question_id);
+            CResultSet *fill_in_result = db_conn->ExecuteQuery(str_sql.c_str());
+            Json::Value fill_in_answers(Json::arrayValue);
+            while (fill_in_result->Next()) {
+                string answer = fill_in_result->GetString("answer");
+                Json::Value ans;
+                ans["answer_text"] = answer;
+                fill_in_answers.append(ans);
+            }
+            delete fill_in_result;
+
+            question["answers"] = fill_in_answers;
         }
 
-        root["questions"] = questions_list;
+        questions.append(question);  // 添加到问题列表
     }
+    delete result_set;
 
-    // 5. 返回 JSON 数据
+    root["questions"] = questions;  // 将所有问题添加到 root 中
+
+    // 返回 JSON 数据
     Json::FastWriter writer;
     str_json = writer.write(root);
     return 0;

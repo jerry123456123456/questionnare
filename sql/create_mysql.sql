@@ -1,32 +1,88 @@
-
+--source /home/jerry/Desktop/questionnare/sql/create_mysql.sql;
 USE survey_system;
 
--- 创建一个问卷
-INSERT INTO Surveys (title, user_id,) VALUES ('Sample Survey', 2);
-INSERT INTO Surveys (title, user_id ) VALUES ('Sample Survey', 3);
+-- 查询root、jerry和tom的user_id
+SET @root_id := (SELECT user_id FROM Users WHERE user_name = 'root');
+SET @jerry_id := (SELECT user_id FROM Users WHERE user_name = 'jerry');
+SET @tom_id := (SELECT user_id FROM Users WHERE user_name = 'tom');
 
--- 获取刚刚创建的问卷的 survey_id
-SET @survey_id_tom = (SELECT survey_id FROM Surveys WHERE user_id = 3 ORDER BY survey_id DESC LIMIT 1);
-SET @survey_id_jerry = (SELECT survey_id FROM Surveys WHERE user_id = 2 ORDER BY survey_id DESC LIMIT 1);
+-- 向Surveys表插入同一个问卷名的三条记录（分别关联root、jerry和tom的user_id）
+INSERT INTO Surveys (title, user_id)
+VALUES
+('通用问卷标题', @root_id),
+('通用问卷标题', @jerry_id),
+('通用问卷标题', @tom_id);
 
--- 创建一个问题
-INSERT INTO Questions (survey_id, question_text, question_type) VALUES (@survey_id_tom, 'What is your favorite color?', 'single_choice');
-INSERT INTO Questions (survey_id, question_text, question_type) VALUES (@survey_id_jerry, 'What is your favorite color?', 'single_choice');
+-- 获取刚刚插入的三条记录对应的survey_id（使用MySQL的LAST_INSERT_ID函数结合偏移来准确获取，假设按插入顺序依次获取对应值）
+SET @survey_id_1 := LAST_INSERT_ID();
+SET @survey_id_2 := LAST_INSERT_ID() + 1;
+SET @survey_id_3 := LAST_INSERT_ID() + 2;
 
--- 获取刚刚创建的问题的 question_id
-SET @question_id_tom = (SELECT question_id FROM Questions ORDER BY question_id DESC LIMIT 1);
-SET @question_id_jerry = (SELECT question_id FROM Questions WHERE survey_id = @survey_id_jerry ORDER BY question_id DESC LIMIT 1);
+-- 向Questions表插入相同的问题（这里示例插入两个不同类型的问题，你可以根据需求修改）
+INSERT INTO Questions (survey_id, question_text, question_type)
+VALUES
+-- 针对第一个survey_id插入问题
+(@survey_id_1, '问题1，这是一个单选题', 'single_choice'),
+(@survey_id_1, '问题2，这是一个多选题', 'multiple_choice'),
+-- 针对第二个survey_id插入相同的问题
+(@survey_id_2, '问题1，这是一个单选题', 'single_choice'),
+(@survey_id_2, '问题2，这是一个多选题', 'multiple_choice'),
+-- 针对第三个survey_id插入相同的问题
+(@survey_id_3, '问题1，这是一个单选题', 'single_choice'),
+(@survey_id_3, '问题2，这是一个多选题', 'multiple_choice');
 
--- 创建选项
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_tom, 'Red');
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_tom, 'Blue');
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_tom, 'Green');
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_jerry, 'Red');
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_jerry, 'Blue');
-INSERT INTO Options (question_id, option_text) VALUES (@question_id_jerry, 'Green');
+-- 获取刚刚插入的属于第一个survey_id的问题的question_id（使用LAST_INSERT_ID函数结合偏移准确获取）
+SET @question_id_1_1 := LAST_INSERT_ID() - 1; -- 对应第一个survey_id的第一个问题（单选题）
+SET @question_id_1_2 := LAST_INSERT_ID(); -- 对应第一个survey_id的第二个问题（多选题）
 
--- 创建回答表数据（假设 tom 用户回答）
-INSERT INTO Responses (survey_id, question_id, user_id, answer) VALUES (@survey_id_tom, @question_id_tom, 2, 'Blue');
+-- 获取刚刚插入的属于第二个survey_id的问题的question_id
+SET @question_id_2_1 := LAST_INSERT_ID() + 1; -- 对应第二个survey_id的第一个问题（单选题）
+SET @question_id_2_2 := LAST_INSERT_ID() + 2; -- 对应第二个survey_id的第二个问题（多选题）
 
--- 创建回答表数据（假设 jerry 用户回答）
-INSERT INTO Responses (survey_id, question_id, user_id, answer) VALUES (@survey_id_jerry, @question_id_jerry, 3, 'Red');
+-- 获取刚刚插入的属于第三个survey_id的问题的question_id
+SET @question_id_3_1 := LAST_INSERT_ID() + 3; -- 对应第三个survey_id的第一个问题（单选题）
+SET @question_id_3_2 := LAST_INSERT_ID() + 4; -- 对应第三个survey_id的第二个问题（多选题）
+
+-- 向Options表插入对应单选题和多选题的选项（以下示例每个问题插入3个选项，可按需调整）
+
+-- 为第一个survey_id的单选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_1_1, '选项A（问题1）'),
+(@question_id_1_1, '选项B（问题1）'),
+(@question_id_1_1, '选项C（问题1）');
+
+-- 为第一个survey_id的多选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_1_2, '选项A（问题2）'),
+(@question_id_1_2, '选项B（问题2）'),
+(@question_id_1_2, '选项C（问题2）');
+
+-- 为第二个survey_id的单选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_2_1, '选项A（问题1）'),
+(@question_id_2_1, '选项B（问题1）'),
+(@question_id_2_1, '选项C（问题1）');
+
+-- 为第二个survey_id的多选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_2_2, '选项A（问题2）'),
+(@question_id_2_2, '选项B（问题2）'),
+(@question_id_2_2, '选项C（问题2）');
+
+-- 为第三个survey_id的单选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_3_1, '选项A（问题1）'),
+(@question_id_3_1, '选项B（问题1）'),
+(@question_id_3_1, '选项C（问题1）');
+
+-- 为第三个survey_id的多选题插入选项
+INSERT INTO Options (question_id, option_text)
+VALUES
+(@question_id_3_2, '选项A（问题2）'),
+(@question_id_3_2, '选项B（问题2）'),
+(@question_id_3_2, '选项C（问题2）');
