@@ -265,7 +265,7 @@ struct SurveyData {
     vector<Question> questions;
 };
 */
-int createTables(SurveyData &surveydata, string str_json) {
+int createTables(SurveyData &surveydata, string &str_json) {
     int ret = 0;
     string str_sql;
     CDBManager *db_manager = CDBManager::getInstance();
@@ -504,8 +504,10 @@ int createTables(SurveyData &surveydata, string str_json) {
     }
 
     // 返回 JSON 数据（原代码中这部分逻辑可根据实际需求进一步完善，比如构建合适的Json内容等）
-    encodeCountJson3(0, str_json);
-    return 0;
+    Json::Value value;
+    value["code"] = (ret == 0)? 0 : 1;
+    str_json = value.toStyledString();
+    return ret;
 }
 
 int ApiRootTableCreate(string &url,string &post_data,string &str_json){

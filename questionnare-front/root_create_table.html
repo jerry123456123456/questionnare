@@ -312,7 +312,12 @@
       xhrSubmit.setRequestHeader('Content-Type', 'application/json');
       xhrSubmit.onreadystatechange = function () {
         if (xhrSubmit.readyState === 4 && xhrSubmit.status === 200) {
-          console.log('问卷提交成功');
+          const response = JSON.parse(xhrSubmit.responseText);
+          if (response.code === 0) {
+            window.location.href = 'http://192.168.186.138/root';
+          } else {
+            console.error('问卷提交失败，后端返回错误码：', response.code);
+          }
         } else if (xhrSubmit.readyState === 4) {
           console.error('问卷提交失败', '服务器无响应');
         }

@@ -72,26 +72,27 @@ int deleteRootTable(std::string &table_name, std::string str_json) {
     CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set->Next()) {
         survey_id = result_set->GetInt("survey_id");
-        // 删除Surveys表中对应记录
-        str_sql = FormatString4("DELETE FROM Surveys WHERE survey_id = %d", survey_id);
-        if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
-            encodeCountJson2(1, str_json);
-            return -1;
-        }
 
-        // 接下来删除Questions
+        // 先删除Responses表中对应记录
+        str_sql = FormatString4("SELECT response_id FROM Responses WHERE survey_id = %d", survey_id);
+        int response_id = 0;
+        CResultSet *response_set = db_conn->ExecuteQuery(str_sql.c_str());
+        while (response_set->Next()) {
+            response_id = response_set->GetInt("response_id");
+            str_sql = FormatString4("DELETE FROM Responses WHERE response_id = %d", response_id);
+            if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+                encodeCountJson2(1, str_json);
+                return -1;
+            }
+        }
+        delete response_set;
+
+        // 接着删除Options表中对应记录
         str_sql = FormatString4("SELECT question_id FROM Questions WHERE survey_id = %d", survey_id);
         int question_id = 0;
         CResultSet *question_set = db_conn->ExecuteQuery(str_sql.c_str());
         while (question_set->Next()) {
             question_id = question_set->GetInt("question_id");
-            str_sql = FormatString4("DELETE FROM Questions WHERE question_id = %d", question_id);
-            if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
-                encodeCountJson2(1, str_json);
-                return -1;
-            }
-
-            // 接下来删除Option，修正查询语句表名错误，从Options表查询option_id
             str_sql = FormatString4("SELECT option_id FROM Options WHERE question_id = %d", question_id);
             int option_id = 0;
             CResultSet *option_set = db_conn->ExecuteQuery(str_sql.c_str());
@@ -102,34 +103,36 @@ int deleteRootTable(std::string &table_name, std::string str_json) {
                     encodeCountJson2(1, str_json);
                     return -1;
                 }
-
-                // 添加对option_set的delete，释放资源
-                delete option_set;
-
-                // 最后删除Responses
-                int response_id = 0;
-                str_sql = FormatString4("SELECT response_id FROM Responses WHERE survey_id = %d and question_id = %d and option_id = %d", survey_id, question_id, option_id);
-                CResultSet *response_set = db_conn->ExecuteQuery(str_sql.c_str());
-                while (response_set->Next()) {
-                    response_id = response_set->GetInt("response_id");
-                    str_sql = FormatString4("DELETE FROM Responses WHERE response_id = %d", response_id);
-                    if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
-                        encodeCountJson2(1, str_json);
-                        return -1;
-                    }
-                }
-                // 添加对response_set的delete，释放资源
-                delete response_set;
             }
-            // 添加对question_set的delete，释放资源
-            delete question_set;
+            delete option_set;
         }
-        // 添加对result_set的delete，释放资源
-        delete result_set;
+        delete question_set;
+
+        // 然后删除Questions表中对应记录
+        str_sql = FormatString4("SELECT question_id FROM Questions WHERE survey_id = %d", survey_id);
+        question_id = 0;
+        CResultSet *question_set_again = db_conn->ExecuteQuery(str_sql.c_str());
+        while (question_set_again->Next()) {
+            question_id = question_set_again->GetInt("question_id");
+            str_sql = FormatString4("DELETE FROM Questions WHERE question_id = %d", question_id);
+            if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+                encodeCountJson2(1, str_json);
+                return -1;
+            }
+        }
+        delete question_set_again;
+
+        // 最后删除Surveys表中对应记录
+        str_sql = FormatString4("DELETE FROM Surveys WHERE survey_id = %d", survey_id);
+        if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+            encodeCountJson2(1, str_json);
+            return -1;
+        }
     }
+    delete result_set;
 
     // 返回 JSON 数据
-    encodeCountJson2(0,str_json);
+    encodeCountJson2(0, str_json);
     return 0;
 }
 
