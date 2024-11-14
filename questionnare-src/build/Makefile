@@ -249,6 +249,54 @@ api/api_register.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_register.cc.s
 .PHONY : api/api_register.cc.s
 
+api/api_root_create_table.o: api/api_root_create_table.cc.o
+.PHONY : api/api_root_create_table.o
+
+# target to build an object file
+api/api_root_create_table.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o
+.PHONY : api/api_root_create_table.cc.o
+
+api/api_root_create_table.i: api/api_root_create_table.cc.i
+.PHONY : api/api_root_create_table.i
+
+# target to preprocess a source file
+api/api_root_create_table.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.i
+.PHONY : api/api_root_create_table.cc.i
+
+api/api_root_create_table.s: api/api_root_create_table.cc.s
+.PHONY : api/api_root_create_table.s
+
+# target to generate assembly for a file
+api/api_root_create_table.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.s
+.PHONY : api/api_root_create_table.cc.s
+
+api/api_root_delete_table.o: api/api_root_delete_table.cc.o
+.PHONY : api/api_root_delete_table.o
+
+# target to build an object file
+api/api_root_delete_table.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o
+.PHONY : api/api_root_delete_table.cc.o
+
+api/api_root_delete_table.i: api/api_root_delete_table.cc.i
+.PHONY : api/api_root_delete_table.i
+
+# target to preprocess a source file
+api/api_root_delete_table.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.i
+.PHONY : api/api_root_delete_table.cc.i
+
+api/api_root_delete_table.s: api/api_root_delete_table.cc.s
+.PHONY : api/api_root_delete_table.s
+
+# target to generate assembly for a file
+api/api_root_delete_table.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.s
+.PHONY : api/api_root_delete_table.cc.s
+
 api/api_root_tables.o: api/api_root_tables.cc.o
 .PHONY : api/api_root_tables.o
 
@@ -921,6 +969,12 @@ help:
 	@echo "... api/api_register.o"
 	@echo "... api/api_register.i"
 	@echo "... api/api_register.s"
+	@echo "... api/api_root_create_table.o"
+	@echo "... api/api_root_create_table.i"
+	@echo "... api/api_root_create_table.s"
+	@echo "... api/api_root_delete_table.o"
+	@echo "... api/api_root_delete_table.i"
+	@echo "... api/api_root_delete_table.s"
 	@echo "... api/api_root_tables.o"
 	@echo "... api/api_root_tables.i"
 	@echo "... api/api_root_tables.s"

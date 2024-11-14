@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调查问卷系统</title>
+  <link rel="icon" href="logo.ico">
+  <style>
+    /* 整体页面布局样式 */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('reg_background.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column; /* 修改为列布局，方便后续垂直方向的对齐 */
+      justify-content: center; /* 水平居中 */
+      align-items: center; /* 垂直居中 */
+      position: relative;
+    }
+
+    /* 问卷容器样式 */
+  .questionnaire-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 600px;
+      margin-top: 20px;
+    }
+
+    /* 右上角退出按钮 */
+  .exit-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    /* 文本框样式 */
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    input[type="date"] {
+      width: 80%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: #f44336;
+      color: white;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    /* 隐藏元素的样式（用于一开始隐藏选项相关部分等） */
+  .hidden {
+      display: none;
+    }
+
+    /* 选项容器样式（用于放置添加的每个选项相关内容） */
+  .option-container {
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 10px;
+    }
+
+    /* 下拉菜单样式 */
+  .dropdown-menu {
+      position: absolute;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      display: none;
+      width: 200px;
+      text-align: left;
+      padding: 10px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 下拉菜单中的按钮文字颜色设置为黑色 */
+  .dropdown-menu button {
+      width: 100%;
+      text-align: left;
+      background-color: transparent;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      color: black;
+    }
+
+  .dropdown-menu button:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* 下拉菜单显示 */
+  .show {
+      display: block;
+    }
+
+    /* 用户选择区域样式 */
+  .user-select-container {
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 退出按钮 -->
+  <button class="exit-btn" onclick="window.location.href='http://192.168.186.138/root'">退出</button>
+
+  <!-- 问卷容器 -->
+  <div class="questionnaire-container">
+    <!-- 标题输入文本框 -->
+    <input type="text" id="survey-title" placeholder="请添加标题（survey_title）">
+    <!-- 截止日期输入框 -->
+    <input type="date" id="survey-deadline" placeholder="请设置截止日期（deadline）">
+    <!-- 新建题目按钮 -->
+    <button id="create-question-btn">新建题目(question_text)</button>
+    <!-- 用于存放题目相关元素的容器 -->
+    <div id="questions-container"></div>
+    <!-- 添加用户按钮 -->
+    <button id="add-users-btn">添加用户</button>
+    <!-- 提交问卷按钮 -->
+    <button id="submit-questionnaire-btn">提交问卷</button>
+  </div>
+
+  <!-- 题目类型下拉菜单 -->
+  <div class="dropdown-menu" id="question-type-dropdown">
+    <button onclick="selectQuestionType('单选')">单选</button>
+    <button onclick="selectQuestionType('多选')">多选</button>
+    <button onclick="selectQuestionType('填空')">填空</button>
+  </div>
+
+  <script>
+    let userNames = [];
+    const xhrUsers = new XMLHttpRequest();
+    xhrUsers.open('POST', 'http://192.168.186.138/api/root/table_create?cmd=users', true);
+    xhrUsers.setRequestHeader('Content-Type', 'application/json');
+    xhrUsers.onreadystatechange = function () {
+      if (xhrUsers.readyState === 4 && xhrUsers.status === 200) {
+        const response = JSON.parse(xhrUsers.responseText);
+        userNames = response.map(item => item.user_name);
+      } else if (xhrUsers.readyState === 4) {
+        console.error('获取用户信息请求失败', '服务器无响应');
+      }
+    };
+    xhrUsers.send();
+
+    const createQuestionBtn = document.getElementById('create-question-btn');
+    const questionTypeDropdown = document.getElementById('question-type-dropdown');
+    createQuestionBtn.addEventListener('click', function () {
+      questionTypeDropdown.classList.toggle('show');
+    });
+
+    function selectQuestionType(type) {
+      questionTypeDropdown.classList.remove('show');
+      const questionDiv = document.createElement('div');
+      const questionTextInput = document.createElement('input');
+      questionTextInput.type = 'text';
+      questionTextInput.placeholder = '请填写题目';
+
+      if (type!== '填空') {
+        const addOptionBtn = document.createElement('button');
+        addOptionBtn.textContent = '添加选项';
+        addOptionBtn.addEventListener('click', function () {
+          const optionDiv = document.createElement('div');
+          optionDiv.classList.add('option-container');
+          const optionTextInput = document.createElement('input');
+          optionTextInput.type = 'text';
+          optionTextInput.placeholder = '请填写选项';
+          optionDiv.appendChild(optionTextInput);
+          questionDiv.appendChild(optionDiv);
+        });
+        questionDiv.appendChild(addOptionBtn);
+      }
+
+      questionDiv.dataset.type = type;
+      questionDiv.appendChild(questionTextInput);
+      document.getElementById('questions-container').appendChild(questionDiv);
+    }
+
+    const addUsersBtn = document.getElementById('add-users-btn');
+    addUsersBtn.addEventListener('click', function () {
+      const userSelectContainer = document.createElement('div');
+      userSelectContainer.classList.add('user-select-container');
+      userNames.forEach(user => {
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = user;
+        const label = document.createElement('label');
+        label.textContent = user;
+        userSelectContainer.appendChild(checkbox);
+        userSelectContainer.appendChild(label);
+        userSelectContainer.appendChild(document.createElement('br'));
+      });
+
+      const confirmBtn = document.createElement('button');
+      confirmBtn.textContent = '确认选择';
+      confirmBtn.addEventListener('click', function () {
+        const selectedUsers = [];
+        const checkboxes = userSelectContainer.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+          if (checkbox.checked) {
+            selectedUsers.push(checkbox.value);
+          }
+        });
+        console.log('已选择的用户：', selectedUsers);
+        userSelectContainer.remove();
+      });
+      userSelectContainer.appendChild(confirmBtn);
+      document.querySelector('.questionnaire-container').appendChild(userSelectContainer);
+    });
+
+    const submitQuestionnaireBtn = document.getElementById('submit-questionnaire-btn');
+    submitQuestionnaireBtn.addEventListener('click', function () {
+      const surveyTitle = document.getElementById('survey-title').value;
+      const surveyDeadline = document.getElementById('survey-deadline').value;
+
+      // 检查截止日期是否合法
+      const currentDate = new Date().toISOString().split('T')[0]; // 当前日期（格式：YYYY-MM-DD）
+      if (surveyDeadline < currentDate) {
+        alert("请填写一个有效的截止日期（不能早于今天）");
+        return;
+      }
+
+      const questions = [];
+      const questionDivs = document.querySelectorAll('#questions-container div');
+      let currentQuestion = null; // 用于临时存储正在处理的题目对象
+      let isInsideMultiOption = false; // 标记是否处于多选（含单选）题内部（收集选项阶段）
+
+      questionDivs.forEach((questionDiv, index, arr) => {
+        const questionTextInput = questionDiv.querySelector('input');
+        const questionText = questionTextInput.value.trim(); // 获取并去除空格
+
+        // 如果题目没有填写，跳过
+        if (!questionText) {
+          return;
+        }
+
+        const questionType = questionDiv.dataset.type || '填空'; // 默认是"填空"类型
+
+        if (questionType === '单选' || questionType === '多选') {
+          isInsideMultiOption = true;
+          currentQuestion = {
+            question_text: questionText,
+            question_type: questionType,
+            options: []
+          };
+          const optionDivs = questionDiv.querySelectorAll('.option-container input');
+          optionDivs.forEach(optionDiv => {
+            const optionText = optionDiv.value.trim(); // 获取并去除空格
+            if (optionText) {
+              currentQuestion.options.push({ option_text: optionText });
+            }
+          });
+
+          // 判断是否是最后一个题目div元素或者下一个题目不是同类型的选择题（避免把连续的选择题选项拆分）
+          if (index === arr.length - 1 || arr[index + 1]?.dataset.type!== questionType) {
+            questions.push(currentQuestion);
+            currentQuestion = null;
+            isInsideMultiOption = false;
+          }
+        } else {
+          if (!isInsideMultiOption) {
+            const questionObj = {
+              question_text: questionText,
+              question_type: questionType,
+              options: []
+            };
+            questions.push(questionObj);
+          }
+        }
+      });
+
+      const questionnaireData = {
+        survey_title: surveyTitle,
+        deadline: surveyDeadline,
+        users: userNames.map(user => ({ user_name: user })),
+        questions: questions
+      };
+
+      // 创建XMLHttpRequest对象，用于发送提交问卷的请求
+      const xhrSubmit = new XMLHttpRequest();
+      xhrSubmit.open('POST', 'http://192.168.186.138/api/root/table_create?cmd=normal', true);
+      xhrSubmit.setRequestHeader('Content-Type', 'application/json');
+      xhrSubmit.onreadystatechange = function () {
+        if (xhrSubmit.readyState === 4 && xhrSubmit.status === 200) {
+          console.log('问卷提交成功');
+        } else if (xhrSubmit.readyState === 4) {
+          console.error('问卷提交失败', '服务器无响应');
+        }
+      };
+      xhrSubmit.send(JSON.stringify(questionnaireData));
+    });
+  </script>
+</body>
+
+</html>

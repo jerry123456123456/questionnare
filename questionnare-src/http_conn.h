@@ -73,6 +73,10 @@ private:
 
     //root用户加载表格
     int _HandleRootTableRequest(string &url,string &post_data);
+    //root用户删除一个表格
+    int _HandleRootTableDeleteRequest(string &url,string &post_data);
+    //root用户创建一个表格
+    int _HandleRootTableCreateRequest(string &url,string &post_data);
 
 protected:
     net_handle_t m_sock_handle;

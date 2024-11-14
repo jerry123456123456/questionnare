@@ -447,10 +447,38 @@ CMakeFiles/qs_http_server.dir/api/api_register.cc.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qs_http_server.dir/api/api_register.cc.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jerry/Desktop/questionnare/questionnare-src/api/api_register.cc -o CMakeFiles/qs_http_server.dir/api/api_register.cc.s
 
+CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o: CMakeFiles/qs_http_server.dir/flags.make
+CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o: ../api/api_root_create_table.cc
+CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o -MF CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o.d -o CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o -c /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc
+
+CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc > CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.i
+
+CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc -o CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.s
+
+CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o: CMakeFiles/qs_http_server.dir/flags.make
+CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o: ../api/api_root_delete_table.cc
+CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o -MF CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o.d -o CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o -c /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_delete_table.cc
+
+CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_delete_table.cc > CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.i
+
+CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_delete_table.cc -o CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.s
+
 CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o: CMakeFiles/qs_http_server.dir/flags.make
 CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o: ../api/api_root_tables.cc
 CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o -MF CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o.d -o CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o -c /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc
 
 CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.i: cmake_force
@@ -464,7 +492,7 @@ CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.s: cmake_force
 CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o: CMakeFiles/qs_http_server.dir/flags.make
 CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o: ../api/api_unreg.cc
 CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o -MF CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o.d -o CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o -c /home/jerry/Desktop/questionnare/questionnare-src/api/api_unreg.cc
 
 CMakeFiles/qs_http_server.dir/api/api_unreg.cc.i: cmake_force
@@ -478,7 +506,7 @@ CMakeFiles/qs_http_server.dir/api/api_unreg.cc.s: cmake_force
 CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o: CMakeFiles/qs_http_server.dir/flags.make
 CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o: ../jsoncpp/json_reader.cpp
 CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o -MF CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o.d -o CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o -c /home/jerry/Desktop/questionnare/questionnare-src/jsoncpp/json_reader.cpp
 
 CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.i: cmake_force
@@ -492,7 +520,7 @@ CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.s: cmake_force
 CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o: CMakeFiles/qs_http_server.dir/flags.make
 CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o: ../jsoncpp/json_value.cpp
 CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o -MF CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o.d -o CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o -c /home/jerry/Desktop/questionnare/questionnare-src/jsoncpp/json_value.cpp
 
 CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.i: cmake_force
@@ -506,7 +534,7 @@ CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.s: cmake_force
 CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o: CMakeFiles/qs_http_server.dir/flags.make
 CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o: ../jsoncpp/json_writer.cpp
 CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o: CMakeFiles/qs_http_server.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o -MF CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o.d -o CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o -c /home/jerry/Desktop/questionnare/questionnare-src/jsoncpp/json_writer.cpp
 
 CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.i: cmake_force
@@ -546,6 +574,8 @@ qs_http_server_OBJECTS = \
 "CMakeFiles/qs_http_server.dir/api/api_login.cc.o" \
 "CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o" \
 "CMakeFiles/qs_http_server.dir/api/api_register.cc.o" \
+"CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o" \
+"CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o" \
 "CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o" \
 "CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o" \
 "CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o" \
@@ -582,6 +612,8 @@ qs_http_server: CMakeFiles/qs_http_server.dir/api/api_deal_table.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/api/api_login.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/api/api_mytables.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/api/api_register.cc.o
+qs_http_server: CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o
+qs_http_server: CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/api/api_root_tables.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/api/api_unreg.cc.o
 qs_http_server: CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o
@@ -649,7 +681,7 @@ qs_http_server: /usr/local/lib/libssl.a
 qs_http_server: /usr/local/lib/libcrypto.a
 qs_http_server: /usr/local/lib/libprotobuf.so
 qs_http_server: CMakeFiles/qs_http_server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Linking CXX executable qs_http_server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Linking CXX executable qs_http_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qs_http_server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

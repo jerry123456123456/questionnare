@@ -412,6 +412,8 @@ CMakeFiles/qs_http_server.dir/http_conn.cc.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/stl_stack.h \
   /home/jerry/Desktop/questionnare/questionnare-src/jsoncpp/json/writer.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.h \
+  /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_delete_table.h \
+  /home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_login.h \
   /home/jerry/Desktop/questionnare/questionnare-src/api/api_register.h \

@@ -16,7 +16,6 @@ CREATE TABLE Surveys (
     title VARCHAR(255) NOT NULL,
     user_id INT NOT NULL,  -- 添加隶属用户ID
     is_filled TINYINT(1) DEFAULT 0,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     root_survey_id INT,  --隶属的root问卷
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE  -- 关联用户表
 );

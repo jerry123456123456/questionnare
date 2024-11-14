@@ -18,6 +18,7 @@
       background-repeat: no-repeat;
       min-height: 100vh;
       display: flex;
+      flex-direction: column; /* 修改为列布局，方便后续垂直方向的对齐 */
       justify-content: center; /* 水平居中 */
       align-items: center; /* 垂直居中 */
       position: relative;
@@ -30,7 +31,7 @@
       border-radius: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       text-align: center;
-      top:0px;
+      top: 0px;
       width: 600px; /* 宽度增加50%，原来是100%，这里可根据实际需求进一步调整具体数值 */
       position: relative; /* 设置相对定位，方便后续做垂直方向的移动 */
       max-height: 500px;
@@ -79,6 +80,13 @@
       color: white;
       cursor: pointer;
     }
+
+    /* 新增的按钮样式 */
+    #add-questionnaire-btn {
+      margin-top: 20px; /* 与上方内容间隔一定距离 */
+      padding: 10px 20px; /* 适当调整按钮内边距，让按钮看起来更合适 */
+      font-size: 16px; /* 调整字体大小 */
+    }
   </style>
 </head>
 
@@ -101,6 +109,9 @@
       </tbody>
     </table>
   </div>
+
+  <!-- 新增的按钮 -->
+  <button id="add-questionnaire-btn" onclick="window.location.href='http://192.168.186.138/root_create_table';">新增问卷</button>
 
   <script>
     // 获取退出登录按钮元素

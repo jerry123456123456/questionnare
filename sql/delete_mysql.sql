@@ -6,8 +6,8 @@
 --ALTER TABLE Users AUTO_INCREMENT = 1;
 
 -- 清空Surveys表数据
---DELETE FROM Surveys;
---ALTER TABLE Surveys AUTO_INCREMENT = 1;
+DELETE FROM Surveys;
+ALTER TABLE Surveys AUTO_INCREMENT = 1;
 
 -- 清空Questions表数据
 DELETE FROM Questions;
