@@ -261,4 +261,19 @@ CMakeFiles/qs_http_server.dir/base/event_dispatch.cpp.o: \
   /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
   /usr/include/x86_64-linux-gnu/sys/time.h \
-  /home/jerry/Desktop/questionnare/questionnare-src/base/base_socket.h
+  /home/jerry/Desktop/questionnare/questionnare-src/base/base_socket.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/iostream \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/ostream \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/ios \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/basic_ios.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/locale_facets.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/cwctype \
+  /usr/include/wctype.h \
+  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/x86_64-linux-gnu/c++/12/bits/ctype_base.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/x86_64-linux-gnu/c++/12/bits/ctype_inline.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/locale_facets.tcc \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/basic_ios.tcc \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/ostream.tcc \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/istream \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/istream.tcc

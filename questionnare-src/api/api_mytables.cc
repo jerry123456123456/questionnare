@@ -216,12 +216,14 @@ int getUserTableList(std::string &user_name, std::string &str_json) {
     std::vector<std::string> table_titles;
     std::vector<std::string> table_deadlines;
     std::vector<int> table_filled;
-    str_sql = FormatString("select title, deadline, is_filled from Surveys where user_id = %d", user_id);
+    std::vector<int> table_dead;
+    str_sql = FormatString("select title, deadline, is_filled,is_dead from Surveys where user_id = %d", user_id);
     result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set && result_set->Next()) {
         table_titles.push_back(result_set->GetString("title"));
         table_deadlines.push_back(result_set->GetString("deadline"));
         table_filled.push_back(result_set->GetInt("is_filled"));
+        table_dead.push_back(result_set->GetInt("is_dead"));
     }
     delete result_set;
 
@@ -231,11 +233,13 @@ int getUserTableList(std::string &user_name, std::string &str_json) {
     root["total"] = static_cast<int>(table_titles.size());
     Json::Value tables;
     for (size_t i = 0; i < table_titles.size(); ++i) {
-        Json::Value table;
-        table["table_name"] = table_titles[i];
-        table["deadline"] = table_deadlines[i];
-        table["is_filled"] = table_filled[i];
-        tables.append(table);
+        if(table_dead[i] == 0){   //如果没到截止时间
+            Json::Value table;
+            table["table_name"] = table_titles[i];
+            table["deadline"] = table_deadlines[i];
+            table["is_filled"] = table_filled[i];
+            tables.append(table);
+        }
     }
     root["tables"] = tables;
 

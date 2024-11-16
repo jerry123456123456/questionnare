@@ -8,7 +8,11 @@
 #include "db_pool.h"
 #include "http_conn.h"
 #include <sys/time.h>
-
+#include "netlib.h"
+#include"util.h"
+#include <sstream>
+#include <iomanip>
+#include <ctime>
 
 int encodeCountJson3(int ret, string &str_json) {
     Json::Value root;
@@ -242,6 +246,138 @@ int decodeSurveyJson(const string &str_json, SurveyData &survey_data) {
     return 0; // 成功
 }
 
+
+//到时间触发的回调函数
+void table_cb(void *callback_data, uint8_t msg, uint32_t handle,
+                              void *pParam){
+    struct table_cb_t* table = (table_cb_t*)callback_data;
+
+    string table_name = table->table_name;
+    string user_name = table->user_name;
+
+    int ret = 0;
+    string str_sql;
+    CDBManager *db_manager = CDBManager::getInstance();
+    CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
+    AUTO_REL_DBCONN(db_manager, db_conn);
+
+    int user_id = 0;
+    int survey_id = 0;
+    int question_id = 0;
+    int option_id = 0;
+
+    str_sql = FormatString5("select user_id from Users where user_name = '%s'", user_name.c_str());
+    printf("%s\n", str_sql.c_str());
+    CResultSet *result_set = db_conn->ExecuteQuery(str_sql.c_str());
+    if (result_set->Next()) {
+        user_id = result_set->GetInt("user_id");
+    }
+    delete result_set;
+
+    str_sql = FormatString5("select survey_id from Surveys where user_id = %d and title = '%s'", user_id,table_name.c_str());
+    printf("%s\n", str_sql.c_str());
+    CResultSet *result_set1 = db_conn->ExecuteQuery(str_sql.c_str());
+    if (result_set1->Next()) {
+        survey_id = result_set1->GetInt("survey_id");
+    }
+    delete result_set1;
+
+    // 先将根记录插入Surveys表（假设user_id为1代表根用户之类的特殊情况）
+    str_sql = FormatString5("update Surveys set is_dead = 1 where survey_id = %d",survey_id);
+    printf("%s\n", str_sql.c_str());
+    if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+        return;
+    }
+
+    ////紧接着更新Questions表
+    str_sql = FormatString5("select question_id from Questions where survey_id = %d",survey_id);
+    printf("%s\n", str_sql.c_str());
+    CResultSet *result_set2 = db_conn->ExecuteQuery(str_sql.c_str());
+    while (result_set2->Next()) {
+        question_id = result_set2->GetInt("question_id");
+
+        str_sql = FormatString5("update Questions set is_dead = 1 where question_id = %d",question_id);
+        printf("%s\n", str_sql.c_str());
+        if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+            return;
+        }
+
+        ////紧接着更新Options表
+        str_sql = FormatString5("select option_id from Options where question_id = %d",question_id);
+        printf("%s\n", str_sql.c_str());
+        CResultSet *result_set3 = db_conn->ExecuteQuery(str_sql.c_str());
+        while (result_set3->Next()) {
+            option_id = result_set3->GetInt("option_id");
+
+            str_sql = FormatString5("update Options set is_dead = 1 where option_id = %d",option_id);
+            printf("%s\n", str_sql.c_str());
+            if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+                return;
+            }
+        }
+        delete result_set3;
+    }
+    delete result_set2;
+
+    //事件触发之后，去掉这个定时器
+    netlib_delete_timer(table_cb,(void *)table);
+    return;
+}
+
+//获取时间差
+int times(std::string deadline, uint64_t &interval) {
+    // 定义时间格式字符串，用于解析传入的时间字符串
+    std::string format = "%Y-%m-%dT%H:%M";
+    std::tm tm_deadline = {};
+    // 将传入的截止时间字符串解析为std::tm结构体表示的时间
+    printf("%s\n",deadline.c_str());
+    std::istringstream ss(deadline);
+    ss >> std::get_time(&tm_deadline, format.c_str());
+    if (ss.fail()) {
+        // 如果解析失败，返回错误码（这里简单返回 -1 表示解析时间字符串出错，你可以按需调整错误处理逻辑）
+        return -1;
+    }
+
+    // 获取当前时间的毫秒数（调用已有的GetTickCount函数）
+    uint64_t current_time_ms = GetTickCount();
+    printf("%d\n",current_time_ms);
+
+    // 将std::tm结构体表示的时间转换为time_t类型（从1970年1月1日00:00:00 UTC到指定时间的秒数）
+    std::time_t time_deadline_t = std::mktime(&tm_deadline);
+    // 将time_t类型的时间转换为timeval结构体，用于后续处理
+    struct timeval time_deadline_tv;
+    time_deadline_tv.tv_sec = time_deadline_t;
+    time_deadline_tv.tv_usec = 0;
+
+    // 将timeval结构体表示的截止时间转换为毫秒数
+    uint64_t deadline_time_ms = time_deadline_tv.tv_sec * 1000L + time_deadline_tv.tv_usec / 1000L;
+    printf("%d\n",deadline_time_ms);
+
+    // 计算时间差（单位为毫秒）
+    interval = static_cast<int64_t>(deadline_time_ms - current_time_ms);
+
+    return 0;
+}
+
+// 向定时器中添加一个表格的截止
+int AddTableTimer(std::string &table_name, std::string &user_name, uint64_t interval) {
+    // 为table_cb_t结构体指针分配内存空间，确保其指向一个有效的table_cb_t对象
+    struct table_cb_t* table = new table_cb_t();
+    if (table == nullptr) {
+        // 如果内存分配失败，返回错误码（这里返回 -1 表示内存分配失败，你可按需调整错误处理逻辑）
+        return -1;
+    }
+
+    // 使用赋值操作符为结构体中的成员变量赋值
+    table->table_name = table_name;
+    table->user_name = user_name;
+
+    // 注册定时任务，这里假设netlib_register_timer的第一个参数是回调函数指针，第二个参数是传递的参数（这里是table指针），第三个参数是时间间隔
+    netlib_register_timer(table_cb, (void*)table, interval);
+
+    return 0;
+}
+
 //将创建好的问卷添加到数据库中
 /*
 struct User {
@@ -274,6 +410,7 @@ int createTables(SurveyData &surveydata, string &str_json) {
 
     string survey_title = surveydata.survey_title;
     string deadline = surveydata.deadline;
+    uint64_t interval = 0;
 
     // 用于存储根用户选择题的所有option_text
     std::vector<std::string> multipleChoiceRootOptions;  
@@ -393,6 +530,12 @@ int createTables(SurveyData &surveydata, string &str_json) {
     std::vector<int> user_survey_ids;
     for (auto it = surveydata.users.begin(); it!= surveydata.users.end(); ++it) {
         string user_name = it->user_name;
+
+        //设置截止时间
+        //设置截止时间
+        ret = times(deadline,interval);
+        AddTableTimer(survey_title,user_name,interval);
+
         int user_id;
         str_sql = FormatString5("select user_id from Users where user_name = '%s'", user_name.c_str());
         printf("%s\n", str_sql.c_str());

@@ -17,6 +17,7 @@ CREATE TABLE Surveys (
     user_id INT NOT NULL,  -- 添加隶属用户ID
     is_filled TINYINT(1) DEFAULT 0,
     root_survey_id INT,  --隶属的root问卷
+    is_dead TINYINT(1) DEFAULT 0;
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE  -- 关联用户表
 );
 
@@ -28,6 +29,7 @@ CREATE TABLE Questions (
     question_type ENUM('single_choice', 'multiple_choice', 'fill_in_blank') NOT NULL,
     FOREIGN KEY (survey_id) REFERENCES Surveys(survey_id) ON DELETE CASCADE
     root_question_id INT, 
+    is_dead TINYINT(1) DEFAULT 0;
 );
 
 -- 创建选项表（Options）
@@ -37,6 +39,7 @@ CREATE TABLE Options (
     option_text VARCHAR(255) NOT NULL,
     FOREIGN KEY (question_id) REFERENCES Questions(question_id) ON DELETE CASCADE
     root_option_id INT,
+    is_dead TINYINT(1) DEFAULT 0;
 );
 
 -- 创建回答表（Responses）

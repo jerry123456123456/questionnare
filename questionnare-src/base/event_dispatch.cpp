@@ -1,5 +1,6 @@
 #include "event_dispatch.h"
 #include "base_socket.h"
+#include<iostream>
 
 #define MIN_TIMER_DURATION 100 // 100 miliseconds
 CEventDispatch *CEventDispatch::event_dispatch_ = NULL;
@@ -53,6 +54,11 @@ void CEventDispatch::AddTimer(callback_t callback,void *user_data,uint64_t inter
     pItem->user_data=user_data;
     pItem->interval=interval;
     pItem->next_tick=GetTickCount()+interval;
+    std::cout << "Before assignment: " << std::endl;
+    std::cout << "pItem->callback: " << pItem->callback << ", expected callback: " << callback << std::endl;
+    std::cout << "pItem->user_data: " << pItem->user_data << ", expected user_data: " << user_data << std::endl;
+    std::cout << "pItem->interval: " << pItem->interval << ", expected interval: " << interval << std::endl;
+    std::cout << "pItem->next_tick: " << pItem->next_tick << ", expected next_tick calculation: " << GetTickCount() + interval << std::endl;
     timer_list_.push_back(pItem);
 }
 
@@ -81,6 +87,7 @@ void CEventDispatch::_CheckTimer(){
             //先更新下一个触发的时间
             pItem->next_tick+=pItem->interval;
             //接着调用定时器项中存储的回调函数 `callback`
+            printf("%d\n",pItem->interval);
             pItem->callback(pItem->user_data, NETLIB_MSG_TIMER, 0, NULL);
         }
     }

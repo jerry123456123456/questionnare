@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" width="width=device-width, initial-scale=1.0">
   <title>调查问卷系统</title>
   <link rel="icon" href="logo.ico">
   <style>
@@ -18,9 +18,9 @@
       background-repeat: no-repeat;
       min-height: 100vh;
       display: flex;
-      flex-direction: column; /* 修改为列布局，方便后续垂直方向的对齐 */
-      justify-content: center; /* 水平居中 */
-      align-items: center; /* 垂直居中 */
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
       position: relative;
     }
 
@@ -32,6 +32,10 @@
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
       text-align: center;
       width: 600px;
+      max-height: 80vh;
+      /* 最大高度为视窗的80% */
+      overflow-y: auto;
+      /* 内容超出时显示滚动条 */
       margin-top: 20px;
     }
 
@@ -57,7 +61,7 @@
       border-radius: 3px;
     }
 
-    input[type="date"] {
+    input[type="datetime-local"] {
       width: 80%;
       padding: 10px;
       margin-bottom: 10px;
@@ -128,6 +132,11 @@
       border-radius: 3px;
       padding: 10px;
     }
+
+    /* 新增样式类，用于设置白色字体 */
+  .white-text {
+      color: white;
+    }
   </style>
 </head>
 
@@ -139,8 +148,8 @@
   <div class="questionnaire-container">
     <!-- 标题输入文本框 -->
     <input type="text" id="survey-title" placeholder="请添加标题（survey_title）">
-    <!-- 截止日期输入框 -->
-    <input type="date" id="survey-deadline" placeholder="请设置截止日期（deadline）">
+    <!-- 截止日期输入框（修改为可选择时分秒的类型） -->
+    <input type="datetime-local" id="survey-deadline" placeholder="请设置截止日期（包含时分秒，格式如：YYYY-MM-DDTHH:mm:ss）">
     <!-- 新建题目按钮 -->
     <button id="create-question-btn">新建题目(question_text)</button>
     <!-- 用于存放题目相关元素的容器 -->
@@ -160,6 +169,10 @@
 
   <script>
     let userNames = [];
+    let selectedUsers = [];  // 用来存储选中的用户
+    let isAddingUsers = false; // 新增标志变量，用于记录是否正在添加用户状态
+
+    // 获取用户信息
     const xhrUsers = new XMLHttpRequest();
     xhrUsers.open('POST', 'http://192.168.186.138/api/root/table_create?cmd=users', true);
     xhrUsers.setRequestHeader('Content-Type', 'application/json');
@@ -208,6 +221,10 @@
 
     const addUsersBtn = document.getElementById('add-users-btn');
     addUsersBtn.addEventListener('click', function () {
+      if (isAddingUsers) { // 判断是否正在添加用户，如果是则直接返回，不执行后续操作
+        return;
+      }
+      isAddingUsers = true; // 设置为正在添加用户状态
       const userSelectContainer = document.createElement('div');
       userSelectContainer.classList.add('user-select-container');
       userNames.forEach(user => {
@@ -216,6 +233,10 @@
         checkbox.value = user;
         const label = document.createElement('label');
         label.textContent = user;
+        // 方式一：通过添加CSS类来设置白色字体
+        label.classList.add('white-text');
+        // 方式二：也可以直接使用内联样式设置字体颜色为白色，如下（可二选一）
+        // label.style.color = 'white';
         userSelectContainer.appendChild(checkbox);
         userSelectContainer.appendChild(label);
         userSelectContainer.appendChild(document.createElement('br'));
@@ -224,45 +245,58 @@
       const confirmBtn = document.createElement('button');
       confirmBtn.textContent = '确认选择';
       confirmBtn.addEventListener('click', function () {
-        const selectedUsers = [];
+        // 清空上一次选择的用户
+        selectedUsers = [];
         const checkboxes = userSelectContainer.querySelectorAll('input[type="checkbox"]');
         checkboxes.forEach(checkbox => {
           if (checkbox.checked) {
-            selectedUsers.push(checkbox.value);
+            selectedUsers.push(checkbox.value);  // 保存选中的用户
           }
         });
         console.log('已选择的用户：', selectedUsers);
-        userSelectContainer.remove();
+        userSelectContainer.remove();  // 选择完后关闭用户选择界面
+        isAddingUsers = false; // 重置添加用户状态为未添加
       });
       userSelectContainer.appendChild(confirmBtn);
-      document.querySelector('.questionnaire-container').appendChild(userSelectContainer);
+      document.body.appendChild(userSelectContainer);
     });
 
-    const submitQuestionnaireBtn = document.getElementById('submit-questionnaire-btn');
-    submitQuestionnaireBtn.addEventListener('click', function () {
-      const surveyTitle = document.getElementById('survey-title').value;
+    // 提交问卷按钮点击事件
+    const submitBtn = document.getElementById('submit-questionnaire-btn');
+    submitBtn.addEventListener('click', function () {
+      const surveyTitle = document.getElementById('survey-title').value.trim();
       const surveyDeadline = document.getElementById('survey-deadline').value;
 
       // 检查截止日期是否合法
-      const currentDate = new Date().toISOString().split('T')[0]; // 当前日期（格式：YYYY-MM-DD）
+      const currentDate = new Date().toISOString();
       if (surveyDeadline < currentDate) {
-        alert("请填写一个有效的截止日期（不能早于今天）");
+        alert("请填写一个有效的截止日期（不能早于当前时间）");
         return;
       }
 
       const questions = [];
       const questionDivs = document.querySelectorAll('#questions-container div');
-      let currentQuestion = null; // 用于临时存储正在处理的题目对象
-      let isInsideMultiOption = false; // 标记是否处于多选（含单选）题内部（收集选项阶段）
+      let currentQuestion = null;
+      let isInsideMultiOption = false;
+      const questionTexts = new Set();
+      let hasDuplicate = false;
 
       questionDivs.forEach((questionDiv, index, arr) => {
         const questionTextInput = questionDiv.querySelector('input');
-        const questionText = questionTextInput.value.trim(); // 获取并去除空格
+        const questionText = questionTextInput.value.trim();
 
         // 如果题目没有填写，跳过
         if (!questionText) {
           return;
         }
+
+        // 检查题目是否重复
+        if (questionTexts.has(questionText)) {
+          alert(`题目 "${questionText}" 重复，请重新填写`);
+          hasDuplicate = true;
+          return;
+        }
+        questionTexts.add(questionText);
 
         const questionType = questionDiv.dataset.type || '填空'; // 默认是"填空"类型
 
@@ -274,14 +308,21 @@
             options: []
           };
           const optionDivs = questionDiv.querySelectorAll('.option-container input');
+          const optionTexts = new Set();
+
           optionDivs.forEach(optionDiv => {
-            const optionText = optionDiv.value.trim(); // 获取并去除空格
+            const optionText = optionDiv.value.trim();
             if (optionText) {
+              // 检查选项是否重复
+              if (optionTexts.has(optionText)) {
+                alert(`选项 "${optionText}" 在题目 "${questionText}" 中重复，请重新填写`);
+                hasDuplicate = true;
+              }
+              optionTexts.add(optionText);
               currentQuestion.options.push({ option_text: optionText });
             }
           });
 
-          // 判断是否是最后一个题目div元素或者下一个题目不是同类型的选择题（避免把连续的选择题选项拆分）
           if (index === arr.length - 1 || arr[index + 1]?.dataset.type!== questionType) {
             questions.push(currentQuestion);
             currentQuestion = null;
@@ -292,18 +333,23 @@
             const questionObj = {
               question_text: questionText,
               question_type: questionType,
-              options: []
+              options: [],
             };
             questions.push(questionObj);
           }
         }
       });
 
+      // 如果有重复，停止提交
+      if (hasDuplicate) {
+        return;
+      }
+
       const questionnaireData = {
         survey_title: surveyTitle,
         deadline: surveyDeadline,
-        users: userNames.map(user => ({ user_name: user })),
-        questions: questions
+        users: selectedUsers.map(user => ({ user_name: user })),  // 使用选中的用户
+        questions: questions,
       };
 
       // 创建XMLHttpRequest对象，用于发送提交问卷的请求

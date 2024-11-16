@@ -412,4 +412,6 @@ CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/future \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/atomic_futex.h \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/queue \
-  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/stl_queue.h
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/stl_queue.h \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/iomanip \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/12/../../../../include/c++/12/bits/quoted_string.h

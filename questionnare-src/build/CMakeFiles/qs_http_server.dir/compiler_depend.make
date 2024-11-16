@@ -2466,7 +2466,9 @@ CMakeFiles/qs_http_server.dir/api/api_root_create_table.cc.o: ../api/api_root_cr
   /usr/include/c++/12/future \
   /usr/include/c++/12/bits/atomic_futex.h \
   /usr/include/c++/12/queue \
-  /usr/include/c++/12/bits/stl_queue.h
+  /usr/include/c++/12/bits/stl_queue.h \
+  /usr/include/c++/12/iomanip \
+  /usr/include/c++/12/bits/quoted_string.h
 
 CMakeFiles/qs_http_server.dir/api/api_root_delete_table.cc.o: ../api/api_root_delete_table.cc \
   ../api/api_root_delete_table.h \
@@ -4986,7 +4988,22 @@ CMakeFiles/qs_http_server.dir/base/event_dispatch.cpp.o: ../base/event_dispatch.
   /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
   /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
   /usr/include/x86_64-linux-gnu/sys/time.h \
-  ../base/base_socket.h
+  ../base/base_socket.h \
+  /usr/include/c++/12/iostream \
+  /usr/include/c++/12/ostream \
+  /usr/include/c++/12/ios \
+  /usr/include/c++/12/bits/basic_ios.h \
+  /usr/include/c++/12/bits/locale_facets.h \
+  /usr/include/c++/12/cwctype \
+  /usr/include/wctype.h \
+  /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/ctype_inline.h \
+  /usr/include/c++/12/bits/locale_facets.tcc \
+  /usr/include/c++/12/bits/basic_ios.tcc \
+  /usr/include/c++/12/bits/ostream.tcc \
+  /usr/include/c++/12/istream \
+  /usr/include/c++/12/bits/istream.tcc
 
 CMakeFiles/qs_http_server.dir/base/http_parser.cc.o: ../base/http_parser.cc \
   ../base/http_parser.h \
@@ -9896,8 +9913,6 @@ CMakeFiles/qs_http_server.dir/redis/sds.c.o: ../redis/sds.c \
 
 ../mysql/db_pool.cc:
 
-/usr/include/c++/12/bits/quoted_string.h:
-
 ../jsoncpp/json_writer.cpp:
 
 ../jsoncpp/json_tool.h:
@@ -9935,6 +9950,8 @@ CMakeFiles/qs_http_server.dir/redis/sds.c.o: ../redis/sds.c \
 ../api/api_unreg.h:
 
 ../api/api_root_tables.cc:
+
+/usr/include/c++/12/bits/quoted_string.h:
 
 ../redis/fmacros.h:
 
@@ -10226,9 +10243,9 @@ CMakeFiles/qs_http_server.dir/redis/sds.c.o: ../redis/sds.c \
 
 /usr/include/c++/12/bits/std_function.h:
 
-/usr/include/c++/12/iomanip:
-
 ../api/api_unreg.cc:
+
+/usr/include/c++/12/iomanip:
 
 /usr/include/c++/12/debug/debug.h:
 
