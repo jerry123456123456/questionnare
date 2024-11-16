@@ -147,9 +147,9 @@
   <!-- 问卷容器 -->
   <div class="questionnaire-container">
     <!-- 标题输入文本框 -->
-    <input type="text" id="survey-title" placeholder="请添加标题（survey_title）">
+    <input type="text" id="survey-title" placeholder="请添加标题（survey_title）" autocomplete="off">
     <!-- 截止日期输入框（修改为可选择时分秒的类型） -->
-    <input type="datetime-local" id="survey-deadline" placeholder="请设置截止日期（包含时分秒，格式如：YYYY-MM-DDTHH:mm:ss）">
+    <input type="datetime-local" id="survey-deadline" placeholder="请设置截止日期（包含时分秒，格式如：YYYY-MM-DDTHH:mm:ss）" autocomplete="off">
     <!-- 新建题目按钮 -->
     <button id="create-question-btn">新建题目(question_text)</button>
     <!-- 用于存放题目相关元素的容器 -->
@@ -198,6 +198,7 @@
       const questionTextInput = document.createElement('input');
       questionTextInput.type = 'text';
       questionTextInput.placeholder = '请填写题目';
+      questionTextInput.setAttribute('autocomplete', 'off');
 
       if (type!== '填空') {
         const addOptionBtn = document.createElement('button');
@@ -208,6 +209,7 @@
           const optionTextInput = document.createElement('input');
           optionTextInput.type = 'text';
           optionTextInput.placeholder = '请填写选项';
+          optionTextInput.setAttribute('autocomplete', 'off');
           optionDiv.appendChild(optionTextInput);
           questionDiv.appendChild(optionDiv);
         });

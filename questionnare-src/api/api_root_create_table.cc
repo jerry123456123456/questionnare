@@ -608,11 +608,31 @@ int createTables(SurveyData &surveydata, string &str_json) {
             if (result_set3->Next()) {
                 int user_question_id = result_set3->GetInt("question_id");
                 // 关联根用户的question_id
-                str_sql = FormatString5("update Questions set root_question_id = %d where question_id = %d", root_question_id, user_question_id);
-                printf("%s\n", str_sql.c_str());
-                if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
-                    encodeCountJson3(1, str_json);
-                    return -1;
+
+                {
+                    //先找到root_survey_id
+                    str_sql = FormatString5("select survey_id from Surveys where title = '%s' and user_id = 1", survey_title.c_str());
+                    printf("%s\n", str_sql.c_str());
+                    CResultSet *root_survey_Set = db_conn->ExecuteQuery(str_sql.c_str());
+                    if(root_survey_Set->Next()){
+                        root_survey_id = root_survey_Set->GetInt("survey_id");
+                    }
+
+                    //还得先找root_question_id
+                    str_sql = FormatString5("select question_id from Questions where survey_id = %d and question_text = '%s'", root_survey_id, question_text.c_str());
+                    printf("%s\n", str_sql.c_str());
+                    CResultSet *root_question_Set = db_conn->ExecuteQuery(str_sql.c_str());
+                    if(root_question_Set->Next()){
+                        root_question_id = root_question_Set->GetInt("question_id");
+                    }
+
+                    str_sql = FormatString5("update Questions set root_question_id = %d where question_id = %d", root_question_id, user_question_id);
+                    printf("%s\n", str_sql.c_str());
+                    if (db_conn->ExecuteUpdate(str_sql.c_str()) < 0) {
+                        encodeCountJson3(1, str_json);
+                        return -1;
+                    }
+
                 }
 
                 //接下来要插入option

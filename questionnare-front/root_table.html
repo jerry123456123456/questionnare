@@ -24,7 +24,7 @@
         }
 
         /* 问卷容器样式 */
-       .survey-container {
+      .survey-container {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 5px;
@@ -38,40 +38,40 @@
             text-align: center;
         }
 
-       .question {
+      .question {
             margin-bottom: 20px;
         }
 
-       .question-text {
+      .question-text {
             font-weight: bold;
         }
 
-       .options {
+      .options {
             margin-top: 10px;
         }
 
-       .option {
+      .option {
             margin-bottom: 5px;
             display: flex;
             align-items: center;
         }
 
-       .option-text {
+      .option-text {
             margin-left: 20px;
         }
 
-       .option-bar {
+      .option-bar {
             height: 20px;
             background-color: #4CAF50;
             margin-left: 10px;
         }
 
-       .option-count {
+      .option-count {
             margin-left: 10px;
             font-weight: bold;
         }
 
-       .fill-in-answer {
+      .fill-in-answer {
             margin-left: 20px;
             margin-bottom: 5px;
         }
@@ -95,7 +95,7 @@
         }
 
         /* 添加按钮容器的样式，用于让按钮在下方居中 */
-       .button-container {
+      .button-container {
             text-align: center;
             margin-top: 20px;
         }
@@ -214,14 +214,19 @@
                                     optionsDiv.appendChild(optionDiv);
                                 });
                                 questionDiv.appendChild(optionsDiv);
-                            } else if (question.question_type === "fill_in") {
+                            } else if (question.question_type === "fill_in_blank") {
                                 const answersDiv = document.createElement('div');
-                                question.options[0].option_texts.forEach((answer) => {
-                                    const answerElement = document.createElement('p');
-                                    answerElement.classList.add('fill-in-answer');
-                                    answerElement.textContent = answer.option_text;
-                                    answersDiv.appendChild(answerElement);
-                                });
+                                // 从question对象中获取answers数组（假设答案存储在这个结构里，根据你最开始提供的C++代码逻辑）
+                                const fillInAnswers = question.answers;
+                                if (fillInAnswers && fillInAnswers.length > 0) {
+                                    fillInAnswers.forEach((answerObj) => {
+                                        const answerText = answerObj.answer_text;
+                                        const answerElement = document.createElement('p');
+                                        answerElement.classList.add('fill-in-answer');
+                                        answerElement.textContent = answerText;
+                                        answersDiv.appendChild(answerElement);
+                                    });
+                                }
                                 questionDiv.appendChild(answersDiv);
                             }
 

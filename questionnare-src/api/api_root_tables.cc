@@ -196,11 +196,11 @@ int getRootTableList(std::string &str_json){
     "survey_title": "通用问卷标题",
 }
 */
-int getRootTable(string &table_name, string &str_json) {
+int getRootTable(std::string &table_name, std::string &str_json) {
     LogInfo("getRootTable info");
     int ret = 0;
     int total = 0;
-    string str_sql;
+    std::string str_sql;
     CDBManager *db_manager = CDBManager::getInstance();
     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
     AUTO_REL_DBCONN(db_manager, db_conn);
@@ -227,26 +227,24 @@ int getRootTable(string &table_name, string &str_json) {
     result_set = db_conn->ExecuteQuery(str_sql.c_str());
     while (result_set->Next()) {
         int question_id = result_set->GetInt("question_id");
-        string question_text = result_set->GetString("question_text");
-        string question_type = result_set->GetString("question_type");
+        std::string question_text = result_set->GetString("question_text");
+        std::string question_type = result_set->GetString("question_type");
 
         Json::Value question;
         question["question_text"] = question_text;
         question["question_type"] = question_type;
 
-        if (question_type != "fill_in_blank") {  // 选择题
+        if (question_type!= "fill_in_blank") {  // 选择题
             // 查询选项
             str_sql = FormatString3("SELECT option_id, option_text FROM Options WHERE question_id = %d", question_id);
             CResultSet *options_result = db_conn->ExecuteQuery(str_sql.c_str());
             Json::Value options(Json::arrayValue);
-            map<int, int> option_count_map;  // 用于统计每个选项的选中数量
+            std::map<int, int> option_count_map;  // 用于统计每个选项的选中数量
 
             // 初始化选项计数
             while (options_result->Next()) {
-                string option_text = options_result->GetString("option_text");
-                printf("%s\n",option_text.c_str());
+                std::string option_text = options_result->GetString("option_text");
                 int option_id = options_result->GetInt("option_id");
-                printf("%d\n",option_id);
                 Json::Value option;
                 option["option_text"] = option_text;
                 options.append(option);
@@ -258,19 +256,19 @@ int getRootTable(string &table_name, string &str_json) {
                 str_sql = FormatString3("SELECT option_id FROM Responses WHERE answer = '%s'", option_text.c_str());
                 CResultSet *responses_result = db_conn->ExecuteQuery(str_sql.c_str());
                 while (responses_result->Next()) {
-                    //这是用户的
+                    // 这是用户的
                     int option_id = responses_result->GetInt("option_id");
                     str_sql = FormatString3("SELECT root_option_id FROM Options WHERE option_id = '%d'", option_id);
                     CResultSet *responses_result1 = db_conn->ExecuteQuery(str_sql.c_str());
-                    //只会有一条结果
-                    if(responses_result1->Next()){
-                        int root_option_id =  responses_result1->GetInt("root_option_id");
+                    // 只会有一条结果
+                    if (responses_result1->Next()) {
+                        int root_option_id = responses_result1->GetInt("root_option_id");
                         // 只统计选项计数
-                        if (option_count_map.find(root_option_id) != option_count_map.end()) {
+                        if (option_count_map.find(root_option_id)!= option_count_map.end()) {
                             option_count_map[root_option_id]++;
                         }
                     }
-                    delete responses_result1;          
+                    delete responses_result1;
                 }
                 delete responses_result;
             }
@@ -278,7 +276,7 @@ int getRootTable(string &table_name, string &str_json) {
 
             // 更新选项的计数信息
             for (auto& option : options) {
-                string option_text = option["option_text"].asString();
+                std::string option_text = option["option_text"].asString();
                 int option_id = 0;  // 获取 option_id
                 str_sql = FormatString3("SELECT option_id FROM Options WHERE option_text = '%s' AND question_id = %d", option_text.c_str(), question_id);
                 CResultSet *id_result = db_conn->ExecuteQuery(str_sql.c_str());
@@ -291,27 +289,26 @@ int getRootTable(string &table_name, string &str_json) {
             question["options"] = options;
 
         } else {  // 填空题
-            str_sql = FormatString3("SELECT root_question_id FROM Questions WHERE question_id = %d", question_id);
+            // 初始化 answers 为一个空数组，确保可以累积添加答案
+            question["answers"] = Json::Value(Json::arrayValue);
+            str_sql = FormatString3("SELECT question_id FROM Questions WHERE root_question_id = %d", question_id);
             CResultSet *root_question_result = db_conn->ExecuteQuery(str_sql.c_str());
-            int root_question_id = 0;
-            if (root_question_result && root_question_result->Next()) {
-                root_question_id = root_question_result->GetInt("root_question_id");
+            while (root_question_result && root_question_result->Next()) {
+                question_id = root_question_result->GetInt("question_id");
+
+                // 查询所有根问题的回答
+                str_sql = FormatString3("SELECT answer FROM Responses WHERE question_id = %d", question_id);
+                CResultSet *fill_in_result = db_conn->ExecuteQuery(str_sql.c_str());
+                while (fill_in_result->Next()) {
+                    std::string answer = fill_in_result->GetString("answer");
+                    Json::Value ans;
+                    ans["answer_text"] = answer;
+                    // 直接往 question["answers"] 数组中添加答案元素
+                    question["answers"].append(ans);
+                }
+                delete fill_in_result;
             }
             delete root_question_result;
-
-            // 查询所有根问题的回答
-            str_sql = FormatString3("SELECT answer FROM Responses WHERE question_id = %d", root_question_id);
-            CResultSet *fill_in_result = db_conn->ExecuteQuery(str_sql.c_str());
-            Json::Value fill_in_answers(Json::arrayValue);
-            while (fill_in_result->Next()) {
-                string answer = fill_in_result->GetString("answer");
-                Json::Value ans;
-                ans["answer_text"] = answer;
-                fill_in_answers.append(ans);
-            }
-            delete fill_in_result;
-
-            question["answers"] = fill_in_answers;
         }
 
         questions.append(question);  // 添加到问题列表
@@ -325,7 +322,6 @@ int getRootTable(string &table_name, string &str_json) {
     str_json = writer.write(root);
     return 0;
 }
-
 
 
 int ApiRootTables(string &url,string &post_data,string &str_json){
