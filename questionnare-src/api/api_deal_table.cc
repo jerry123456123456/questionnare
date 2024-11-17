@@ -6,6 +6,7 @@
 #include <string.h>
 #include <sys/time.h>
 #include <time.h>
+#include <sstream>
 
 // int decodeDealTableJson(string &str_json,string &user_name,string &token,string &tablename){
 //     bool res;
