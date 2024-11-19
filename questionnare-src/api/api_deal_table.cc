@@ -68,6 +68,7 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     int option_id;
 
     string question_text;
+    string question_type;
     
     //由于前端界面中题目单选题的答案必定是a,b,c,d所以没有必要判断类型是否一致
     //直接插入便是，先从user获取user_id,再从questionname获取question_id，再从option中获取option_id，最后结合answer插入responses表
@@ -97,12 +98,13 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
 
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
-    sprintf(sql_cmd, "select question_id,question_text from Questions where question_text = '%s' and survey_id = '%d'", questionname.c_str(), survey_id);
+    sprintf(sql_cmd, "select question_id,question_text,question_type from Questions where question_text = '%s' and survey_id = '%d'", questionname.c_str(), survey_id);
     result_set = db_conn->ExecuteQuery(sql_cmd);
     if (result_set && result_set->Next()) {
         //从结果获取到user_id
         question_id = result_set->GetInt("question_id");
         question_text = result_set->GetString("question_text");
+        question_type = result_set->GetString("question_type");
         ret = 0;
     }else{
         ret = -1;
@@ -110,7 +112,7 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     delete result_set;
 
     //根据answer获取option_id
-    if(question_text != "fill_in_blank"){  //如果不是填空题
+    if(question_type != "fill_in_blank"){  //如果不是填空题
         sprintf(sql_cmd, "select option_id from Options where option_text = '%s' and question_id = '%d'",answer.c_str(),question_id);
         result_set = db_conn->ExecuteQuery(sql_cmd);
         if (result_set && result_set->Next()) {
@@ -126,20 +128,52 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     //到这里为止question_id和user_id获取成功
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
-    if(question_text != "fill_in_blank"){
-        //插入数据库
-        sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id,option_id) values (%d,%d,'%s',%d,%d)",question_id,user_id,answer.c_str(),survey_id,option_id);
-        if(!db_conn->ExecuteCreate(sql_cmd)){
-            //执行插入语句
-            LogError("{} 操作失败", sql_cmd);
+    if (question_type!= "fill_in_blank") {
+        // 先查询是否已存在相同question_id, user_id, survey_id, option_id的记录
+        sprintf(sql_cmd, "SELECT COUNT(*) FROM Responses WHERE question_id = %d AND user_id = %d AND survey_id = %d AND option_id = %d", question_id, user_id, survey_id, option_id);
+        int count = 0;
+        if (!db_conn->ExecuteQuery(sql_cmd)) {
+            LogError("查询记录数量操作失败");
             return -1;
         }
-    }else{
-        //插入数据库
-        sprintf(sql_cmd,"insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)",question_id,user_id,answer.c_str(),survey_id);
-        if(!db_conn->ExecuteCreate(sql_cmd)){
-            //执行插入语句
-            LogError("{} 操作失败", sql_cmd);
+        if (count > 0) {
+            // 如果存在，执行更新操作
+            sprintf(sql_cmd, "UPDATE Responses SET answer = '%s' WHERE question_id = %d AND user_id = %d AND survey_id = %d AND option_id = %d", answer.c_str(), question_id, user_id, survey_id, option_id);
+            if (!db_conn->ExecuteCreate(sql_cmd)) {
+                LogError("更新记录操作失败");
+                return -1;
+            }
+            return 0;
+        }
+
+        // 如果不存在，执行插入数据库操作
+        sprintf(sql_cmd, "insert into Responses (question_id,user_id,answer,survey_id,option_id) values (%d,%d,'%s',%d,%d)", question_id, user_id, answer.c_str(), survey_id, option_id);
+        if (!db_conn->ExecuteCreate(sql_cmd)) {
+            LogError("插入记录操作失败");
+            return -1;
+        }
+    } else {
+        // 先查询是否已存在相同question_id, user_id, survey_id的记录（填空题情况）
+        sprintf(sql_cmd, "SELECT COUNT(*) FROM Responses WHERE question_id = %d AND user_id = %d AND survey_id = %d", question_id, user_id, survey_id);
+        int count = 0;
+        if (!db_conn->ExecuteQuery(sql_cmd)) {
+            LogError("查询记录数量操作失败");
+            return -1;
+        }
+        if (count > 0) {
+            // 如果存在，执行更新操作
+            sprintf(sql_cmd, "UPDATE Responses SET answer = '%s' WHERE question_id = %d AND user_id = %d AND survey_id = %d", answer.c_str(), question_id, user_id, survey_id);
+            if (!db_conn->ExecuteCreate(sql_cmd)) {
+                LogError("更新记录操作失败");
+                return -1;
+            }
+            return 0;
+        }
+
+        // 如果不存在，执行插入数据库操作
+        sprintf(sql_cmd, "insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)", question_id, user_id, answer.c_str(), survey_id);
+        if (!db_conn->ExecuteCreate(sql_cmd)) {
+            LogError("插入记录操作失败");
             return -1;
         }
     }
@@ -306,6 +340,7 @@ int ApiUploadTable(string &url, string &post_data, string &str_json) {
 
     // 获取用户名称
     user_name = root["user_name"].asString();
+    printf("%s\n",user_name.c_str());
 
     //获取token,并验证
     token = root["token"].asString();
@@ -314,15 +349,18 @@ int ApiUploadTable(string &url, string &post_data, string &str_json) {
     if(ret == 0){  //验证成功
         // 获取问卷名称
         table_name = root["table_name"].asString();
+        printf("%s\n",table_name.c_str());
 
         // 获取问题和答案数组
         const Json::Value& answers = root["answers"];  // 假设问题数据在JSON中的键为"questions"，根据实际情况修改
         for (const auto& ans : answers) {
             // 获取问题文本
             question_name = ans["question_text"].asString();
+            printf("%s\n",question_name.c_str());
 
             // 获取答案
             answer = ans["answer"].asString();
+            printf("%s\n",answer.c_str());
 
             // 调用handleUpdateQuestion函数插入答案到数据库
             if (handleUpdateQuestion(user_name, question_name,table_name, answer)!= 0) {

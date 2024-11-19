@@ -1,0 +1,763 @@
+[2024-11-19 10:02:31.772][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:02:31.774][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:02:31.779][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:02:31.781][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:02:31.781][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:02:48.068][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:02:48.068][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:02:48.069][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:02:48.070][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:02:48.070][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:02:48.071][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:02:48.071][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:02:48.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 1
+[2024-11-19 10:02:48.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"mbvctqrtzmgxedqfwedbqxtidyksdccr"}
+
+[2024-11-19 10:02:48.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:02:48.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:02:49.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:02:49.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:02:49.322][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:02:49.322][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:02:49.322][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:02:49.323][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:02:49.324][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:02:49.324][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:02:50.392][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:02:50.393][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:02:50.393][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:02:50.393][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:02:50.404][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:02:50.404][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 3
+[2024-11-19 10:02:52.568][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 4, conn_handle_: 4
+[2024-11-19 10:02:52.568][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_delete
+[2024-11-19 10:02:52.627][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:02:52.627][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 4
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 5, conn_handle_: 5
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:02:52.727][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:02:52.728][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:112,getRootTableList][warning] : getRootTablesCount = 0
+[2024-11-19 10:02:52.728][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:02:52.728][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 5
+[2024-11-19 10:03:16.928][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 6, conn_handle_: 6
+[2024-11-19 10:03:16.928][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=users
+[2024-11-19 10:03:16.928][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=users, cmd: users 
+[2024-11-19 10:03:16.929][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:16.929][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 6
+[2024-11-19 10:03:34.489][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 7, conn_handle_: 7
+[2024-11-19 10:03:34.489][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=users
+[2024-11-19 10:03:34.489][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=users, cmd: users 
+[2024-11-19 10:03:34.491][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:34.491][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 7
+[2024-11-19 10:03:51.477][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 8, conn_handle_: 8
+[2024-11-19 10:03:51.478][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=normal
+[2024-11-19 10:03:51.478][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=normal, cmd: normal 
+[2024-11-19 10:03:51.534][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:51.534][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 8
+[2024-11-19 10:03:51.633][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 9, conn_handle_: 9
+[2024-11-19 10:03:51.633][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:03:51.633][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:03:51.633][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:03:51.633][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:03:51.634][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:03:51.636][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:51.636][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 9
+[2024-11-19 10:03:52.878][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 10, conn_handle_: A
+[2024-11-19 10:03:52.878][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:03:52.878][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:03:52.878][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:03:52.886][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:52.886][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 10
+[2024-11-19 10:03:57.693][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 11, conn_handle_: B
+[2024-11-19 10:03:57.693][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:03:57.694][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:03:57.694][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='tom'
+[2024-11-19 10:03:57.695][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=21
+[2024-11-19 10:03:57.696][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:03:57.696][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:03:57.698][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 11
+[2024-11-19 10:03:57.698][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"kxkqsvvticvkpnlgszkcgjrtswqmfhop"}
+
+[2024-11-19 10:03:57.698][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:57.698][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 11
+[2024-11-19 10:03:58.741][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 12, conn_handle_: C
+[2024-11-19 10:03:58.741][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:03:58.741][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:03:58.741][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:03:58.743][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:58.743][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 12
+[2024-11-19 10:03:59.831][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 13, conn_handle_: D
+[2024-11-19 10:03:59.831][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:03:59.831][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:03:59.831][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: tom, token:kxkqsvvticvkpnlgszkcgjrtswqmfhop, table_name:
+[2024-11-19 10:03:59.831][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:03:59.834][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:03:59.834][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 13
+[2024-11-19 10:04:03.084][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 14, conn_handle_: E
+[2024-11-19 10:04:03.084][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:04:03.090][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:04:03.092][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:156,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 21
+[2024-11-19 10:04:03.093][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:04:03.100][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:04:03.101][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:04:03.101][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:158,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 21
+[2024-11-19 10:04:03.102][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:04:03.107][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:04:03.108][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:04:03.108][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:158,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 21
+[2024-11-19 10:04:03.108][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:04:03.108][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:03.109][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 14
+[2024-11-19 10:04:04.159][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 15, conn_handle_: F
+[2024-11-19 10:04:04.160][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:04:04.160][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:04:04.160][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:04:04.162][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:04.162][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 15
+[2024-11-19 10:04:18.429][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 16, conn_handle_: 10
+[2024-11-19 10:04:18.429][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:04:18.430][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:04:18.430][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='jerry'
+[2024-11-19 10:04:18.431][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=22
+[2024-11-19 10:04:18.431][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:04:18.432][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:04:18.432][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 16
+[2024-11-19 10:04:18.432][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"parlpippqizmiqxhnarnefwjhuopyakn"}
+
+[2024-11-19 10:04:18.432][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:18.432][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 16
+[2024-11-19 10:04:19.414][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 17, conn_handle_: 11
+[2024-11-19 10:04:19.415][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:04:19.415][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:04:19.415][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:04:19.418][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:19.418][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 17
+[2024-11-19 10:04:20.564][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 18, conn_handle_: 12
+[2024-11-19 10:04:20.565][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:04:20.565][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:04:20.565][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:parlpippqizmiqxhnarnefwjhuopyakn, table_name:
+[2024-11-19 10:04:20.566][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:04:20.570][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:20.571][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 18
+[2024-11-19 10:04:22.131][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 19, conn_handle_: 13
+[2024-11-19 10:04:22.131][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:04:22.136][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:04:22.138][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:156,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 22
+[2024-11-19 10:04:22.139][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:04:22.139][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:22.139][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 19
+[2024-11-19 10:04:23.127][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 20, conn_handle_: 14
+[2024-11-19 10:04:23.128][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:04:23.128][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:04:23.128][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:04:23.130][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:23.131][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 20
+[2024-11-19 10:04:28.035][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 21, conn_handle_: 15
+[2024-11-19 10:04:28.035][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:04:28.036][thread 7211][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:04:28.037][thread 7211][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:04:28.037][thread 7211][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:04:28.039][thread 7211][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:04:28.039][thread 7211][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:04:28.041][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 21
+[2024-11-19 10:04:28.041][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"svuxidgvmensluxmbxfxwvgicwkdjnyb"}
+
+[2024-11-19 10:04:28.041][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:28.041][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 21
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 22, conn_handle_: 16
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:04:28.963][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:04:28.965][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:28.965][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 22
+[2024-11-19 10:04:30.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 23, conn_handle_: 17
+[2024-11-19 10:04:30.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:04:30.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:04:30.072][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:04:30.079][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:04:30.080][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 23
+[2024-11-19 10:05:02.274][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 24, conn_handle_: 18
+[2024-11-19 10:05:02.274][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:05:02.275][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:05:02.275][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:05:02.275][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:05:02.278][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:05:02.280][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:05:02.281][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 24
+[2024-11-19 10:05:03.397][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 25, conn_handle_: 19
+[2024-11-19 10:05:03.397][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=users
+[2024-11-19 10:05:03.397][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=users, cmd: users 
+[2024-11-19 10:05:03.398][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:05:03.398][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 25
+[2024-11-19 10:05:57.250][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 26, conn_handle_: 1A
+[2024-11-19 10:05:57.250][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=normal
+[2024-11-19 10:05:57.250][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=normal, cmd: normal 
+[2024-11-19 10:05:57.295][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:05:57.295][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 26
+[2024-11-19 10:05:57.363][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 27, conn_handle_: 1B
+[2024-11-19 10:05:57.363][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:05:57.363][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:05:57.363][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:05:57.363][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:05:57.364][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:05:57.366][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:05:57.366][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 27
+[2024-11-19 10:05:58.499][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 28, conn_handle_: 1C
+[2024-11-19 10:05:58.499][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:05:58.499][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:05:58.499][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:05:58.503][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:05:58.503][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 28
+[2024-11-19 10:06:02.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 29, conn_handle_: 1D
+[2024-11-19 10:06:02.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:06:02.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:06:02.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:06:02.319][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:06:02.320][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:06:02.321][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:02.321][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 29
+[2024-11-19 10:06:04.954][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 30, conn_handle_: 1E
+[2024-11-19 10:06:04.954][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:06:04.955][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:06:04.956][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='jerry'
+[2024-11-19 10:06:04.956][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=22
+[2024-11-19 10:06:04.957][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 2
+[2024-11-19 10:06:04.957][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:06:04.958][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 30
+[2024-11-19 10:06:04.958][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"gdovxvjbykzcdtwmnxmkjvppodzibkaj"}
+
+[2024-11-19 10:06:04.958][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:04.958][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 30
+[2024-11-19 10:06:05.941][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 31, conn_handle_: 1F
+[2024-11-19 10:06:05.941][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:06:05.941][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:06:05.941][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:06:05.943][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:05.943][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 31
+[2024-11-19 10:06:07.498][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 32, conn_handle_: 20
+[2024-11-19 10:06:07.498][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:06:07.498][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:06:07.498][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:gdovxvjbykzcdtwmnxmkjvppodzibkaj, table_name:
+[2024-11-19 10:06:07.498][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:06:07.501][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:07.501][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 32
+[2024-11-19 10:06:13.634][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 33, conn_handle_: 21
+[2024-11-19 10:06:13.634][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:06:13.638][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:06:13.640][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:156,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 22
+[2024-11-19 10:06:13.641][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:06:13.641][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:328,ApiUploadTable][error] : 插入答案到数据库失败
+[2024-11-19 10:06:13.641][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:13.641][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 33
+[2024-11-19 10:06:14.583][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 34, conn_handle_: 22
+[2024-11-19 10:06:14.583][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:06:14.583][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:06:14.584][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:06:14.585][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:14.585][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 34
+[2024-11-19 10:06:18.082][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 35, conn_handle_: 23
+[2024-11-19 10:06:18.082][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:06:18.082][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:06:18.083][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='tom'
+[2024-11-19 10:06:18.083][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=21
+[2024-11-19 10:06:18.083][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 2
+[2024-11-19 10:06:18.083][thread 7212][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:06:18.084][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 35
+[2024-11-19 10:06:18.084][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"vqcuvemtofbxshfghheglbdhshqnpezl"}
+
+[2024-11-19 10:06:18.085][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:18.085][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 35
+[2024-11-19 10:06:19.112][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 36, conn_handle_: 24
+[2024-11-19 10:06:19.112][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:06:19.112][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:06:19.112][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:06:19.113][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:19.114][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 36
+[2024-11-19 10:06:20.423][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 37, conn_handle_: 25
+[2024-11-19 10:06:20.423][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:06:20.423][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:06:20.423][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: tom, token:vqcuvemtofbxshfghheglbdhshqnpezl, table_name:
+[2024-11-19 10:06:20.423][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:06:20.426][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:20.426][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 37
+[2024-11-19 10:06:26.906][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 38, conn_handle_: 26
+[2024-11-19 10:06:26.906][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:06:26.910][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:06:26.912][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:156,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 21
+[2024-11-19 10:06:26.912][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:06:26.912][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:328,ApiUploadTable][error] : 插入答案到数据库失败
+[2024-11-19 10:06:26.912][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:26.912][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 38
+[2024-11-19 10:06:27.936][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 39, conn_handle_: 27
+[2024-11-19 10:06:27.937][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:06:27.937][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:06:27.937][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:06:27.939][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:27.939][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 39
+[2024-11-19 10:06:34.178][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 40, conn_handle_: 28
+[2024-11-19 10:06:34.178][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:06:34.179][thread 7206][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:06:34.179][thread 7206][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:06:34.180][thread 7206][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:06:34.180][thread 7206][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 2
+[2024-11-19 10:06:34.180][thread 7206][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:06:34.181][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 40
+[2024-11-19 10:06:34.181][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"iovtpsnurupnaptxgaxapxxukdkzxpgi"}
+
+[2024-11-19 10:06:34.181][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:34.181][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 40
+[2024-11-19 10:06:35.051][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 41, conn_handle_: 29
+[2024-11-19 10:06:35.051][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:06:35.051][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:06:35.051][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:06:35.051][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:06:35.052][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:06:35.053][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:35.053][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 41
+[2024-11-19 10:06:36.099][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 42, conn_handle_: 2A
+[2024-11-19 10:06:36.099][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:06:36.099][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:06:36.099][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:06:36.103][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:06:36.104][thread 7203][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 42
+[2024-11-19 10:09:59.375][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:09:59.378][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:09:59.383][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:09:59.387][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:09:59.387][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:10:03.476][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:10:03.477][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:10:03.477][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:10:03.477][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:10:03.477][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:10:03.478][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:10:15.610][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:10:15.610][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:10:19.876][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:10:19.876][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:10:19.876][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:10:19.876][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:10:19.880][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:10:19.880][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:10:44.501][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:10:44.501][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:10:44.501][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:10:44.501][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:10:44.514][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:10:44.515][thread 7623][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 3
+[2024-11-19 10:11:35.937][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:11:35.939][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:11:35.945][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:11:35.949][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:11:35.949][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:11:38.398][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:11:50.196][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:12:44.942][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:13:22.951][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:20:04.329][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:20:04.329][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:20:07.163][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:20:10.193][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:20:10.193][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:20:10.193][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:20:10.196][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:20:10.196][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:20:18.163][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:20:52.585][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:20:52.585][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:20:52.585][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:20:52.585][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:20:52.586][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:20:52.586][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:20:52.587][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 3
+[2024-11-19 10:21:03.427][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 4, conn_handle_: 4
+[2024-11-19 10:21:03.427][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:21:03.428][thread 7721][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:21:03.429][thread 7721][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='jerry'
+[2024-11-19 10:21:03.430][thread 7721][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=22
+[2024-11-19 10:21:03.431][thread 7721][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 2
+[2024-11-19 10:21:03.431][thread 7721][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:21:03.431][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 4
+[2024-11-19 10:21:03.431][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"ccrjrudwctfwcthptrgtmdlycahvyyrc"}
+
+[2024-11-19 10:21:03.431][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:03.431][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 4
+[2024-11-19 10:21:04.691][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 5, conn_handle_: 5
+[2024-11-19 10:21:04.691][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:21:04.691][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:21:04.692][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:21:04.693][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:04.693][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 5
+[2024-11-19 10:21:07.076][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 6, conn_handle_: 6
+[2024-11-19 10:21:07.076][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/delete
+[2024-11-19 10:21:07.079][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:92,CacheDecrCount][info] : jerry-0
+[2024-11-19 10:21:07.080][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:07.080][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 6
+[2024-11-19 10:21:07.144][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 7, conn_handle_: 7
+[2024-11-19 10:21:07.144][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:21:07.144][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:21:07.144][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:ccrjrudwctfwcthptrgtmdlycahvyyrc, table_name:
+[2024-11-19 10:21:07.144][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:21:07.146][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:07.146][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 7
+[2024-11-19 10:21:14.474][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 8, conn_handle_: 8
+[2024-11-19 10:21:14.474][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:21:14.478][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:21:14.479][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:21:14.479][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:158,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:21:14.479][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:21:14.479][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:328,ApiUploadTable][error] : 插入答案到数据库失败
+[2024-11-19 10:21:14.480][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:14.480][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 8
+[2024-11-19 10:21:15.532][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 9, conn_handle_: 9
+[2024-11-19 10:21:15.532][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:21:15.532][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:21:15.532][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:21:15.533][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:21:15.533][thread 7718][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 9
+[2024-11-19 10:22:34.425][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:22:34.427][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:22:34.431][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:22:34.435][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:22:34.435][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:22:40.892][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:22:40.892][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/delete
+[2024-11-19 10:22:40.896][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:92,CacheDecrCount][info] : jerry-0
+[2024-11-19 10:22:40.896][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:22:40.896][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:22:40.970][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:22:40.971][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:22:40.971][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:22:40.971][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:ccrjrudwctfwcthptrgtmdlycahvyyrc, table_name:
+[2024-11-19 10:22:40.971][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:22:40.973][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:22:40.973][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:22:46.312][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:22:46.313][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:23:04.126][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:148,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:23:04.127][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:23:04.127][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:158,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:23:04.127][thread 8241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:27:15.374][thread 8873][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:27:15.375][thread 8873][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:27:15.378][thread 8873][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:27:15.379][thread 8873][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:27:15.379][thread 8873][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:27:35.075][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:27:35.077][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:27:35.079][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:27:35.082][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:27:35.082][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:27:42.800][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:27:42.800][thread 8902][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:31:45.693][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:31:45.695][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:31:45.698][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:31:45.700][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:31:45.700][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:33:07.360][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:33:07.361][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:33:07.365][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:151,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:33:07.366][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:33:07.366][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:161,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:33:07.366][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:33:07.370][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:151,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:33:07.371][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:33:07.371][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:161,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:33:07.371][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:33:07.372][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:33:07.372][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:33:08.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:33:08.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:33:08.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:33:08.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:33:08.344][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:33:08.345][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:33:15.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:33:15.343][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:33:15.344][thread 9241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:33:15.344][thread 9241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:33:15.345][thread 9241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:33:15.345][thread 9241][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 2
+[2024-11-19 10:33:15.345][thread 9241][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:33:15.346][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 3
+[2024-11-19 10:33:15.346][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"tswnzwpipdxusmfmyjdigqdqibepgymc"}
+
+[2024-11-19 10:33:15.346][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:33:15.346][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 3
+[2024-11-19 10:33:16.241][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 4, conn_handle_: 4
+[2024-11-19 10:33:16.242][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:33:16.242][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:33:16.242][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:33:16.242][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:33:16.242][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:33:16.243][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:33:16.243][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 4
+[2024-11-19 10:33:17.203][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 5, conn_handle_: 5
+[2024-11-19 10:33:17.203][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:33:17.203][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:33:17.203][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:33:17.207][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:33:17.207][thread 9232][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 5
+[2024-11-19 10:41:48.053][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-19 10:41:48.055][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:41:48.058][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-19 10:41:48.059][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-19 10:41:48.059][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-19 10:41:51.392][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-19 10:41:51.392][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:41:51.392][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:41:51.392][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:41:51.393][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:353,ApiRootTables][error] : getRootTable failed
+[2024-11-19 10:41:51.394][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:41:51.394][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-19 10:41:55.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-19 10:41:55.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_delete
+[2024-11-19 10:41:55.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:41:55.298][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
+[2024-11-19 10:41:55.360][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 3, conn_handle_: 3
+[2024-11-19 10:41:55.361][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:41:55.361][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:41:55.361][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:41:55.361][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:41:55.362][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:41:55.362][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:112,getRootTableList][warning] : getRootTablesCount = 0
+[2024-11-19 10:41:55.362][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:41:55.362][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 3
+[2024-11-19 10:42:01.037][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 4, conn_handle_: 4
+[2024-11-19 10:42:01.037][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=users
+[2024-11-19 10:42:01.037][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=users, cmd: users 
+[2024-11-19 10:42:01.038][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:01.038][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 4
+[2024-11-19 10:42:37.719][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 5, conn_handle_: 5
+[2024-11-19 10:42:37.719][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/table_create?cmd=normal
+[2024-11-19 10:42:37.719][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_create_table.cc:684,ApiRootTableCreate][info] : url: /api/root/table_create?cmd=normal, cmd: normal 
+[2024-11-19 10:42:37.783][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:37.784][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 5
+[2024-11-19 10:42:37.874][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 6, conn_handle_: 6
+[2024-11-19 10:42:37.875][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:42:37.875][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:42:37.875][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:42:37.875][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:42:37.876][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:42:37.878][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:37.878][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 6
+[2024-11-19 10:42:39.458][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 7, conn_handle_: 7
+[2024-11-19 10:42:39.458][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:42:39.458][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:42:39.458][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:42:39.463][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:39.463][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 7
+[2024-11-19 10:42:42.135][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 8, conn_handle_: 8
+[2024-11-19 10:42:42.135][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:42:42.135][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:42:42.135][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:42:42.135][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:42:42.136][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:42:42.137][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:42.137][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 8
+[2024-11-19 10:42:45.087][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 9, conn_handle_: 9
+[2024-11-19 10:42:45.087][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:42:45.088][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:42:45.088][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='jerry'
+[2024-11-19 10:42:45.088][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=22
+[2024-11-19 10:42:45.088][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:42:45.088][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:42:45.090][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 9
+[2024-11-19 10:42:45.090][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"qjkemdbcszdkpascfeyxkywngeqmunwk"}
+
+[2024-11-19 10:42:45.090][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:45.091][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 9
+[2024-11-19 10:42:46.095][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 10, conn_handle_: A
+[2024-11-19 10:42:46.095][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:42:46.095][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:42:46.095][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:42:46.096][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:46.096][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 10
+[2024-11-19 10:42:47.140][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 11, conn_handle_: B
+[2024-11-19 10:42:47.140][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:42:47.140][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:42:47.140][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:qjkemdbcszdkpascfeyxkywngeqmunwk, table_name:
+[2024-11-19 10:42:47.141][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:42:47.143][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:47.143][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 11
+[2024-11-19 10:42:52.478][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 12, conn_handle_: C
+[2024-11-19 10:42:52.478][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:42:52.483][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:42:52.484][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:191,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 22
+[2024-11-19 10:42:52.484][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:42:52.488][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:42:52.489][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:42:52.489][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:193,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:42:52.489][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:42:52.489][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:52.489][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 12
+[2024-11-19 10:42:53.650][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 13, conn_handle_: D
+[2024-11-19 10:42:53.651][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:42:53.651][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:42:53.651][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:42:53.653][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:53.653][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 13
+[2024-11-19 10:42:56.226][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 14, conn_handle_: E
+[2024-11-19 10:42:56.226][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/delete
+[2024-11-19 10:42:56.229][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:92,CacheDecrCount][info] : jerry-0
+[2024-11-19 10:42:56.230][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:56.230][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 14
+[2024-11-19 10:42:56.330][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 15, conn_handle_: F
+[2024-11-19 10:42:56.330][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:42:56.330][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:42:56.330][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: jerry, token:qjkemdbcszdkpascfeyxkywngeqmunwk, table_name:
+[2024-11-19 10:42:56.330][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:42:56.332][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:42:56.332][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 15
+[2024-11-19 10:43:00.567][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 16, conn_handle_: 10
+[2024-11-19 10:43:00.568][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:43:00.571][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:43:00.572][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:43:00.572][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:193,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:43:00.572][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:43:00.575][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:43:00.576][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:43:00.576][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:193,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 22
+[2024-11-19 10:43:00.576][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : jerry-0
+[2024-11-19 10:43:00.576][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:00.576][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 16
+[2024-11-19 10:43:01.510][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 17, conn_handle_: 11
+[2024-11-19 10:43:01.510][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:43:01.510][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:43:01.510][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:43:01.512][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:01.512][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 17
+[2024-11-19 10:43:04.463][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 18, conn_handle_: 12
+[2024-11-19 10:43:04.463][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:43:04.464][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:43:04.464][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='tom'
+[2024-11-19 10:43:04.465][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=21
+[2024-11-19 10:43:04.465][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:43:04.465][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:43:04.466][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 18
+[2024-11-19 10:43:04.466][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"udizqkbamnpmojaoevztvickxyovbtjw"}
+
+[2024-11-19 10:43:04.466][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:04.466][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 18
+[2024-11-19 10:43:05.259][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 19, conn_handle_: 13
+[2024-11-19 10:43:05.259][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:43:05.259][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:43:05.260][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:43:05.261][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:05.262][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 19
+[2024-11-19 10:43:06.171][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 20, conn_handle_: 14
+[2024-11-19 10:43:06.171][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=normal
+[2024-11-19 10:43:06.171][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=normal, cmd: normal 
+[2024-11-19 10:43:06.171][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:456,ApiMyTables][info] : user_name: tom, token:udizqkbamnpmojaoevztvickxyovbtjw, table_name:
+[2024-11-19 10:43:06.172][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:320,getUserTable][info] : getUserTable info
+[2024-11-19 10:43:06.175][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:06.175][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 20
+[2024-11-19 10:43:09.286][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 21, conn_handle_: 15
+[2024-11-19 10:43:09.287][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/upload
+[2024-11-19 10:43:09.290][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:43:09.292][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:191,handleUpdateQuestion][info] : 成功将is_filled更新为1，对应survey_id: 21
+[2024-11-19 10:43:09.292][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:43:09.296][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:183,handleUpdateQuestion][info] : 执行更新is_filled的语句: UPDATE Surveys SET is_filled = 1 WHERE survey_id =?
+[2024-11-19 10:43:09.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:178,ExecuteUpdate][error] : ExecuteUpdate have no effect
+[2024-11-19 10:43:09.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:193,handleUpdateQuestion][error] : 更新is_filled失败，对应survey_id: 21
+[2024-11-19 10:43:09.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:80,CacheIncrCount][info] : tom-0
+[2024-11-19 10:43:09.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:09.297][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 21
+[2024-11-19 10:43:10.439][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 22, conn_handle_: 16
+[2024-11-19 10:43:10.439][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-19 10:43:10.439][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-19 10:43:10.440][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-19 10:43:10.441][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:10.442][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 22
+[2024-11-19 10:43:16.622][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 23, conn_handle_: 17
+[2024-11-19 10:43:16.623][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-19 10:43:16.624][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-19 10:43:16.624][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:43:16.625][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:43:16.625][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-19 10:43:16.625][thread 9795][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:413,AddResponseData][info] : into
+[2024-11-19 10:43:16.626][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:398,SendResponseDataList][info] : conn_uuid: 23
+[2024-11-19 10:43:16.626][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:400,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"zqngbozyorlyilnvrbwmubeipeajdvyd"}
+
+[2024-11-19 10:43:16.626][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:16.626][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 23
+[2024-11-19 10:43:17.552][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 24, conn_handle_: 18
+[2024-11-19 10:43:17.553][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=count
+[2024-11-19 10:43:17.553][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=count, cmd: count 
+[2024-11-19 10:43:17.553][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:93,getRootTableList][info] : getRootTableList info
+[2024-11-19 10:43:17.553][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='root'
+[2024-11-19 10:43:17.553][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=1
+[2024-11-19 10:43:17.554][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:17.554][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 24
+[2024-11-19 10:43:18.603][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 25, conn_handle_: 19
+[2024-11-19 10:43:18.604][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/root/tables?cmd=normal
+[2024-11-19 10:43:18.604][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:336,ApiRootTables][info] : url: /api/root/tables?cmd=normal, cmd: normal 
+[2024-11-19 10:43:18.604][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/api/api_root_tables.cc:200,getRootTable][info] : getRootTable info
+[2024-11-19 10:43:18.609][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:383,OnWriteComlete][info] : write complete
+[2024-11-19 10:43:18.609][thread 9786][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 25
