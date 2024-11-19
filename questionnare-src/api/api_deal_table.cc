@@ -50,7 +50,7 @@ int encodeDealtableJson(int ret, string &str_json) {
 }
 
 //这个函数的功能就是用户上传一条答案
-int handleUpdateQuestion(string user,string questionname,string table_name,string answer){
+int handleUpdateQuestion(string user, string questionname, string table_name, string answer) {
     CDBManager *db_manager = CDBManager::getInstance(); 
     CDBConn *db_conn = db_manager->GetDBConn("qs_slave");
     AUTO_REL_DBCONN(db_manager, db_conn);
@@ -66,120 +66,130 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     int question_id;
     int survey_id;
     int option_id;
+    int is_dead;
 
     string question_text;
     string question_type;
     
-    //由于前端界面中题目单选题的答案必定是a,b,c,d所以没有必要判断类型是否一致
-    //直接插入便是，先从user获取user_id,再从questionname获取question_id，再从option中获取option_id，最后结合answer插入responses表
-    sprintf(sql_cmd,"select user_id from Users where user_name = '%s'",user.c_str());
-    CResultSet *result_set = db_conn->ExecuteQuery(sql_cmd);
-    if (result_set && result_set->Next()) {
-        //从结果获取到user_id
-        user_id = result_set->GetInt("user_id");
+    // 获取 user_id
+    sprintf(sql_cmd, "select user_id from Users where user_name = '%s'", user.c_str());
+    CResultSet *result_set1 = db_conn->ExecuteQuery(sql_cmd);
+    if (result_set1 && result_set1->Next()) {
+        user_id = result_set1->GetInt("user_id");
         ret = 0;
-    }else{
+    } else {
         ret = -1;
     }
-    delete result_set;
+    delete result_set1;
 
+    if (ret != 0) return ret;
+
+    // 获取 survey_id
     memset(sql_cmd, 0, sizeof(sql_cmd));
-
-    sprintf(sql_cmd,"select survey_id from Surveys where title = '%s' and user_id = %d",table_name.c_str(),user_id);
-    result_set = db_conn->ExecuteQuery(sql_cmd);
-    if (result_set && result_set->Next()) {
-        //从结果获取到user_id
-        survey_id = result_set->GetInt("survey_id");
-        ret = 0;
-    }else{
-        ret = -1;
-    }
-    delete result_set;
-
-    memset(sql_cmd, 0, sizeof(sql_cmd));
-
-    sprintf(sql_cmd, "select question_id,question_text,question_type from Questions where question_text = '%s' and survey_id = '%d'", questionname.c_str(), survey_id);
-    result_set = db_conn->ExecuteQuery(sql_cmd);
-    if (result_set && result_set->Next()) {
-        //从结果获取到user_id
-        question_id = result_set->GetInt("question_id");
-        question_text = result_set->GetString("question_text");
-        question_type = result_set->GetString("question_type");
-        ret = 0;
-    }else{
-        ret = -1;
-    }
-    delete result_set;
-
-    //根据answer获取option_id
-    if(question_type != "fill_in_blank"){  //如果不是填空题
-        sprintf(sql_cmd, "select option_id from Options where option_text = '%s' and question_id = '%d'",answer.c_str(),question_id);
-        result_set = db_conn->ExecuteQuery(sql_cmd);
-        if (result_set && result_set->Next()) {
-            //从结果获取到user_id
-            option_id = result_set->GetInt("option_id");
-            ret = 0;
-        }else{
-            ret = -1;
-        }
-        delete result_set;
-    }
-
-    //到这里为止question_id和user_id获取成功
-    memset(sql_cmd, 0, sizeof(sql_cmd));
-
-    if (question_type!= "fill_in_blank") {
-        // 先查询是否已存在相同question_id, user_id, survey_id, option_id的记录
-        sprintf(sql_cmd, "SELECT COUNT(*) FROM Responses WHERE question_id = %d AND user_id = %d AND survey_id = %d AND option_id = %d", question_id, user_id, survey_id, option_id);
-        int count = 0;
-        if (!db_conn->ExecuteQuery(sql_cmd)) {
-            LogError("查询记录数量操作失败");
+    sprintf(sql_cmd, "select survey_id,is_dead from Surveys where title = '%s' and user_id = %d", table_name.c_str(), user_id);
+    CResultSet *result_set2 = db_conn->ExecuteQuery(sql_cmd);
+    if (result_set2 && result_set2->Next()) {
+        survey_id = result_set2->GetInt("survey_id");
+        is_dead = result_set2->GetInt("is_dead");
+        if(is_dead == 1){
             return -1;
         }
-        if (count > 0) {
-            // 如果存在，执行更新操作
+        ret = 0;
+    } else {
+        ret = -1;
+    }
+    delete result_set2;
+
+    if (ret != 0) return ret;
+
+    // 获取 question_id, question_text, question_type
+    memset(sql_cmd, 0, sizeof(sql_cmd));
+    sprintf(sql_cmd, "select question_id, question_text, question_type from Questions where question_text = '%s' and survey_id = %d", questionname.c_str(), survey_id);
+    CResultSet *result_set3 = db_conn->ExecuteQuery(sql_cmd);
+    if (result_set3 && result_set3->Next()) {
+        question_id = result_set3->GetInt("question_id");
+        question_text = result_set3->GetString("question_text");
+        question_type = result_set3->GetString("question_type");
+        ret = 0;
+    } else {
+        ret = -1;
+    }
+    delete result_set3;
+
+    if (ret != 0) return ret;
+
+    // 如果是选项题，获取 option_id
+    if (question_type != "fill_in_blank") {
+        sprintf(sql_cmd, "select option_id from Options where option_text = '%s' and question_id = %d", answer.c_str(), question_id);
+        CResultSet *result_set4 = db_conn->ExecuteQuery(sql_cmd);
+        if (result_set4 && result_set4->Next()) {
+            option_id = result_set4->GetInt("option_id");
+            ret = 0;
+        } else {
+            ret = -1;
+        }
+        delete result_set4;
+
+        if (ret != 0) return ret;
+    }
+
+    // 执行插入或更新操作
+    memset(sql_cmd, 0, sizeof(sql_cmd));
+
+    if (question_type != "fill_in_blank") {
+        // 查询是否已存在相同的记录
+        sprintf(sql_cmd, "SELECT COUNT(*) FROM Responses WHERE question_id = %d AND user_id = %d AND survey_id = %d AND option_id = %d", question_id, user_id, survey_id, option_id);
+        CResultSet *result_set5 = db_conn->ExecuteQuery(sql_cmd);
+        int count = 0;
+        if (result_set5 && result_set5->Next()) {
+            count = result_set5->GetInt("COUNT(*)");
+        }
+        delete result_set5;
+
+        if (count == 0) {
+            // 如果不存在，插入记录
+            sprintf(sql_cmd, "insert into Responses (question_id, user_id, answer, survey_id, option_id) values (%d, %d, '%s', %d, %d)", question_id, user_id, answer.c_str(), survey_id, option_id);
+            if (!db_conn->ExecuteCreate(sql_cmd)) {
+                LogError("插入记录操作失败");
+                return -1;
+            }
+        } else {
+            // 如果存在，更新记录
             sprintf(sql_cmd, "UPDATE Responses SET answer = '%s' WHERE question_id = %d AND user_id = %d AND survey_id = %d AND option_id = %d", answer.c_str(), question_id, user_id, survey_id, option_id);
             if (!db_conn->ExecuteCreate(sql_cmd)) {
                 LogError("更新记录操作失败");
                 return -1;
             }
-            return 0;
-        }
-
-        // 如果不存在，执行插入数据库操作
-        sprintf(sql_cmd, "insert into Responses (question_id,user_id,answer,survey_id,option_id) values (%d,%d,'%s',%d,%d)", question_id, user_id, answer.c_str(), survey_id, option_id);
-        if (!db_conn->ExecuteCreate(sql_cmd)) {
-            LogError("插入记录操作失败");
-            return -1;
         }
     } else {
-        // 先查询是否已存在相同question_id, user_id, survey_id的记录（填空题情况）
+        // 对于填空题，查询是否已存在相同的记录
         sprintf(sql_cmd, "SELECT COUNT(*) FROM Responses WHERE question_id = %d AND user_id = %d AND survey_id = %d", question_id, user_id, survey_id);
+        CResultSet *result_set6 = db_conn->ExecuteQuery(sql_cmd);
         int count = 0;
-        if (!db_conn->ExecuteQuery(sql_cmd)) {
-            LogError("查询记录数量操作失败");
-            return -1;
+        if (result_set6 && result_set6->Next()) {
+            count = result_set6->GetInt("COUNT(*)");
         }
-        if (count > 0) {
-            // 如果存在，执行更新操作
+        delete result_set6;
+
+        if (count == 0) {
+            // 如果不存在，插入记录
+            sprintf(sql_cmd, "insert into Responses (question_id, user_id, answer, survey_id) values (%d, %d, '%s', %d)", question_id, user_id, answer.c_str(), survey_id);
+            if (!db_conn->ExecuteCreate(sql_cmd)) {
+                LogError("插入记录操作失败");
+                return -1;
+            }
+        } else {
+            // 如果存在，更新记录
             sprintf(sql_cmd, "UPDATE Responses SET answer = '%s' WHERE question_id = %d AND user_id = %d AND survey_id = %d", answer.c_str(), question_id, user_id, survey_id);
             if (!db_conn->ExecuteCreate(sql_cmd)) {
                 LogError("更新记录操作失败");
                 return -1;
             }
-            return 0;
-        }
-
-        // 如果不存在，执行插入数据库操作
-        sprintf(sql_cmd, "insert into Responses (question_id,user_id,answer,survey_id) values (%d,%d,'%s',%d)", question_id, user_id, answer.c_str(), survey_id);
-        if (!db_conn->ExecuteCreate(sql_cmd)) {
-            LogError("插入记录操作失败");
-            return -1;
         }
     }
 
-    //简单起见，每次都更新is_filled字段为1
-    string update_sql = "UPDATE Surveys SET is_filled = 1 WHERE survey_id =?";
+    // 更新 is_filled 字段
+    string update_sql = "UPDATE Surveys SET is_filled = 1 WHERE survey_id = ?";
     LogInfo("执行更新is_filled的语句: {}", update_sql);
 
     CPrepareStatement *update_stmt = new CPrepareStatement();
@@ -195,14 +205,14 @@ int handleUpdateQuestion(string user,string questionname,string table_name,strin
     }
     delete update_stmt;
 
-    //查询用户表数量+1      web热点 大明星  微博存在缓存里面。
+    // 更新缓存
     if (CacheIncrCount(cache_conn, string(user)) < 0) {
-        LogError(" CacheIncrCount 操作失败");
+        LogError("CacheIncrCount 操作失败");
     }
 
-END:
     return ret;
 }
+
 
 
 // 辅助函数，用于将vector<int> 类型的question_ids转换为逗号分隔的字符串，以便在SQL语句中使用IN关键字
@@ -231,6 +241,7 @@ int handleDeleteTable(string user, string table_name) {
     char sql_cmd[SQL_MAX_LEN] = {0};
     int user_id = -1;
     int survey_id = -1;
+    int is_dead=0;
 
     // 先从user获取user_id
     sprintf(sql_cmd, "select user_id from Users where user_name = '%s'", user.c_str());
@@ -249,11 +260,15 @@ int handleDeleteTable(string user, string table_name) {
     memset(sql_cmd, 0, sizeof(sql_cmd));
 
     // 根据表名和user_id查到survey_id
-    sprintf(sql_cmd, "select survey_id from Surveys where title = '%s' and user_id = %d", table_name.c_str(), user_id);
+    sprintf(sql_cmd, "select survey_id,is_dead from Surveys where title = '%s' and user_id = %d", table_name.c_str(), user_id);
     result_set = db_conn->ExecuteQuery(sql_cmd);
     if (result_set && result_set->Next()) {
         // 从结果获取到survey_id
         survey_id = result_set->GetInt("survey_id");
+        is_dead = result_set->GetInt("is_dead");
+        if(is_dead == 1){
+            return -1;
+        }
         ret = 0;
     } else {
         LogError("未能根据表名 {} 和用户ID {} 获取到survey_id", table_name, user_id);

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>调查问卷系统</title>
     <link rel="icon" href="logo.ico">
     <style>
@@ -270,12 +270,13 @@
                           },
                           body: JSON.stringify(submitData)
                       })
+                      .then(response => response.json())  // 确保返回JSON格式
                       .then(response => {
-                          if (response.ok) {
+                          if (response.code === 0) {
                               alert('问卷提交成功！');
                               location.href = 'http://192.168.186.138/survey';
                           } else {
-                              alert('提交失败，请稍后再试！');
+                              alert('问卷已过期，请返回！');
                           }
                       })
                       .catch(error => {
@@ -296,6 +297,5 @@
       }
   </script>
 </body>
-
 
 </html>
