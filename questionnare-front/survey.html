@@ -130,9 +130,9 @@
         }
     }
 
-    // 获取用户信息和显示用户名
+    // 获取用户信息和显示用户名，这里改用sessionStorage
     function displayUserInfo() {
-        const user = localStorage.getItem("username");
+        const user = sessionStorage.getItem("username");
         if (user) {
             document.getElementById("username").textContent = `用户名: ${user}`;
         } else {
@@ -140,15 +140,17 @@
         }
     }
 
-    // 退出登录
+    // 退出登录，清除当前会话的 sessionStorage 数据
     function logout() {
-        window.location.href = 'http://47.95.193.211/login';
+        window.location.href = 'http://192.168.186.138/login';
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("token");
     }
 
-    // 注销账户
+    // 注销账户，操作的也是当前会话存储的用户名和token信息
     function unreg() {
-        const user = localStorage.getItem("username");
-        const token = localStorage.getItem("token");
+        const user = sessionStorage.getItem("username");
+        const token = sessionStorage.getItem("token");
 
         if (user && token) {
             const confirmUnreg = confirm("确定要注销账户吗？");
@@ -159,14 +161,14 @@
                     "token": token
                 };
 
-                fetch('http://47.95.193.211/api/unreg', {
+                fetch('http://192.168.186.138/api/unreg', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(jsonData)
                 })
-               .then(response => {
+                .then(response => {
                     if (!response.ok) {
                         return handleFetchError('注销账户请求失败', () => {
                             alert('注销账户失败');
@@ -174,18 +176,18 @@
                     }
                     return response.json();
                 })
-               .then(response => {
+                .then(response => {
                     console.log('注销账户响应：', response);
                     if (response.code === 0) {
                         alert('账户已注销');
-                        localStorage.removeItem("username");
-                        localStorage.removeItem("token");
+                        sessionStorage.removeItem("username");
+                        sessionStorage.removeItem("token");
                         location.href = 'login.html';
                     } else {
                         alert('注销账户失败');
                     }
                 })
-               .catch(error => {
+                .catch(error => {
                     handleFetchError('请求失败，服务器无响应');
                 });
             }
@@ -226,8 +228,8 @@
         const td2 = document.createElement('td');
         td2.textContent = tableObj.table_name;
         td2.onclick = function () {
-            const user = localStorage.getItem("username");
-            const token = localStorage.getItem("token");
+            const user = sessionStorage.getItem("username");
+            const token = sessionStorage.getItem("token");
             const isFilled = tableObj.is_filled === 1;
             if (isFilled) {
                 // 如果已填写，弹出提示框询问是否重新填写
@@ -241,25 +243,25 @@
                     };
                     console.log("删除数据：", deleteData);  // 可用于调试
 
-                    fetch('http://47.95.193.211/api/delete', {
+                    fetch('http://192.168.186.138/api/delete', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify(deleteData)
                     })
-                   .then(response => {
+                  .then(response => {
                         if (!response.ok) {
                             return handleFetchError('删除记录请求失败', () => {
                                 console.error('删除失败，服务器返回错误：', response);
                                 alert('删除失败，请稍后再试！');
                             });
                         }
-                        // 如果删除成功，保存当前table_name到localStorage并跳转
-                        localStorage.setItem('title', td2.textContent);
-                        location.href = 'http://47.95.193.211/table';
+                        // 如果删除成功，保存当前table_name到sessionStorage并跳转
+                        sessionStorage.setItem('title', td2.textContent);
+                        location.href = 'http://192.168.186.138/table';
                     })
-                   .catch(error => {
+                  .catch(error => {
                         handleFetchError('删除记录请求失败，服务器无响应', () => {
                             console.error('删除失败：', error);
                             alert('删除失败，请稍后再试！');
@@ -267,9 +269,9 @@
                     });
                 }
             } else {
-                // 如果未填写，直接保存当前table_name到localStorage并跳转
-                localStorage.setItem('title', td2.textContent);
-                location.href = 'http://47.95.193.211/table';
+                // 如果未填写，直接保存当前table_name到sessionStorage并跳转
+                sessionStorage.setItem('title', td2.textContent);
+                location.href = 'http://192.168.186.138/table';
             }
         };
 
@@ -291,21 +293,21 @@
 
     // mytables函数，对内部逻辑进行了适当拆分，提高可读性
     function mytables() {
-        const user = localStorage.getItem("username");
-        const token = localStorage.getItem("token");
+        const user = sessionStorage.getItem("username");
+        const token = sessionStorage.getItem("token");
         const jsonData = {
             "user": user,
             "token": token
         };
 
-        fetch('http://47.95.193.211/api/mytables?cmd=count', {
+        fetch('http://192.168.186.138/api/mytables?cmd=count', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(jsonData)
         })
-       .then(response => {
+      .then(response => {
             if (!response.ok) {
                 return handleFetchError('获取问卷列表请求失败', () => {
                     alert('未能加载表格数');
@@ -313,7 +315,7 @@
             }
             return response.json();
         })
-       .then(response => {
+      .then(response => {
             console.log('返回数据：', response);
 
             if (response.code === 0) {
@@ -362,7 +364,7 @@
                 alert('未能加载表格数');
             }
         })
-       .catch(error => {
+      .catch(error => {
             handleFetchError('请求失败，服务器无响应');
         });
     }
@@ -373,6 +375,7 @@
         mytables();
     }
 </script>
+
 
 </body>
 

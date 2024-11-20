@@ -620,9 +620,9 @@ qs_http_server: CMakeFiles/qs_http_server.dir/jsoncpp/json_reader.cpp.o
 qs_http_server: CMakeFiles/qs_http_server.dir/jsoncpp/json_value.cpp.o
 qs_http_server: CMakeFiles/qs_http_server.dir/jsoncpp/json_writer.cpp.o
 qs_http_server: CMakeFiles/qs_http_server.dir/build.make
-qs_http_server: /usr/lib/x86_64-linux-gnu/libspdlog.so.1.9.2
-qs_http_server: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 qs_http_server: /usr/lib/x86_64-linux-gnu/libfmt.so.8.1.1
+qs_http_server: /usr/local/lib/libspdlogd.a
+qs_http_server: /usr/lib/x86_64-linux-gnu/libprotobuf.so
 qs_http_server: CMakeFiles/qs_http_server.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jerry/Desktop/questionnare/questionnare-src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Linking CXX executable qs_http_server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qs_http_server.dir/link.txt --verbose=$(VERBOSE)

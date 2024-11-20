@@ -228,10 +228,10 @@ Protobuf_LITE_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libprotobuf-lit
 Protobuf_PROTOC_EXECUTABLE:FILEPATH=/usr/bin/protoc
 
 //Path to a library.
-Protobuf_PROTOC_LIBRARY_DEBUG:FILEPATH=Protobuf_PROTOC_LIBRARY_DEBUG-NOTFOUND
+Protobuf_PROTOC_LIBRARY_DEBUG:FILEPATH=/usr/local/lib/libprotoc.so
 
 //Path to a library.
-Protobuf_PROTOC_LIBRARY_RELEASE:FILEPATH=Protobuf_PROTOC_LIBRARY_RELEASE-NOTFOUND
+Protobuf_PROTOC_LIBRARY_RELEASE:FILEPATH=/usr/local/lib/libprotoc.so
 
 //The directory containing a CMake configuration file for fmt.
 fmt_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/fmt
@@ -246,7 +246,7 @@ qs_http_server_IS_TOP_LEVEL:STATIC=ON
 qs_http_server_SOURCE_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src
 
 //The directory containing a CMake configuration file for spdlog.
-spdlog_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/spdlog
+spdlog_DIR:PATH=/usr/local/lib/cmake/spdlog
 
 
 ########################

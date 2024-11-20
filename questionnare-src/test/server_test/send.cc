@@ -3,8 +3,8 @@
 #include <string.h>
 #include <curl/curl.h>
 
-#define URL "http://47.95.193.211/api/login"
-//#define URL "http://47.95.193.211:8081"
+#define URL "http://192.168.186.138/api/login"
+//#define URL "http://192.168.186.138:8081"
 
 // 要发送的 JSON 数据
 const char *jsonData = "{"

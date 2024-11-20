@@ -111,7 +111,7 @@
   </div>
 
   <!-- 新增的按钮 -->
-  <button id="add-questionnaire-btn" onclick="window.location.href='http://47.95.193.211/root_create_table';">新增问卷</button>
+  <button id="add-questionnaire-btn" onclick="window.location.href='http://192.168.186.138/root_create_table';">新增问卷</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
@@ -119,13 +119,13 @@
     const logoutBtn = document.getElementById('logout-btn');
     logoutBtn.addEventListener('click', function () {
       // 点击按钮后跳转到登录页面
-      window.location.href = 'http://47.95.193.211/login';
+      window.location.href = 'http://192.168.186.138/login';
     });
 
     // 使用fetch发送POST请求获取问卷列表
     async function getQuestionnaires() {
       try {
-        const response = await fetch('http://47.95.193.211/api/root/tables?cmd=count', {
+        const response = await fetch('http://192.168.186.138/api/root/tables?cmd=count', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -148,7 +148,7 @@
             nameCell.textContent = questionnaire.table_name;
             nameCell.addEventListener('click', function () {
               localStorage.setItem('table_name', questionnaire.table_name);
-              window.location.href = `http://47.95.193.211/root_table`;
+              window.location.href = `http://192.168.186.138/root_table`;
             });
             const deadlineCell = document.createElement('td');
             deadlineCell.textContent = questionnaire.deadline;
