@@ -142,7 +142,7 @@
 
 <body>
   <!-- 退出按钮 -->
-  <button class="exit-btn" onclick="window.location.href='http://192.168.186.138/root'">退出</button>
+  <button class="exit-btn" onclick="window.location.href='http://47.95.193.211/root'">退出</button>
 
   <!-- 问卷容器 -->
   <div class="questionnaire-container">
@@ -172,19 +172,25 @@
     let selectedUsers = [];  // 用来存储选中的用户
     let isAddingUsers = false; // 新增标志变量，用于记录是否正在添加用户状态
 
-    // 获取用户信息
-    const xhrUsers = new XMLHttpRequest();
-    xhrUsers.open('POST', 'http://192.168.186.138/api/root/table_create?cmd=users', true);
-    xhrUsers.setRequestHeader('Content-Type', 'application/json');
-    xhrUsers.onreadystatechange = function () {
-      if (xhrUsers.readyState === 4 && xhrUsers.status === 200) {
-        const response = JSON.parse(xhrUsers.responseText);
-        userNames = response.map(item => item.user_name);
-      } else if (xhrUsers.readyState === 4) {
-        console.error('获取用户信息请求失败', '服务器无响应');
+    // 使用fetch获取用户信息
+    fetch('http://47.95.193.211/api/root/table_create?cmd=users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    };
-    xhrUsers.send();
+    })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('获取用户信息请求失败，服务器无响应');
+        }
+        return response.json();
+      })
+    .then(data => {
+        userNames = data.map(item => item.user_name);
+      })
+    .catch(error => {
+        console.error('获取用户信息请求失败', error);
+      });
 
     const createQuestionBtn = document.getElementById('create-question-btn');
     const questionTypeDropdown = document.getElementById('question-type-dropdown');
@@ -354,23 +360,30 @@
         questions: questions,
       };
 
-      // 创建XMLHttpRequest对象，用于发送提交问卷的请求
-      const xhrSubmit = new XMLHttpRequest();
-      xhrSubmit.open('POST', 'http://192.168.186.138/api/root/table_create?cmd=normal', true);
-      xhrSubmit.setRequestHeader('Content-Type', 'application/json');
-      xhrSubmit.onreadystatechange = function () {
-        if (xhrSubmit.readyState === 4 && xhrSubmit.status === 200) {
-          const response = JSON.parse(xhrSubmit.responseText);
-          if (response.code === 0) {
-            window.location.href = 'http://192.168.186.138/root';
-          } else {
-            console.error('问卷提交失败，后端返回错误码：', response.code);
-          }
-        } else if (xhrSubmit.readyState === 4) {
-          console.error('问卷提交失败', '服务器无响应');
+      // 使用fetch发送提交问卷的请求
+      fetch('http://47.95.193.211/api/root/table_create?cmd=normal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(questionnaireData)
+      })
+    .then(response => {
+        if (!response.ok) {
+          throw new Error('问卷提交失败，后端返回错误码');
         }
-      };
-      xhrSubmit.send(JSON.stringify(questionnaireData));
+        return response.json();
+      })
+    .then(data => {
+        if (data.code === 0) {
+          window.location.href = 'http://47.95.193.211/root';
+        } else {
+          console.error('问卷提交失败，后端返回错误码：', data.code);
+        }
+      })
+    .catch(error => {
+        console.error('问卷提交失败', error);
+      });
     });
   </script>
 </body>

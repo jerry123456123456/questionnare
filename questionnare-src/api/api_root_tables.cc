@@ -61,7 +61,7 @@ int getTablesCount(CDBConn *db_conn,int &count){
     return 0;
 }
 
-// url="http://192.168.186.138/api/root/tables?cmd=count"
+// url="http://47.95.193.211/api/root/tables?cmd=count"
 template <typename... Args>
 std::string FormatString3(const std::string &format, Args... args) {
     auto size = std::snprintf(nullptr, 0, format.c_str(), args...) +
@@ -88,7 +88,7 @@ std::string FormatString3(const std::string &format, Args... args) {
     ...
 }
 */
-//// url="http://192.168.186.138/api/root/tables?cmd=count"
+//// url="http://47.95.193.211/api/root/tables?cmd=count"
 int getRootTableList(std::string &str_json){
     LogInfo("getRootTableList info");
     int ret = 0;
@@ -148,7 +148,7 @@ int getRootTableList(std::string &str_json){
     return 0;
 }
 
-// url="http://192.168.186.138/api/root/tables?cmd=normal"
+// url="http://47.95.193.211/api/root/tables?cmd=normal"
 /*
 当root管理员点击特定的表格后，接下来就要获取普通用户填写的结果了
 */

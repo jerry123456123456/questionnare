@@ -75,19 +75,16 @@ void CEventDispatch::RemoveTimer(callback_t callback,void *user_data){
 }
 
 //判断定时器是否应该触发
-void CEventDispatch::_CheckTimer(){
-    uint64_t curr_tick=GetTickCount();
+void CEventDispatch::_CheckTimer() {
+    uint64_t curr_tick = GetTickCount();
     list<TimerItem *>::iterator it;
 
-    for(it=timer_list_.begin();it!=timer_list_.end();it++){
-        TimerItem *pItem=*it;
-        //这个it++的位置非常巧妙，如果在循环体内部只是当前迭代器失效，可以保证it及时跳转到下一个迭代器
-        it++;
-        if(curr_tick>= pItem->next_tick){//如果当前时间大于等于下一个定时器触发时间
-            //先更新下一个触发的时间
-            pItem->next_tick+=pItem->interval;
-            //接着调用定时器项中存储的回调函数 `callback`
-            printf("%d\n",pItem->interval);
+    for (it = timer_list_.begin(); it != timer_list_.end();) {
+        TimerItem *pItem = *it;
+        it++; // iterator maybe deleted in the callback, so we should increment
+              // it before callback
+        if (curr_tick >= pItem->next_tick) {
+            pItem->next_tick += pItem->interval;
             pItem->callback(pItem->user_data, NETLIB_MSG_TIMER, 0, NULL);
         }
     }

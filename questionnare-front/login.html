@@ -90,56 +90,62 @@
   <!-- 添加右侧的图片 -->
   <!--img class="right-img" src="l.png" alt="右侧图片"-->
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
     // 加密函数（使用crypto-js库的MD5函数）
     function md5(input) {
       return CryptoJS.MD5(input).toString();
     }
 
-    function sendLoginRequest(username, encryptedPassword, redirectUrl) {
-        const jsonData = {
-            "user": username,
-            "pwd": encryptedPassword
-        };
+    async function sendLoginRequest(username, encryptedPassword, redirectUrl) {
+      const jsonData = {
+        "user": username,
+        "pwd": encryptedPassword
+      };
 
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://192.168.186.138/api/login', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                const response = JSON.parse(xhr.responseText);
-                console.log('登录响应：', response);
-                if (response.code === 0) {
-                    alert('登录成功！');
-                    localStorage.setItem('token', response.token);
-                    localStorage.setItem('username', username);
-                    location.href = redirectUrl;
-                } else {
-                    alert('登录失败：' + response.message);
-                }
-            } else if (xhr.readyState === 4) {
-                console.error('登录请求失败，服务器无响应');
-            }
-        };
+      try {
+        const response = await fetch('http://47.95.193.211/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(jsonData)
+        });
 
-        xhr.send(JSON.stringify(jsonData));
+        if (!response.ok) {
+          throw new Error('登录请求失败，服务器无响应');
+        }
+
+        const data = await response.json();
+        console.log('登录响应：', data);
+        if (data.code === 0) {
+          alert('登录成功！');
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('username', username);
+          location.href = redirectUrl;
+        } else {
+          alert('登录失败：' + data.message);
+        }
+      } catch (error) {
+        console.error('登录请求出现错误：', error);
+      }
     }
 
     function login() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const encryptedPassword = md5(password);
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const encryptedPassword = md5(password);
 
-        if (username === 'root') {
-            sendLoginRequest(username, encryptedPassword, 'http://192.168.186.138/root');
-        } else {
-            sendLoginRequest(username, encryptedPassword, 'http://192.168.186.138/survey');
-        }
+      if (username === 'root') {
+        sendLoginRequest(username, encryptedPassword, 'http://47.95.193.211/root');
+      } else {
+        sendLoginRequest(username, encryptedPassword, 'http://47.95.193.211/survey');
+      }
     }
 
     // 注册函数
     function register() {
-      window.location.href = 'http://192.168.186.138/reg';
+      window.location.href = 'http://47.95.193.211/reg';
     }
   </script>
 </body>

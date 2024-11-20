@@ -565,6 +565,7 @@ int createTables(SurveyData &surveydata, string &str_json) {
 
     // 插入普通用户的Questions表数据，并关联根用户相关id，同时跳过已存在于选择题选项中的填空题
     for (size_t i = 0; i < surveydata.questions.size(); ++i) {
+        printf("!!!!!!!!!!!!!!!!!!!!!\n");
         const Question& question = surveydata.questions[i];
         string question_text = question.question_text;
         string question_type = question.question_type;
@@ -637,6 +638,7 @@ int createTables(SurveyData &surveydata, string &str_json) {
 
                 //接下来要插入option
                 for (size_t j = 0; j < surveydata.questions[i].options.size(); ++j) {
+                    printf("。。。。。。。。。。。。。。。。。\n");
                     const Option& option = surveydata.questions[i].options[j];
                     string option_text = option.option_text;
                     //首先要先获取root_option_id
@@ -667,6 +669,8 @@ int createTables(SurveyData &surveydata, string &str_json) {
     }
 
     // 返回 JSON 数据（原代码中这部分逻辑可根据实际需求进一步完善，比如构建合适的Json内容等）
+    printf("/////////////////////////////////////////////\n");
+
     Json::Value value;
     value["code"] = (ret == 0)? 0 : 1;
     str_json = value.toStyledString();

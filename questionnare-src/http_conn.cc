@@ -229,6 +229,7 @@ void CHttpConn::OnRead(){
         }else if(strncmp(url.c_str(), "/api/delete", 10) == 0){
             _HandleDeleteTableRequest(url,content);
         }else if(strncmp(url.c_str(),"/api/root/tables",16) == 0){
+            printf("3333333333333333333333333\n");
             _HandleRootTableRequest(url,content);
         }else if(strncmp(url.c_str(),"/api/root/table_delete",20) == 0){
             _HandleRootTableDeleteRequest(url,content);

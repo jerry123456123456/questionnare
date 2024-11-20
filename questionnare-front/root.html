@@ -111,25 +111,34 @@
   </div>
 
   <!-- 新增的按钮 -->
-  <button id="add-questionnaire-btn" onclick="window.location.href='http://192.168.186.138/root_create_table';">新增问卷</button>
+  <button id="add-questionnaire-btn" onclick="window.location.href='http://47.95.193.211/root_create_table';">新增问卷</button>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script>
     // 获取退出登录按钮元素
     const logoutBtn = document.getElementById('logout-btn');
     logoutBtn.addEventListener('click', function () {
       // 点击按钮后跳转到登录页面
-      window.location.href = 'http://192.168.186.138/login';
+      window.location.href = 'http://47.95.193.211/login';
     });
 
-    // 创建XMLHttpRequest对象，用于发送POST请求
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://192.168.186.138/api/root/tables?cmd=count', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText);
-        if (response.code === 0) {
-          const questionnaires = response.tables; // 根据实际的JSON结构调整此处获取问卷列表的方式
+    // 使用fetch发送POST请求获取问卷列表
+    async function getQuestionnaires() {
+      try {
+        const response = await fetch('http://47.95.193.211/api/root/tables?cmd=count', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('请求失败，服务器无响应');
+        }
+
+        const data = await response.json();
+        if (data.code === 0) {
+          const questionnaires = data.tables; // 根据实际的JSON结构调整此处获取问卷列表的方式
           const tableBody = document.getElementById('questionnaire-table').getElementsByTagName('tbody')[0];
           questionnaires.forEach((questionnaire, index) => {
             const row = document.createElement('tr');
@@ -139,7 +148,7 @@
             nameCell.textContent = questionnaire.table_name;
             nameCell.addEventListener('click', function () {
               localStorage.setItem('table_name', questionnaire.table_name);
-              window.location.href = `http://192.168.186.138/root_table`;
+              window.location.href = `http://47.95.193.211/root_table`;
             });
             const deadlineCell = document.createElement('td');
             deadlineCell.textContent = questionnaire.deadline;
@@ -149,13 +158,15 @@
             tableBody.appendChild(row);
           });
         } else {
-          console.error('获取问卷列表失败：', response.message);
+          console.error('获取问卷列表失败：', data.message);
         }
-      } else if (xhr.readyState === 4) {
-        console.error('请求失败，服务器无响应');
+      } catch (error) {
+        console.error('获取问卷列表出现错误：', error);
       }
-    };
-    xhr.send();
+    }
+
+    // 调用函数发起获取问卷列表的请求
+    getQuestionnaires();
   </script>
 </body>
 
