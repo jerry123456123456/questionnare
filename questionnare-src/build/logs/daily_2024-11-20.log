@@ -1295,3 +1295,31 @@ Content-Type:application/json;charset=utf-8
 [2024-11-20 17:36:33.109][thread 62366][/home/jerry/Desktop/questionnare/questionnare-src/api/api_deal_table.cc:382,ApiUploadTable][error] : 插入答案到数据库失败
 [2024-11-20 17:36:33.110][thread 62366][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:384,OnWriteComlete][info] : write complete
 [2024-11-20 17:36:33.110][thread 62366][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 25
+[2024-11-20 18:27:11.002][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:69,main][info] : main into
+[2024-11-20 18:27:11.005][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-20 18:27:11.017][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/mysql/db_pool.cc:570,Init][info] : db_host:localhost, db_port:3306, db_dbname:survey_system, db_username:root, db_password:123456
+[2024-11-20 18:27:11.022][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:109,main][info] : server start listen on:For http://0.0.0.0:8081
+[2024-11-20 18:27:11.022][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/main.cc:111,main][info] : now enter the event loop...
+[2024-11-20 18:28:43.277][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 1, conn_handle_: 1
+[2024-11-20 18:28:43.277][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/login
+[2024-11-20 18:28:43.287][thread 65057][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:103,verifyUserPassword][info] : mysql-pwd: e10adc3949ba59abbe56e057f20f883e, user-pwd: e10adc3949ba59abbe56e057f20f883e
+[2024-11-20 18:28:43.288][thread 65057][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:111,DBGetUserTableCountByUsername][info] : 执行：select user_id from Users where user_name='tom'
+[2024-11-20 18:28:43.289][thread 65057][/home/jerry/Desktop/questionnare/questionnare-src/api/api_common.cc:127,DBGetUserTableCountByUsername][info] : 执行：select count(*) from Surveys where user_id=21
+[2024-11-20 18:28:43.295][thread 65057][/home/jerry/Desktop/questionnare/questionnare-src/api/api_login.cc:170,loadMyTablesCount][info] : TABLE_USER_COUNT: 1
+[2024-11-20 18:28:43.295][thread 65057][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:414,AddResponseData][info] : into
+[2024-11-20 18:28:43.297][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:399,SendResponseDataList][info] : conn_uuid: 1
+[2024-11-20 18:28:43.298][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:401,SendResponseDataList][info] : send: HTTP/1.1 200 OK
+Connection:close
+Content-Length:54
+Content-Type:application/json;charset=utf-8
+
+{"code":0,"token":"dobiqimlspozgohavivlphzkbbllxdia"}
+
+[2024-11-20 18:28:43.298][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:384,OnWriteComlete][info] : write complete
+[2024-11-20 18:28:43.298][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 1
+[2024-11-20 18:28:44.353][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:121,CHttpConn][info] : conn_uuid: 2, conn_handle_: 2
+[2024-11-20 18:28:44.353][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:215,OnRead][info] : url: /api/mytables?cmd=count
+[2024-11-20 18:28:44.353][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:423,ApiMyTables][info] : url: /api/mytables?cmd=count, cmd: count 
+[2024-11-20 18:28:44.353][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/api/api_mytables.cc:173,getUserTableList][info] : getUserTableList info
+[2024-11-20 18:28:44.356][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:384,OnWriteComlete][info] : write complete
+[2024-11-20 18:28:44.356][thread 65048][/home/jerry/Desktop/questionnare/questionnare-src/http_conn.cc:125,~CHttpConn][info] : ~CHttpConn, handle = 2
