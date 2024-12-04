@@ -565,7 +565,6 @@ int createTables(SurveyData &surveydata, string &str_json) {
 
     // 插入普通用户的Questions表数据，并关联根用户相关id，同时跳过已存在于选择题选项中的填空题
     for (size_t i = 0; i < surveydata.questions.size(); ++i) {
-        printf("!!!!!!!!!!!!!!!!!!!!!\n");
         const Question& question = surveydata.questions[i];
         string question_text = question.question_text;
         string question_type = question.question_type;
