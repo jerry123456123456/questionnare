@@ -140,6 +140,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/greeter_client.dir/DependInfo.cmake"
-  "CMakeFiles/greeter_server.dir/DependInfo.cmake"
+  "CMakeFiles/sort_client.dir/DependInfo.cmake"
+  "CMakeFiles/sort_server.dir/DependInfo.cmake"
   )

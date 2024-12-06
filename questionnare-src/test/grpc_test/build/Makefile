@@ -117,132 +117,132 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named greeter_client
+# Target rules for targets named sort_client
 
 # Build rule for target.
-greeter_client: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 greeter_client
-.PHONY : greeter_client
+sort_client: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sort_client
+.PHONY : sort_client
 
 # fast build rule for target.
-greeter_client/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/build
-.PHONY : greeter_client/fast
+sort_client/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/build
+.PHONY : sort_client/fast
 
 #=============================================================================
-# Target rules for targets named greeter_server
+# Target rules for targets named sort_server
 
 # Build rule for target.
-greeter_server: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 greeter_server
-.PHONY : greeter_server
+sort_server: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sort_server
+.PHONY : sort_server
 
 # fast build rule for target.
-greeter_server/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/build
-.PHONY : greeter_server/fast
+sort_server/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/build
+.PHONY : sort_server/fast
 
-greeter.grpc.pb.o: greeter.grpc.pb.cc.o
-.PHONY : greeter.grpc.pb.o
-
-# target to build an object file
-greeter.grpc.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.grpc.pb.cc.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.grpc.pb.cc.o
-.PHONY : greeter.grpc.pb.cc.o
-
-greeter.grpc.pb.i: greeter.grpc.pb.cc.i
-.PHONY : greeter.grpc.pb.i
-
-# target to preprocess a source file
-greeter.grpc.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.grpc.pb.cc.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.grpc.pb.cc.i
-.PHONY : greeter.grpc.pb.cc.i
-
-greeter.grpc.pb.s: greeter.grpc.pb.cc.s
-.PHONY : greeter.grpc.pb.s
-
-# target to generate assembly for a file
-greeter.grpc.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.grpc.pb.cc.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.grpc.pb.cc.s
-.PHONY : greeter.grpc.pb.cc.s
-
-greeter.pb.o: greeter.pb.cc.o
-.PHONY : greeter.pb.o
+sort.grpc.pb.o: sort.grpc.pb.cc.o
+.PHONY : sort.grpc.pb.o
 
 # target to build an object file
-greeter.pb.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.pb.cc.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.pb.cc.o
-.PHONY : greeter.pb.cc.o
+sort.grpc.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.grpc.pb.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.grpc.pb.cc.o
+.PHONY : sort.grpc.pb.cc.o
 
-greeter.pb.i: greeter.pb.cc.i
-.PHONY : greeter.pb.i
+sort.grpc.pb.i: sort.grpc.pb.cc.i
+.PHONY : sort.grpc.pb.i
 
 # target to preprocess a source file
-greeter.pb.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.pb.cc.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.pb.cc.i
-.PHONY : greeter.pb.cc.i
+sort.grpc.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.grpc.pb.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.grpc.pb.cc.i
+.PHONY : sort.grpc.pb.cc.i
 
-greeter.pb.s: greeter.pb.cc.s
-.PHONY : greeter.pb.s
+sort.grpc.pb.s: sort.grpc.pb.cc.s
+.PHONY : sort.grpc.pb.s
 
 # target to generate assembly for a file
-greeter.pb.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter.pb.cc.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter.pb.cc.s
-.PHONY : greeter.pb.cc.s
+sort.grpc.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.grpc.pb.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.grpc.pb.cc.s
+.PHONY : sort.grpc.pb.cc.s
 
-greeter_client.o: greeter_client.cc.o
-.PHONY : greeter_client.o
+sort.pb.o: sort.pb.cc.o
+.PHONY : sort.pb.o
 
 # target to build an object file
-greeter_client.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter_client.cc.o
-.PHONY : greeter_client.cc.o
+sort.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.pb.cc.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.pb.cc.o
+.PHONY : sort.pb.cc.o
 
-greeter_client.i: greeter_client.cc.i
-.PHONY : greeter_client.i
+sort.pb.i: sort.pb.cc.i
+.PHONY : sort.pb.i
 
 # target to preprocess a source file
-greeter_client.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter_client.cc.i
-.PHONY : greeter_client.cc.i
+sort.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.pb.cc.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.pb.cc.i
+.PHONY : sort.pb.cc.i
 
-greeter_client.s: greeter_client.cc.s
-.PHONY : greeter_client.s
+sort.pb.s: sort.pb.cc.s
+.PHONY : sort.pb.s
 
 # target to generate assembly for a file
-greeter_client.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_client.dir/build.make CMakeFiles/greeter_client.dir/greeter_client.cc.s
-.PHONY : greeter_client.cc.s
+sort.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort.pb.cc.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort.pb.cc.s
+.PHONY : sort.pb.cc.s
 
-greeter_server.o: greeter_server.cc.o
-.PHONY : greeter_server.o
+sort_client.o: sort_client.cc.o
+.PHONY : sort_client.o
 
 # target to build an object file
-greeter_server.cc.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.o
-.PHONY : greeter_server.cc.o
+sort_client.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort_client.cc.o
+.PHONY : sort_client.cc.o
 
-greeter_server.i: greeter_server.cc.i
-.PHONY : greeter_server.i
+sort_client.i: sort_client.cc.i
+.PHONY : sort_client.i
 
 # target to preprocess a source file
-greeter_server.cc.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.i
-.PHONY : greeter_server.cc.i
+sort_client.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort_client.cc.i
+.PHONY : sort_client.cc.i
 
-greeter_server.s: greeter_server.cc.s
-.PHONY : greeter_server.s
+sort_client.s: sort_client.cc.s
+.PHONY : sort_client.s
 
 # target to generate assembly for a file
-greeter_server.cc.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/greeter_server.dir/build.make CMakeFiles/greeter_server.dir/greeter_server.cc.s
-.PHONY : greeter_server.cc.s
+sort_client.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_client.dir/build.make CMakeFiles/sort_client.dir/sort_client.cc.s
+.PHONY : sort_client.cc.s
+
+sort_server.o: sort_server.cc.o
+.PHONY : sort_server.o
+
+# target to build an object file
+sort_server.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort_server.cc.o
+.PHONY : sort_server.cc.o
+
+sort_server.i: sort_server.cc.i
+.PHONY : sort_server.i
+
+# target to preprocess a source file
+sort_server.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort_server.cc.i
+.PHONY : sort_server.cc.i
+
+sort_server.s: sort_server.cc.s
+.PHONY : sort_server.s
+
+# target to generate assembly for a file
+sort_server.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sort_server.dir/build.make CMakeFiles/sort_server.dir/sort_server.cc.s
+.PHONY : sort_server.cc.s
 
 # Help Target
 help:
@@ -252,20 +252,20 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... greeter_client"
-	@echo "... greeter_server"
-	@echo "... greeter.grpc.pb.o"
-	@echo "... greeter.grpc.pb.i"
-	@echo "... greeter.grpc.pb.s"
-	@echo "... greeter.pb.o"
-	@echo "... greeter.pb.i"
-	@echo "... greeter.pb.s"
-	@echo "... greeter_client.o"
-	@echo "... greeter_client.i"
-	@echo "... greeter_client.s"
-	@echo "... greeter_server.o"
-	@echo "... greeter_server.i"
-	@echo "... greeter_server.s"
+	@echo "... sort_client"
+	@echo "... sort_server"
+	@echo "... sort.grpc.pb.o"
+	@echo "... sort.grpc.pb.i"
+	@echo "... sort.grpc.pb.s"
+	@echo "... sort.pb.o"
+	@echo "... sort.pb.i"
+	@echo "... sort.pb.s"
+	@echo "... sort_client.o"
+	@echo "... sort_client.i"
+	@echo "... sort_client.s"
+	@echo "... sort_server.o"
+	@echo "... sort_server.i"
+	@echo "... sort_server.s"
 .PHONY : help
 
 

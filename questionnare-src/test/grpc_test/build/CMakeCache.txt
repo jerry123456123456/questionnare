@@ -141,7 +141,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=GreeterClient
+CMAKE_PROJECT_NAME:STATIC=sortClient
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -205,15 +205,6 @@ CMAKE_STRIP:FILEPATH=/usr/bin/strip
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
-//Value Computed by CMake
-GreeterClient_BINARY_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src/test/grpc_test/build
-
-//Value Computed by CMake
-GreeterClient_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-GreeterClient_SOURCE_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src/test/grpc_test
-
 //Path to a file.
 Protobuf_INCLUDE_DIR:PATH=/usr/local/include
 
@@ -243,6 +234,15 @@ absl_DIR:PATH=/usr/local/lib/cmake/absl
 
 //The directory containing a CMake configuration file for gRPC.
 gRPC_DIR:PATH=/usr/local/lib/cmake/grpc
+
+//Value Computed by CMake
+sortClient_BINARY_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src/test/grpc_test/build
+
+//Value Computed by CMake
+sortClient_IS_TOP_LEVEL:STATIC=ON
+
+//Value Computed by CMake
+sortClient_SOURCE_DIR:STATIC=/home/jerry/Desktop/questionnare/questionnare-src/test/grpc_test
 
 
 ########################

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(GreeterClient)
+project(sortClient)
 
 #判断编译器类型,如果是gcc编译器,则在编译选项中加入c++14支持
 if(CMAKE_COMPILER_IS_GNUCXX)
@@ -24,11 +24,11 @@ find_package(gRPC CONFIG REQUIRED)
 #sudo apt-get install -y protobuf-compiler libprotobuf-dev
 
 # 添加源文件
-add_executable(greeter_client greeter_client.cc greeter.pb.cc greeter.grpc.pb.cc)
-add_executable(greeter_server greeter_server.cc greeter.pb.cc greeter.grpc.pb.cc)
+add_executable(sort_client sort_client.cc sort.pb.cc sort.grpc.pb.cc)
+add_executable(sort_server sort_server.cc sort.pb.cc sort.grpc.pb.cc)
 
 # 链接gRPC和Protobuf库
-target_link_libraries(greeter_client
+target_link_libraries(sort_client
     gRPC::grpc++
     protobuf::libprotobuf
     pthread
@@ -37,7 +37,7 @@ target_link_libraries(greeter_client
     crypto
 )
 
-target_link_libraries(greeter_server
+target_link_libraries(sort_server
     gRPC::grpc++
     protobuf::libprotobuf
     pthread
