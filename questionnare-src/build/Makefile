@@ -633,6 +633,54 @@ base/util_pdu.cc.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/base/util_pdu.cc.s
 .PHONY : base/util_pdu.cc.s
 
+grpc/image_service.grpc.pb.o: grpc/image_service.grpc.pb.cc.o
+.PHONY : grpc/image_service.grpc.pb.o
+
+# target to build an object file
+grpc/image_service.grpc.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.grpc.pb.cc.o
+.PHONY : grpc/image_service.grpc.pb.cc.o
+
+grpc/image_service.grpc.pb.i: grpc/image_service.grpc.pb.cc.i
+.PHONY : grpc/image_service.grpc.pb.i
+
+# target to preprocess a source file
+grpc/image_service.grpc.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.grpc.pb.cc.i
+.PHONY : grpc/image_service.grpc.pb.cc.i
+
+grpc/image_service.grpc.pb.s: grpc/image_service.grpc.pb.cc.s
+.PHONY : grpc/image_service.grpc.pb.s
+
+# target to generate assembly for a file
+grpc/image_service.grpc.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.grpc.pb.cc.s
+.PHONY : grpc/image_service.grpc.pb.cc.s
+
+grpc/image_service.pb.o: grpc/image_service.pb.cc.o
+.PHONY : grpc/image_service.pb.o
+
+# target to build an object file
+grpc/image_service.pb.cc.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.pb.cc.o
+.PHONY : grpc/image_service.pb.cc.o
+
+grpc/image_service.pb.i: grpc/image_service.pb.cc.i
+.PHONY : grpc/image_service.pb.i
+
+# target to preprocess a source file
+grpc/image_service.pb.cc.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.pb.cc.i
+.PHONY : grpc/image_service.pb.cc.i
+
+grpc/image_service.pb.s: grpc/image_service.pb.cc.s
+.PHONY : grpc/image_service.pb.s
+
+# target to generate assembly for a file
+grpc/image_service.pb.cc.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qs_http_server.dir/build.make CMakeFiles/qs_http_server.dir/grpc/image_service.pb.cc.s
+.PHONY : grpc/image_service.pb.cc.s
+
 http_conn.o: http_conn.cc.o
 .PHONY : http_conn.o
 
@@ -1017,6 +1065,12 @@ help:
 	@echo "... base/util_pdu.o"
 	@echo "... base/util_pdu.i"
 	@echo "... base/util_pdu.s"
+	@echo "... grpc/image_service.grpc.pb.o"
+	@echo "... grpc/image_service.grpc.pb.i"
+	@echo "... grpc/image_service.grpc.pb.s"
+	@echo "... grpc/image_service.pb.o"
+	@echo "... grpc/image_service.pb.i"
+	@echo "... grpc/image_service.pb.s"
 	@echo "... http_conn.o"
 	@echo "... http_conn.i"
 	@echo "... http_conn.s"

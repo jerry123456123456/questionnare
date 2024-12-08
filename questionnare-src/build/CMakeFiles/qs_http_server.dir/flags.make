@@ -3,15 +3,15 @@
 
 # compile C with /usr/bin/cc
 # compile CXX with /usr/bin/c++
-C_DEFINES = -DAC_HAS_CRITICAL -DAC_HAS_DEBUG -DAC_HAS_ERROR -DAC_HAS_INFO -DAC_HAS_WARNING -DFMT_LOCALE -DFMT_SHARED -DLINUX_DAEMON -DSPDLOG_COMPILED_LIB -DTIXML_USE_STL -D_FILE_OFFSET_BITS=64 -D_REENTRANT
+C_DEFINES = -DAC_HAS_CRITICAL -DAC_HAS_DEBUG -DAC_HAS_ERROR -DAC_HAS_INFO -DAC_HAS_WARNING -DCARES_STATICLIB -DFMT_LOCALE -DFMT_SHARED -DLINUX_DAEMON -DSPDLOG_COMPILED_LIB -DTIXML_USE_STL -D_FILE_OFFSET_BITS=64 -D_REENTRANT
 
-C_INCLUDES = -I/usr/local/include/hiredis -I/usr/include/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/base -I/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp -I/home/jerry/Desktop/questionnare/questionnare-src/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/redis -I/home/jerry/Desktop/questionnare/questionnare-src/api -I/home/jerry/Desktop/questionnare/questionnare-src
+C_INCLUDES = -I/usr/local/include/hiredis -I/usr/include/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/base -I/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp -I/home/jerry/Desktop/questionnare/questionnare-src/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/redis -I/home/jerry/Desktop/questionnare/questionnare-src/api -I/home/jerry/Desktop/questionnare/questionnare-src/grpc -I/home/jerry/Desktop/questionnare/questionnare-src
 
 C_FLAGS =   -g -Wno-deprecated -Wno-unused-parameter -Bsymbolic -w
 
-CXX_DEFINES = -DAC_HAS_CRITICAL -DAC_HAS_DEBUG -DAC_HAS_ERROR -DAC_HAS_INFO -DAC_HAS_WARNING -DFMT_LOCALE -DFMT_SHARED -DLINUX_DAEMON -DSPDLOG_COMPILED_LIB -DTIXML_USE_STL -D_FILE_OFFSET_BITS=64 -D_REENTRANT
+CXX_DEFINES = -DAC_HAS_CRITICAL -DAC_HAS_DEBUG -DAC_HAS_ERROR -DAC_HAS_INFO -DAC_HAS_WARNING -DCARES_STATICLIB -DFMT_LOCALE -DFMT_SHARED -DLINUX_DAEMON -DSPDLOG_COMPILED_LIB -DTIXML_USE_STL -D_FILE_OFFSET_BITS=64 -D_REENTRANT
 
-CXX_INCLUDES = -I/usr/local/include/hiredis -I/usr/include/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/base -I/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp -I/home/jerry/Desktop/questionnare/questionnare-src/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/redis -I/home/jerry/Desktop/questionnare/questionnare-src/api -I/home/jerry/Desktop/questionnare/questionnare-src
+CXX_INCLUDES = -I/usr/local/include/hiredis -I/usr/include/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/base -I/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp -I/home/jerry/Desktop/questionnare/questionnare-src/mysql -I/home/jerry/Desktop/questionnare/questionnare-src/redis -I/home/jerry/Desktop/questionnare/questionnare-src/api -I/home/jerry/Desktop/questionnare/questionnare-src/grpc -I/home/jerry/Desktop/questionnare/questionnare-src
 
-CXX_FLAGS = -std=c++14    -g -Wno-deprecated -Wno-unused-parameter -Bsymbolic -w
+CXX_FLAGS =   -g -Wno-deprecated -Wno-unused-parameter -Bsymbolic -w
 

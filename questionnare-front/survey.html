@@ -369,11 +369,46 @@
         });
     }
 
-    // 页面加载时调用 mytables 和显示用户名的函数
+    // 新增函数，用于获取并显示左上角的图片（POST 请求）
+    function loadImage() {
+        const jsonData = {
+        };
+
+        fetch('http://192.168.186.138/api/mypictures', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'  // 设置请求头，告知后端数据格式为 JSON
+            },
+            body: JSON.stringify(jsonData)  // 请求体数据（如果需要）
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.error('图片加载失败');
+                return;
+            }
+            return response.blob();  // 将返回的图片数据作为 Blob 对象处理
+        })
+        .then(blob => {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(blob);  // 将 Blob 转换为图片的 URL
+            img.style.position = 'absolute';
+            img.style.top = '20px';
+            img.style.left = '20px';
+            img.style.width = '100px';  // 设置图片宽度，可以根据需要调整
+            img.style.height = 'auto';  // 根据宽度自动调整高度
+            document.body.appendChild(img);  // 将图片添加到页面中
+        })
+        .catch(error => {
+            console.error('加载图片时出错:', error);
+        });
+    }
+
+    // 页面加载时调用 loadImage 函数
     window.onload = function () {
         displayUserInfo();
         mytables();
-    }
+        loadImage();  // 加载图片
+    };
 </script>
 
 

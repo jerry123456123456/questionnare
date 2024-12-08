@@ -12,6 +12,7 @@ AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp J
 AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/mysql MYSQL_LIST)
 AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/redis REDIS_LIST)
 AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/api API_LIST)
+AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src/grpc GRPC_LIST)
 AUX_SOURCE_DIRECTORY(/home/jerry/Desktop/questionnare/questionnare-src SRC_LIST)
 
 #判断编译器类型,如果是gcc编译器,则在编译选项中加入c++14支持
@@ -45,6 +46,7 @@ INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/jsoncpp)
 INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/mysql)
 INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/redis)
 INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/api)
+INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src/grpc)
 INCLUDE_DIRECTORIES(/home/jerry/Desktop/questionnare/questionnare-src)
 
 # 添加需要的库
@@ -55,7 +57,7 @@ find_package(Protobuf REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
 
 # 添加可执行文件
-add_executable(qs_http_server ${SRC_LIST} ${BASE_LIST} ${MYSQL_LIST} ${REDIS_LIST} ${API_LIST} ${LOG_LIST} ${JSON_LIST})
+add_executable(qs_http_server ${GRPC_LIST} ${SRC_LIST} ${BASE_LIST} ${MYSQL_LIST} ${REDIS_LIST} ${API_LIST} ${LOG_LIST} ${JSON_LIST})
 
 # 链接库
 target_link_libraries(qs_http_server pthread mysqlclient fmt::fmt spdlog::spdlog gRPC::grpc++ gRPC::grpc++_reflection protobuf::libprotobuf ${CMAKE_THREAD_LIBS_INIT})

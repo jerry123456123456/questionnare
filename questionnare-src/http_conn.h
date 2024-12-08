@@ -10,6 +10,20 @@
 #include"util.h"
 #include<list>
 #include<mutex>
+
+#include <grpcpp/grpcpp.h>
+#include "image_service.pb.h"
+#include "image_service.grpc.pb.h"
+#include <iostream>
+#include <fstream>
+
+using grpc::Channel;
+using grpc::ClientContext;
+using grpc::Status;
+using imageservice::ImageRequest;
+using imageservice::ImageResponse;
+using imageservice::ImageService;
+
 #define HTTP_CONN_TIMEOUT 60000
 
 #define READ_BUF_SIZE 2048
@@ -58,6 +72,8 @@ public:
     static void SendResponseDataList();             // 主线程调用 
 
 private:
+    //图片
+    int _HandlePicture();
     // 账号注册处理
     int _HandleRegisterRequest(string &url, string &post_data);
     //账号注销处理
@@ -107,5 +123,37 @@ typedef hash_map<uint32_t,CHttpConn *>HttpConnMap_t;
 CHttpConn *FindHttpConnByHandle(uint32_t handle);
 void InitHttpConn();
 // CHttpConn *GetHttpConnByUuid(uint32_t uuid); /函数根据连接的唯一标识符（UUID）获取对应的CHttpConn对象
+
+
+//grpc的类
+class ImageClient {
+public:
+    ImageClient(std::shared_ptr<Channel> channel)
+        : stub_(ImageService::NewStub(channel)) {}
+
+    // 获取图片
+    std::string GetImage() {
+        ImageRequest request;
+        // 这里你可以设置一个特定的图片ID，或者留空，表示随机选择图片
+        request.set_image_id("");  // 留空表示返回随机图片
+
+        ImageResponse response;
+        ClientContext context;
+
+        // 调用远程服务
+        Status status = stub_->GetImage(&context, request, &response);
+
+        if (status.ok()) {
+            // 返回图片的二进制数据
+            return response.image_data();
+        } else {
+            std::cerr << "RPC failed: " << status.error_message() << std::endl;
+            return "";
+        }
+    }
+
+private:
+    std::unique_ptr<ImageService::Stub> stub_;
+};
 
 #endif

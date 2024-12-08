@@ -234,6 +234,8 @@ void CHttpConn::OnRead(){
             _HandleRootTableDeleteRequest(url,content);
         }else if(strncmp(url.c_str(),"/api/root/table_create",20) == 0){
             _HandleRootTableCreateRequest(url,content);
+        }else if(strncmp(url.c_str(),"/api/mypictures",16) == 0){
+            _HandlePicture();
         }else{
             LogError("url unknown, url= {}", url);
             Close();
@@ -289,6 +291,36 @@ void CHttpConn::OnTimer(uint64_t curr_tick) {
     }
 
 //////////////////////////////////////////
+    //图片
+    int CHttpConn::_HandlePicture(){
+        //使用grpc调用python服务器获取图片
+        ImageClient client(grpc::CreateChannel("127.0.0.1:50051",grpc::InsecureChannelCredentials()));
+        //通过grpc获取图片的二进制数据
+        std::string image_data = client.GetImage();
+
+        //如果没有成功获取图片
+        if(image_data.empty()){
+            std::cerr << "Failed to retrieve image data from server." << std::endl;
+            return -1;
+        }
+
+        // 设置响应头，指定返回的是图片
+        std::string str_header = "HTTP/1.1 200 OK\r\n";
+        str_header += "Content-Type: image/jpeg\r\n";  // 根据实际图片类型设置，例如 image/png 或 image/jpg
+        str_header += "Content-Length: " + std::to_string(image_data.length()) + "\r\n";
+        str_header += "\r\n";  // 响应头结束
+
+        // 合并响应头和图片数据
+        std::string response = str_header + image_data;
+
+        // 发送响应
+        int ret = Send((void*)response.c_str(), response.length());
+        if (ret != 0) {
+            std::cerr << "Failed to send response." << std::endl;
+            return -1;
+        }
+    }
+
     //注销
     int CHttpConn::_HandleunRegisterRequest(string &url, string &post_data){
         string str_json;

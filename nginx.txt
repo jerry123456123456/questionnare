@@ -8,8 +8,3 @@ nginx  -s reload
 ####使用系统命令
 
 
-
-
-chown -R www-data../questionnare-front/
-####可以尝试一下，更改目录所有者为web服务器，让web能访问这个文件夹
-
